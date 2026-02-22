@@ -1,0 +1,22 @@
+# ====================
+# 后端 (Python/Flask) 忽略清单
+# ====================
+backend/venv/
+backend/__pycache__/
+backend/uploads/
+*.pyc
+.env
+
+# ====================
+# 前端 (Vue/Node) 忽略清单
+# ====================
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+*.local
+
+# ====================
+# 系统文件忽略清单
+# ====================
+.DS_Store
+Thumbs.dbg
