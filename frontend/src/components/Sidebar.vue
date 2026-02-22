@@ -91,8 +91,15 @@ import { store, actions } from '../store.js'
         </div>
     </div>
     <div style="flex-grow: 1;"></div>
+
     <button @click="actions.triggerCleanup" class="glass-btn cleanup-btn mt-3">🧹 一键清理系统缓存</button>
+    <button @click="store.showLogs = !store.showLogs" class="glass-btn secondary-btn mt-3" style="width: 100%; border: 1px solid #52c41a; color: #52c41a; background: rgba(82,196,26,0.05);">
+        {{ store.showLogs ? '📟 收起系统操作日志' : '📟 展开系统操作日志' }}
+    </button>
+
   </aside>
+
 </template>
+
 
 <style scoped src="./Sidebar.css"></style>

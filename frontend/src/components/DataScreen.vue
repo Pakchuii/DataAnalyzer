@@ -83,7 +83,6 @@ const stopDrag = () => { isDragging = false; document.removeEventListener('mouse
     <div v-show="store.showCharts" class="glass-card result-panel">
       <div class="panel-header"><h3 class="panel-title" style="color:#69c0ff;">📈 数据分布可视化视图</h3><button @click="store.showVisControl = true" class="glass-btn primary-btn export-btn" style="width: 140px;">👀 开启显隐面板</button></div>
       <div v-if="store.visActiveVars.length === 0" style="text-align:center; padding: 40px; color:#888;">👈 暂无显示图表，请在右上角显隐面板中勾选。</div>
-      <template v-for="(item, index) in store.catChartsData" :key="'cat-'+index"><div v-if="store.visActiveVars.includes(item.variable)" class="chart-grid mb-3"><div :id="'pie-' + item.variable" class="chart-box glass-inner"></div><div :id="'cat-bar-' + item.variable" class="chart-box glass-inner"></div></div></template>
       <template v-for="(item, index) in store.chartsData" :key="'num-'+index"><div v-if="store.visActiveVars.includes(item.variable)" class="chart-grid mb-3"><div :id="'hist-' + item.variable" class="chart-box glass-inner"></div><div :id="'box-' + item.variable" class="chart-box glass-inner"></div></div></template>
     </div>
 

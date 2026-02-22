@@ -1,7 +1,35 @@
 <script setup>
 import { store, actions } from './store.js'
+import { onMounted, watch, ref, nextTick } from 'vue'
 import Sidebar from './components/Sidebar.vue'
 import DataScreen from './components/DataScreen.vue'
+const logContainer = ref(null);
+// ================= 新增：初始化自动深浅色模式 =================
+onMounted(() => {
+    // 调用 store 里的初始化主题方法
+    actions.initTheme();
+});
+
+// ================= 新增：日志自动滚动到底部 =================
+watch(() => store.logs.length, async () => {
+    if (store.showLogs) {
+        await nextTick();
+        if (logContainer.value) {
+            logContainer.value.scrollTop = logContainer.value.scrollHeight;
+        }
+    }
+});
+watch(() => store.isDarkMode, (newVal) => {
+    if (newVal) {
+        // 如果变量变成 true，自动给网页挂载暗黑外衣
+        document.body.classList.add('dark-mode');
+        actions.addLog("👉 界面已切换至【夜间模式】", "info");
+    } else {
+        // 如果变量变成 false，自动脱下暗黑外衣
+        document.body.classList.remove('dark-mode');
+        actions.addLog("👉 界面已切换至【白天模式】", "info");
+    }
+});
 </script>
 
 <template>
@@ -106,6 +134,21 @@ import DataScreen from './components/DataScreen.vue'
       </transition>
     </div>
   </div>
+  <div v-if="store.showLogs" class="log-console-panel">
+      <div class="log-header">
+         <span>📟 终端监控台 (Terminal)</span>
+         <button @click="store.showLogs = false" class="close-log-btn">✕</button>
+      </div>
+      <div class="log-body" ref="logContainer">
+          <div v-if="store.logs.length === 0" style="color: #666; font-style: italic;">系统就绪，等待指令...</div>
+          <div v-for="(log, idx) in store.logs" :key="idx" class="log-line">
+              <span v-if="log.includes('[ERROR]')" style="color: #ff4d4f;">{{ log }}</span>
+              <span v-else-if="log.includes('[SUCCESS]')" style="color: #52c41a;">{{ log }}</span>
+              <span v-else>{{ log }}</span>
+          </div>
+          <div class="blinking-cursor">_</div>
+      </div>
+    </div>
 </template>
 
 <style scoped src="./App.css"></style>

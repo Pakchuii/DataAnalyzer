@@ -39,3 +39,59 @@
 .fade-enter-from, .fade-leave-to { opacity: 0; }
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* 极客终端日志面板样式 */
+.log-console-panel {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 450px;
+    height: 300px;
+    background: rgba(10, 10, 15, 0.95);
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(82, 196, 26, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    animation: slideUp 0.3s ease-out;
+}
+
+.log-header {
+    background: #1f1f24;
+    padding: 8px 15px;
+    color: #888;
+    font-size: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+.close-log-btn {
+    background: none; border: none; color: #888; cursor: pointer; font-size: 1rem;
+}
+.close-log-btn:hover { color: #fff; }
+
+.log-body {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 0.85rem;
+    color: #4af626; /* 黑客绿 */
+    line-height: 1.6;
+}
+
+.log-line { margin-bottom: 4px; word-wrap: break-word; }
+
+.blinking-cursor {
+    display: inline-block;
+    width: 8px; height: 12px; background: #4af626;
+    animation: blink 1s step-end infinite;
+    margin-top: 5px;
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
