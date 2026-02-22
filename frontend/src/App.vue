@@ -1,16 +1,17 @@
 <script setup>
-import { store, actions } from './store.js'
 import { onMounted, watch, ref, nextTick } from 'vue'
+import { store, actions } from './store.js'
 import Sidebar from './components/Sidebar.vue'
 import DataScreen from './components/DataScreen.vue'
+
 const logContainer = ref(null);
-// ================= 新增：初始化自动深浅色模式 =================
+
+// ================= 初始化：自动深浅色模式 =================
 onMounted(() => {
-    // 调用 store 里的初始化主题方法
     actions.initTheme();
 });
 
-// ================= 新增：日志自动滚动到底部 =================
+// ================= 监听：日志自动滚动到底部 =================
 watch(() => store.logs.length, async () => {
     if (store.showLogs) {
         await nextTick();
@@ -19,13 +20,13 @@ watch(() => store.logs.length, async () => {
         }
     }
 });
+
+// ================= 监听：全局深色模式切换 =================
 watch(() => store.isDarkMode, (newVal) => {
     if (newVal) {
-        // 如果变量变成 true，自动给网页挂载暗黑外衣
         document.body.classList.add('dark-mode');
         actions.addLog("👉 界面已切换至【夜间模式】", "info");
     } else {
-        // 如果变量变成 false，自动脱下暗黑外衣
         document.body.classList.remove('dark-mode');
         actions.addLog("👉 界面已切换至【白天模式】", "info");
     }
@@ -34,6 +35,7 @@ watch(() => store.isDarkMode, (newVal) => {
 
 <template>
   <div :class="{ 'dark-mode': store.isDarkMode }" class="app-global-wrapper">
+
     <div class="video-background">
       <video :key="store.isDarkMode ? 'dark' : 'light'" autoplay loop muted playsinline class="bg-video">
         <source :src="store.isDarkMode ? '/bg-dark.mp4' : '/bg-light.mp4'" type="video/mp4" />
@@ -55,8 +57,7 @@ watch(() => store.isDarkMode, (newVal) => {
 
     <div v-if="store.dialog.show" class="modal-overlay" style="z-index: 9999;">
       <div class="modal-content glass-card" style="padding: 30px 40px; min-width: 350px;">
-        <h2 style="margin-top:0; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 10px;"
-            :style="{ color: store.dialog.type === 'confirm' ? '#e6a23c' : '#409eff' }">
+        <h2 :style="{ color: store.dialog.type === 'confirm' ? '#e6a23c' : '#409eff', marginTop: 0, borderBottom: '1px dashed rgba(0,0,0,0.1)', paddingBottom: '10px' }">
           {{ store.dialog.title }}
         </h2>
         <p style="white-space: pre-wrap; line-height: 1.6; margin: 25px 0; font-size: 1.05rem;">
@@ -71,6 +72,7 @@ watch(() => store.isDarkMode, (newVal) => {
 
     <div v-if="store.showManualModal" class="modal-overlay" style="z-index: 2500;">
         <div class="glass-card" style="width: 80vw; max-width: 900px; height: 80vh; display: flex; flex-direction: column; padding: 25px; position: relative;">
+
             <div style="display:flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(0,0,0,0.1); padding-bottom: 15px; margin-bottom: 15px;">
                 <h2 style="margin:0; color:#409eff; display: flex; align-items: center; gap: 10px;">
                     📝 在线表格编辑器 <span style="font-size: 0.9rem; color: #888; font-weight: normal;">(直接输入数据，支持行列增删)</span>
@@ -114,13 +116,15 @@ watch(() => store.isDarkMode, (newVal) => {
             </div>
         </div>
     </div>
+
     <div class="app-wrapper" :class="{ 'blur-bg': store.showUploadModal || store.dialog.show || store.showManualModal }">
+
       <transition name="fade">
         <div v-if="!store.isEntered" class="welcome-screen">
           <div class="glass-card welcome-card">
             <h1 class="glow-title">DataAnalyzer Pro</h1>
             <p class="subtitle">集成统计分析与可视化表单数据处理系统</p>
-            <p class="version">Version: 3.0 | 在线编辑器特装版</p>
+            <p class="version">Version: 3.0 | 稳定版</p>
             <button @click="store.isEntered = true" class="enter-btn">🚀 点击进入系统</button>
           </div>
         </div>
@@ -134,6 +138,7 @@ watch(() => store.isDarkMode, (newVal) => {
       </transition>
     </div>
   </div>
+
   <div v-if="store.showLogs" class="log-console-panel">
       <div class="log-header">
          <span>📟 终端监控台 (Terminal)</span>
@@ -148,7 +153,7 @@ watch(() => store.isDarkMode, (newVal) => {
           </div>
           <div class="blinking-cursor">_</div>
       </div>
-    </div>
+  </div>
 </template>
 
 <style scoped src="./App.css"></style>

@@ -1,54 +1,252 @@
+/* =========================================
+   大屏主布局与滚动条
+========================================= */
+.content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-right: 5px;
+    overflow-y: auto;
+}
 
-.drag-modal { position: fixed; width: 300px; z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); padding: 0; overflow: hidden; }
-.drag-header { background: rgba(0,0,0,0.05); padding: 12px 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; cursor: grab; border-bottom: 1px solid rgba(0,0,0,0.1); }
-.drag-header:active { cursor: grabbing; }
-.close-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #888;}
-.close-btn:hover { color: #f5222d; }
-.drag-content { padding: 15px; }
+.content-area::-webkit-scrollbar {
+    width: 8px;
+}
 
-.content-area { flex: 1; display: flex; flex-direction: column; gap: 20px; padding-right: 5px; overflow-y: auto; }
-.content-area::-webkit-scrollbar { width: 8px; }
-.content-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.5); border-radius: 10px; }
-.empty-state { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0.7;}
-.result-panel { padding: 25px; animation: fadeIn 0.4s ease;}
-.panel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(0,0,0,0.1); margin-bottom: 15px; padding-bottom: 10px; }
-.panel-title { margin: 0; border: none; padding: 0; }
-.export-btn { width: 120px; font-size: 0.8rem; padding: 6px 12px; }
+.content-area::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
 
-.table-responsive { overflow-x: auto; max-height: 400px; }
-.glass-table { width: 100%; border-collapse: collapse; text-align: center; font-size:0.9rem; }
-.glass-table th, .glass-table td { padding: 10px; border-bottom: 1px solid rgba(0,0,0,0.1); }
-.glass-table th { background: rgba(255,255,255,0.3); font-weight: bold; position: sticky; top: 0; backdrop-filter: blur(10px); z-index:2;}
-.glass-table tr:hover { background: rgba(255,255,255,0.5); }
-.var-name { font-weight: bold; color: #409eff; }
+.empty-state {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+}
 
+/* =========================================
+   通用面板与表头
+========================================= */
+.result-panel {
+    padding: 25px;
+    animation: fadeIn 0.4s ease;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.panel-title {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+/* =========================================
+   毛玻璃数据表格
+========================================= */
+.table-responsive {
+    overflow-x: auto;
+    max-height: 400px;
+}
+
+.glass-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.glass-table th,
+.glass-table td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.glass-table th {
+    background: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(10px);
+    z-index: 2;
+}
+
+.glass-table tr:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* =========================================
+   图表容器与网格
+========================================= */
+.chart-grid {
+    display: flex;
+    gap: 20px;
+}
+
+.chart-box {
+    flex: 1;
+    height: 350px; /* 核心修复：确保 ECharts 有高度 */
+    padding: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02);
+}
+
+/* =========================================
+   拖拽悬浮控制面板
+========================================= */
+.drag-modal {
+    position: fixed;
+    width: 300px;
+    z-index: 2000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 0;
+    overflow: hidden;
+}
+
+.drag-header {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 12px 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: grab;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.drag-header:active {
+    cursor: grabbing;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #888;
+}
+
+.close-btn:hover {
+    color: #f5222d;
+}
+
+.drag-content {
+    padding: 15px;
+}
+
+/* =========================================
+   AI 智能解读打字机面板
+========================================= */
+.ai-panel {
+    border: 2px solid rgba(179, 127, 235, 0.3);
+    background: rgba(179, 127, 235, 0.05);
+}
+
+.ai-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #555;
+    padding: 10px 0;
+}
+
+.ai-content p {
+    margin-bottom: 15px;
+}
+
+.ai-content strong {
+    color: #b37feb;
+    font-weight: bold;
+}
+
+.cursor {
+    display: inline-block;
+    width: 2px;
+    background-color: #b37feb;
+    animation: blink 1s infinite;
+    margin-left: 5px;
+}
+
+/* =========================================
+   通用按钮与表单控件
+========================================= */
+.glass-btn {
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    backdrop-filter: blur(4px);
+}
+
+.primary-btn {
+    background: rgba(64, 158, 255, 0.9);
+    color: white;
+}
+
+.primary-btn:hover {
+    background: rgba(64, 158, 255, 1);
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background: rgba(144, 147, 153, 0.8);
+    color: white;
+}
+
+.secondary-btn:hover {
+    background: rgba(144, 147, 153, 1);
+}
+
+.export-btn {
+    width: 120px;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.checkbox-label {
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.checkbox-label:hover {
+    border-color: #409eff;
+}
+
+/* =========================================
+   工具类与动画
+========================================= */
 .success-text { color: #52c41a; font-weight: bold; }
 .danger-text { color: #f5222d; font-weight: bold; }
-.chart-grid { display: flex; gap: 20px; }
-
-/* ======== 核心修复1：把 height: 350px 加回来了！======== */
-.chart-box { flex: 1; height: 350px; padding: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.02); }
-/* ======================================================= */
-
+.var-name { font-weight: bold; color: #409eff; }
 .mb-3 { margin-bottom: 15px; }
 .mt-3 { margin-top: 15px; }
 
-.glass-btn { border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(4px); }
-.primary-btn { background: rgba(64, 158, 255, 0.9); color: white; }
-.primary-btn:hover { background: rgba(64, 158, 255, 1); transform: translateY(-2px); }
-.secondary-btn { background: rgba(144, 147, 153, 0.8); color: white; }
-.secondary-btn:hover { background: rgba(144, 147, 153, 1); }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-.checkbox-group { display: flex; flex-wrap: wrap; gap: 8px; }
-.checkbox-label { padding: 6px 12px; background: rgba(255,255,255,0.6); border: 1px solid rgba(0,0,0,0.1); border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: border-color 0.2s;}
-.checkbox-label:hover { border-color: #409eff; }
-
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
-
-/* DataScreen.css 的最下方添加 */
-.ai-panel { border: 2px solid rgba(179, 127, 235, 0.3); background: rgba(179, 127, 235, 0.05); }
-.ai-content { font-size: 1.05rem; line-height: 1.8; color: #555; padding: 10px 0; }
-.ai-content p { margin-bottom: 15px; }
-.ai-content strong { color: #b37feb; font-weight: bold; }
-.cursor { display: inline-block; width: 2px; background-color: #b37feb; animation: blink 1s infinite; margin-left: 5px; }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

@@ -8,13 +8,17 @@ import { store, actions } from '../store.js'
 
     <div v-if="!store.fileInfo">
         <div class="upload-area" :class="{ 'is-dragging': store.isDragging }" @dragover.prevent="store.isDragging=true" @dragleave.prevent="store.isDragging=false" @drop.prevent="actions.handleDrop">
-          <div class="upload-icon">📁</div><p>拖拽文件至此</p>
+          <div class="upload-icon">📁</div>
+          <p>拖拽文件至此</p>
           <input type="file" id="file-upload" accept=".csv, .xls, .xlsx" @change="actions.handleFileSelect" style="display: none;">
           <label for="file-upload" class="upload-btn">选择本地文件</label>
         </div>
+
         <div style="text-align: center; margin-top: 15px;">
             <div style="display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.8rem; margin-bottom: 15px;">
-               <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span><span style="padding: 0 10px;">或</span><span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
+               <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
+               <span style="padding: 0 10px;">或</span>
+               <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
             </div>
             <button @click="actions.openManualEditor" class="glass-btn secondary-btn" style="width: 100%; border: 1px dashed #409eff; color: #409eff; background: rgba(64,158,255,0.05);">✏️ 在线创建表格数据</button>
         </div>
@@ -28,6 +32,7 @@ import { store, actions } from '../store.js'
     </div>
 
     <div v-if="store.fileInfo" class="config-panel">
+
       <div class="action-grid mt-3">
         <button @click="actions.togglePreview" class="glass-btn secondary-btn">{{ store.showPreview ? '收起预览' : '👁️ 预览数据' }}</button>
         <button v-if="!store.cleanResult" @click="actions.triggerDataCleaning" class="glass-btn primary-btn">✨ 智能清洗</button>
@@ -35,6 +40,19 @@ import { store, actions } from '../store.js'
       </div>
 
       <div v-if="store.cleanResult" class="steps-container mt-3">
+
+        <div class="std-section" v-if="!store.isMasked" style="margin-bottom: 10px;">
+          <button @click="actions.triggerMasking" class="glass-btn secondary-btn" style="border-color: #faad14; color: #faad14; background: rgba(250, 173, 20, 0.05);">
+            🔏 启动隐私数据脱敏
+          </button>
+        </div>
+        <div class="std-section" v-else style="margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; background: rgba(250, 173, 20, 0.1); padding: 10px; border-radius: 8px; border: 1px solid rgba(250, 173, 20, 0.5);">
+          <span class="success-text" style="color: #faad14; font-size: 0.9rem;">🔒 已开启隐私脱敏</span>
+          <button @click="actions.undoMasking" class="glass-btn danger-btn" style="width: auto; padding: 4px 10px; font-size: 0.8rem; border: none; background: rgba(255, 77, 79, 0.1); color: #ff4d4f;">
+            🔓 解除
+          </button>
+        </div>
+
         <div class="std-section" v-if="!store.isStandardized">
           <button @click="actions.triggerStandardization" class="glass-btn secondary-btn">⚙️ Z-score 标准化</button>
         </div>
@@ -66,12 +84,35 @@ import { store, actions } from '../store.js'
         </div>
 
         <div class="divider" style="margin-top: 25px;"></div>
+        <h4 style="color: #722ed1; display: flex; align-items: center; gap: 5px;">
+          <span style="font-size: 1.2rem;">🤖</span> 机器学习预测引擎：
+        </h4>
+        <div style="margin-bottom: 10px;">
+            <label style="font-size: 0.85rem; color: #888;">目标变量 (预测谁)：</label>
+            <select v-model="store.mlTargetVar" class="custom-select" style="margin-top: 5px;">
+                <option value="">请选择目标(Y)</option>
+                <option v-for="col in store.fileInfo.numeric_columns" :key="col" :value="col">{{ col }}</option>
+            </select>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label style="font-size: 0.85rem; color: #888;">特征变量 (影响因素)：</label>
+            <div class="checkbox-group" style="margin-top: 5px; max-height: 100px; overflow-y: auto;">
+              <label v-for="col in store.fileInfo.numeric_columns" :key="'ml-'+col" class="checkbox-label">
+                <input type="checkbox" :value="col" v-model="store.mlFeatureVars" :disabled="col === store.mlTargetVar">
+                <span :style="{ color: col === store.mlTargetVar ? '#ccc' : 'inherit' }">{{ col }}</span>
+              </label>
+            </div>
+        </div>
+        <button @click="actions.runMachineLearning" class="glass-btn action-btn" style="background: #722ed1; color: white;" :class="{'active-btn': store.showML}">
+          {{ store.showML ? '⚡ 收起预测面板' : '⚡ 训练随机森林模型' }}
+        </button>
+
+        <div class="divider" style="margin-top: 25px;"></div>
         <h4 style="color: #b37feb; display: flex; align-items: center; gap: 5px;">
           <span style="font-size: 1.2rem;">✨</span> 高阶智能画像：
         </h4>
-
         <button @click="actions.runAiSummary" class="glass-btn" style="background: linear-gradient(90deg, #b37feb, #ff85c0); color: white; margin-bottom: 15px;" :class="{'active-btn': store.showAiSummary}">
-          {{ store.showAiSummary ? '🤖 隐藏 AI 解读' : '🤖 AI 智能数据解读' }}
+          {{ store.showAiSummary ? '🤖 隐藏解读' : '🤖 智能数据解读' }}
         </button>
 
         <h4 class="mt-2">个体雷达图定位：</h4>
@@ -88,18 +129,21 @@ import { store, actions } from '../store.js'
         <button @click="actions.runRadarChart" class="glass-btn action-btn" style="background: #e6a23c; color: white;" :class="{'active-btn': store.showRadar}" :disabled="!store.selectedRadarTarget">
           {{ store.showRadar ? '🕸️ 收起雷达图' : '🕸️ 生成雷达图' }}
         </button>
-        </div>
-    </div>
-    <div style="flex-grow: 1;"></div>
 
+        <div class="divider" style="margin-top: 25px;"></div>
+        <h4 style="color: #ff4d4f; display: flex; align-items: center; gap: 5px;">
+          <span style="font-size: 1.2rem;">📸</span> PDF数据报截图：
+        </h4>
+        <button @click="actions.exportPDF" class="glass-btn" style="background: linear-gradient(90deg, #ff7a45, #ff4d4f); color: white; margin-bottom: 15px; font-weight: bold; border: none; box-shadow: 0 4px 15px rgba(255, 77, 79, 0.4);">
+          ⬇️ 一键导出高清 PDF 数据报
+        </button>
+
+      </div> </div> <div style="flex-grow: 1;"></div>
     <button @click="actions.triggerCleanup" class="glass-btn cleanup-btn mt-3">🧹 一键清理系统缓存</button>
     <button @click="store.showLogs = !store.showLogs" class="glass-btn secondary-btn mt-3" style="width: 100%; border: 1px solid #52c41a; color: #52c41a; background: rgba(82,196,26,0.05);">
         {{ store.showLogs ? '📟 收起系统操作日志' : '📟 展开系统操作日志' }}
     </button>
-
   </aside>
-
 </template>
-
 
 <style scoped src="./Sidebar.css"></style>
