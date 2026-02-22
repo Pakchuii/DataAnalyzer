@@ -108,46 +108,4 @@ import DataScreen from './components/DataScreen.vue'
   </div>
 </template>
 
-<style scoped>
-.app-global-wrapper { position: relative; width: 100vw; height: 100vh; overflow: hidden; font-family: 'Helvetica Neue', Arial, sans-serif; color: #2c3e50; transition: color 0.3s; }
-.app-wrapper { position: relative; z-index: 10; width: 100%; height: 100%; transition: filter 0.3s; }
-.blur-bg { filter: blur(10px); pointer-events: none; }
-.video-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%); overflow: hidden; }
-.bg-video { width: 100%; height: 100%; object-fit: cover; display: block; }
-.bg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.2); transition: background 0.3s; }
-
-.theme-toggle-btn { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 12px 20px; border-radius: 30px; border: none; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.8); color: #333; box-shadow: 0 4px 15px rgba(0,0,0,0.2); backdrop-filter: blur(10px); transition: transform 0.3s; }
-.theme-toggle-btn:hover { transform: scale(1.05); }
-
-.modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 999; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); animation: fadeIn 0.3s ease;}
-.modal-content { padding: 40px; text-align: center; max-width: 450px; animation: slideUp 0.3s ease; }
-
-.glass-btn { border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s; padding: 12px;}
-.primary-btn { background: rgba(64, 158, 255, 0.9); color: white; }
-.primary-btn:hover { background: rgba(64, 158, 255, 1); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(64,158,255,0.4);}
-.secondary-btn { background: rgba(144, 147, 153, 0.8); color: white; }
-.secondary-btn:hover { background: rgba(144, 147, 153, 1); transform: translateY(-2px); }
-
-/* ======== 在线编辑器专用样式 ======== */
-.edit-input { width: 100%; box-sizing: border-box; background: transparent; border: none; text-align: center; font-size: 1rem; color: inherit; padding: 12px 8px; outline: none; transition: background 0.2s;}
-.edit-input:focus { background: rgba(255,255,255,0.5); }
-.head-input { font-weight: bold; color: #333; }
-.mini-del-btn { background: none; border: none; color: #888; font-weight: bold; cursor: pointer; padding: 0 5px; font-size: 1.1rem; }
-.mini-del-btn:hover { color: #f56c6c; transform: scale(1.2); }
-.dark-mode .head-input { color: #eee; }
-.dark-mode .edit-input:focus { background: rgba(0,0,0,0.3); }
-
-.welcome-screen { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
-.welcome-card { padding: 60px 80px; text-align: center; max-width: 700px; animation: slideUp 0.8s ease; }
-.glow-title { font-size: 2.8rem; font-weight: 800; margin-bottom: 10px; letter-spacing: 2px;}
-.subtitle { font-size: 1.2rem; margin-bottom: 30px; }
-.version { font-size: 0.9rem; margin-bottom: 40px; opacity: 0.7;}
-.enter-btn { padding: 15px 40px; font-size: 1.2rem; font-weight: bold; color: #fff; background: linear-gradient(90deg, #9b4dca, #409eff); border: none; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 15px rgba(155, 77, 202, 0.4); transition: transform 0.2s, box-shadow 0.2s; }
-.enter-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 25px rgba(155, 77, 202, 0.6); }
-
-.main-dashboard { display: flex; width: 100%; height: 100%; padding: 20px; gap: 20px; animation: fadeIn 0.8s ease;}
-.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
-@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-</style>
+<style scoped src="./App.css"></style>
