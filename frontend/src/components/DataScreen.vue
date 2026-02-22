@@ -104,7 +104,7 @@ const stopDrag = () => {
 
     <div v-if="store.showAiSummary" class="glass-card result-panel ai-panel">
         <div class="panel-header">
-            <h3 class="panel-title" style="color:#b37feb;">🤖 AI 智能数据解读报告</h3>
+            <h3 class="panel-title" style="color:#b37feb;">🤖 数据解读报告</h3>
         </div>
         <div class="ai-content">
             <p v-for="(line, index) in typedText" :key="index" v-html="line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')"></p>
