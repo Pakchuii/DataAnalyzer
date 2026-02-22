@@ -44,3 +44,11 @@
 .checkbox-label:hover { border-color: #409eff; }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
+
+/* DataScreen.css 的最下方添加 */
+.ai-panel { border: 2px solid rgba(179, 127, 235, 0.3); background: rgba(179, 127, 235, 0.05); }
+.ai-content { font-size: 1.05rem; line-height: 1.8; color: #555; padding: 10px 0; }
+.ai-content p { margin-bottom: 15px; }
+.ai-content strong { color: #b37feb; font-weight: bold; }
+.cursor { display: inline-block; width: 2px; background-color: #b37feb; animation: blink 1s infinite; margin-left: 5px; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }

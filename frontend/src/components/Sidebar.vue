@@ -12,12 +12,9 @@ import { store, actions } from '../store.js'
           <input type="file" id="file-upload" accept=".csv, .xls, .xlsx" @change="actions.handleFileSelect" style="display: none;">
           <label for="file-upload" class="upload-btn">选择本地文件</label>
         </div>
-
         <div style="text-align: center; margin-top: 15px;">
             <div style="display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.8rem; margin-bottom: 15px;">
-               <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
-               <span style="padding: 0 10px;">或</span>
-               <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
+               <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span><span style="padding: 0 10px;">或</span><span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
             </div>
             <button @click="actions.openManualEditor" class="glass-btn secondary-btn" style="width: 100%; border: 1px dashed #409eff; color: #409eff; background: rgba(64,158,255,0.05);">✏️ 在线创建表格数据</button>
         </div>
@@ -47,14 +44,14 @@ import { store, actions } from '../store.js'
         </div>
 
         <div class="divider"></div>
-        <h4>1. 勾选数值变量：</h4>
+        <h4>通用数值分析变量：</h4>
         <div class="checkbox-group">
           <label v-for="(col, index) in store.fileInfo.numeric_columns" :key="index" class="checkbox-label">
             <input type="checkbox" :value="col" v-model="store.selectedVars"> {{ col }}
           </label>
         </div>
 
-        <h4 class="mt-3">2. t 检验分组：</h4>
+        <h4 class="mt-3">t 检验分组变量：</h4>
         <select v-model="store.selectedGroupVar" class="custom-select" :disabled="!store.fileInfo.binary_columns.length">
           <option v-for="col in store.fileInfo.binary_columns" :key="col" :value="col">{{ col }}</option>
           <option v-if="!store.fileInfo.binary_columns.length" value="">无二分类变量</option>
@@ -67,7 +64,31 @@ import { store, actions } from '../store.js'
           <button @click="actions.runAdvancedAnalysis" class="glass-btn action-btn" :class="{'active-btn': store.showAdvanced}">🔬 关联分析</button>
           <button @click="actions.runTTest" class="glass-btn action-btn danger-btn" :class="{'active-btn': store.showTTest}" :disabled="!store.selectedGroupVar">⚖️ t 检验</button>
         </div>
-      </div>
+
+        <div class="divider" style="margin-top: 25px;"></div>
+        <h4 style="color: #b37feb; display: flex; align-items: center; gap: 5px;">
+          <span style="font-size: 1.2rem;">✨</span> 高阶智能画像：
+        </h4>
+
+        <button @click="actions.runAiSummary" class="glass-btn" style="background: linear-gradient(90deg, #b37feb, #ff85c0); color: white; margin-bottom: 15px;" :class="{'active-btn': store.showAiSummary}">
+          {{ store.showAiSummary ? '🤖 隐藏 AI 解读' : '🤖 AI 智能数据解读' }}
+        </button>
+
+        <h4 class="mt-2">个体雷达图定位：</h4>
+        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+            <select v-model="store.radarIdCol" @change="actions.fetchRadarOptions" class="custom-select" style="flex:1;">
+                <option value="">1.选择身份</option>
+                <option v-for="col in store.fileInfo.columns.filter(c => !store.fileInfo.numeric_columns.includes(c))" :key="col" :value="col">{{ col }}</option>
+            </select>
+            <select v-model="store.selectedRadarTarget" class="custom-select" style="flex:1;" :disabled="!store.radarIdCol">
+                <option value="">2.选择个体</option>
+                <option v-for="opt in store.radarOptions" :key="opt" :value="opt">{{ opt }}</option>
+            </select>
+        </div>
+        <button @click="actions.runRadarChart" class="glass-btn action-btn" style="background: #e6a23c; color: white;" :class="{'active-btn': store.showRadar}" :disabled="!store.selectedRadarTarget">
+          {{ store.showRadar ? '🕸️ 收起雷达图' : '🕸️ 生成雷达图' }}
+        </button>
+        </div>
     </div>
     <div style="flex-grow: 1;"></div>
     <button @click="actions.triggerCleanup" class="glass-btn cleanup-btn mt-3">🧹 一键清理系统缓存</button>
