@@ -6,16 +6,28 @@ import { store, actions } from '../store.js'
   <aside class="sidebar glass-card">
     <h2 class="sidebar-title">⚙️ 控制台</h2>
 
-    <div v-if="!store.fileInfo" class="upload-area" :class="{ 'is-dragging': store.isDragging }" @dragover.prevent="store.isDragging=true" @dragleave.prevent="store.isDragging=false" @drop.prevent="actions.handleDrop">
-      <div class="upload-icon">📁</div><p>拖拽文件至此</p>
-      <input type="file" id="file-upload" accept=".csv, .xls, .xlsx" @change="actions.handleFileSelect" style="display: none;">
-      <label for="file-upload" class="upload-btn">选择文件</label>
+    <div v-if="!store.fileInfo">
+        <div class="upload-area" :class="{ 'is-dragging': store.isDragging }" @dragover.prevent="store.isDragging=true" @dragleave.prevent="store.isDragging=false" @drop.prevent="actions.handleDrop">
+          <div class="upload-icon">📁</div><p>拖拽文件至此</p>
+          <input type="file" id="file-upload" accept=".csv, .xls, .xlsx" @change="actions.handleFileSelect" style="display: none;">
+          <label for="file-upload" class="upload-btn">选择本地文件</label>
+        </div>
+
+        <div style="text-align: center; margin-top: 15px;">
+            <div style="display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.8rem; margin-bottom: 15px;">
+               <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
+               <span style="padding: 0 10px;">或</span>
+               <span style="flex:1; height:1px; background:rgba(0,0,0,0.1);"></span>
+            </div>
+            <button @click="actions.openManualEditor" class="glass-btn secondary-btn" style="width: 100%; border: 1px dashed #409eff; color: #409eff; background: rgba(64,158,255,0.05);">✏️ 在线创建表格数据</button>
+        </div>
     </div>
+
     <div v-else class="upload-area success-area">
       <div class="upload-icon" style="color:#67c23a;">📄</div>
-      <p style="font-weight:bold; color:#67c23a; margin:5px 0;">上传成功</p>
+      <p style="font-weight:bold; color:#67c23a; margin:5px 0;">数据已就绪</p>
       <p class="file-name-text">{{ store.uploadedFileName }}</p>
-      <button @click="store.fileInfo=null" class="reupload-btn">重新上传</button>
+      <button @click="store.fileInfo=null" class="reupload-btn">重新载入数据</button>
     </div>
 
     <div v-if="store.fileInfo" class="config-panel">
@@ -73,7 +85,7 @@ import { store, actions } from '../store.js'
 .upload-icon { font-size: 40px; margin-bottom: 10px; }
 .upload-btn { display: inline-block; padding: 8px 20px; background: #409eff; color: white; border-radius: 20px; cursor: pointer; font-size: 0.9rem; margin-top: 5px;}
 .reupload-btn { background: transparent; color: #909399; border: 1px solid #909399; padding: 4px 12px; border-radius: 12px; cursor: pointer; font-size: 0.8rem; margin-top:10px;}
-.file-name-text { font-size: 0.85rem; word-break: break-all; opacity: 0.8; }
+.file-name-text { font-size: 0.85rem; word-break: break-all; opacity: 0.8; margin-top: 5px;}
 .mt-2 { margin-top: 10px; } .mt-3 { margin-top: 15px; }
 .success-text { color: #52c41a; font-weight: bold; }
 .glass-btn { width: 100%; padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(4px); }
