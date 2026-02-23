@@ -1,358 +1,113 @@
 /* =========================================
-   侧边栏主容器与滚动条
+   1. 侧边栏主容器与滚动条
 ========================================= */
-.sidebar { 
-    width: 380px; 
-    flex-shrink: 0; 
-    padding: 25px; 
-    display: flex; 
-    flex-direction: column; 
-    overflow-y: auto; 
+.sidebar {
+    width: 380px;
+    flex-shrink: 0; /* 绝对禁止侧边栏被主内容区挤压变窄 */
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
-.sidebar::-webkit-scrollbar { 
-    width: 6px; 
-}
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
 
-.sidebar::-webkit-scrollbar-thumb { 
-    background: rgba(0, 0, 0, 0.2); 
-    border-radius: 10px; 
-}
-
-.sidebar-title { 
-    font-size: 1.5rem; 
-    margin-top: 0; 
-    margin-bottom: 20px; 
-    border-bottom: 2px solid rgba(0, 0, 0, 0.1); 
-    padding-bottom: 10px;
+.sidebar-title {
+    font-size: 1.5rem; margin-top: 0; margin-bottom: 20px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1); padding-bottom: 10px;
 }
 
 /* =========================================
-   文件上传区域 (拖拽态与成功态)
+   2. 文件上传区域 (拖拽态与成功态)
 ========================================= */
-.upload-area { 
-    border: 2px dashed rgba(0, 0, 0, 0.2); 
-    border-radius: 12px; 
-    padding: 30px 10px; 
-    text-align: center; 
-    background: rgba(255, 255, 255, 0.3); 
-    transition: all 0.3s; 
+.upload-area {
+    border: 2px dashed rgba(0, 0, 0, 0.2); border-radius: 12px;
+    padding: 30px 10px; text-align: center;
+    background: rgba(255, 255, 255, 0.3); transition: all 0.3s;
 }
+.upload-area.is-dragging { border-color: #409eff; background: rgba(64, 158, 255, 0.1); }
+.success-area { border-style: solid; border-color: #67c23a; background: rgba(103, 194, 58, 0.1); }
 
-.upload-area.is-dragging { 
-    border-color: #409eff; 
-    background: rgba(64, 158, 255, 0.1); 
-}
-
-.success-area { 
-    border-style: solid; 
-    border-color: #67c23a; 
-    background: rgba(103, 194, 58, 0.1); 
-}
-
-.upload-icon { 
-    font-size: 40px; 
-    margin-bottom: 10px; 
-}
-
-.upload-btn { 
-    display: inline-block; 
-    padding: 8px 20px; 
-    background: #409eff; 
-    color: white; 
-    border-radius: 20px; 
-    cursor: pointer; 
-    font-size: 0.9rem; 
-    margin-top: 5px;
-}
-
-.reupload-btn { 
-    background: transparent; 
-    color: #909399; 
-    border: 1px solid #909399; 
-    padding: 4px 12px; 
-    border-radius: 12px; 
-    cursor: pointer; 
-    font-size: 0.8rem; 
-    margin-top: 10px;
-}
-
-.file-name-text { 
-    font-size: 0.85rem; 
-    word-break: break-all; 
-    opacity: 0.8; 
-    margin-top: 5px;
-}
+.upload-icon { font-size: 40px; margin-bottom: 10px; }
+.upload-btn { display: inline-block; padding: 8px 20px; background: #409eff; color: white; border-radius: 20px; cursor: pointer; font-size: 0.9rem; margin-top: 5px; }
+.reupload-btn { background: transparent; color: #909399; border: 1px solid #909399; padding: 4px 12px; border-radius: 12px; cursor: pointer; font-size: 0.8rem; margin-top: 10px; }
+.file-name-text { font-size: 0.85rem; word-break: break-all; opacity: 0.8; margin-top: 5px; }
 
 /* =========================================
-   侧边栏按钮与操作网格
+   3. 侧边栏按钮与操作网格
 ========================================= */
-.glass-btn { 
-    width: 100%; 
-    padding: 10px; 
-    border: none; 
-    border-radius: 8px; 
-    font-weight: bold; 
-    cursor: pointer; 
-    transition: all 0.3s; 
-    backdrop-filter: blur(4px); 
-}
+.glass-btn { width: 100%; padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(4px); }
+.primary-btn { background: rgba(230, 162, 60, 0.9); color: white; }
+.primary-btn:hover { background: rgba(230, 162, 60, 1); transform: translateY(-2px); }
+.secondary-btn { background: rgba(144, 147, 153, 0.8); color: white; }
+.secondary-btn:hover { background: rgba(144, 147, 153, 1); }
 
-.primary-btn { 
-    background: rgba(230, 162, 60, 0.9); 
-    color: white; 
-}
+.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.action-btn { background: rgba(64, 158, 255, 0.85); color: white; border: 2px solid transparent; }
+.action-btn:hover { background: rgba(64, 158, 255, 1); transform: translateY(-2px); }
+.active-btn { border-color: #fff; box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); transform: translateY(-2px); }
 
-.primary-btn:hover { 
-    background: rgba(230, 162, 60, 1); 
-    transform: translateY(-2px); 
-}
+.danger-btn { background: rgba(245, 108, 108, 0.85); }
+.danger-btn:hover { background: rgba(245, 108, 108, 1); }
+.danger-btn:disabled { background: rgba(245, 108, 108, 0.4); cursor: not-allowed; transform: none; }
 
-.secondary-btn { 
-    background: rgba(144, 147, 153, 0.8); 
-    color: white; 
-}
+/* 核心特殊按钮 */
+.ai-magic-btn { background: linear-gradient(90deg, #b37feb, #ff85c0); color: white; margin-bottom: 15px; }
+.ai-magic-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(179, 127, 235, 0.5); filter: brightness(1.1); }
+.pdf-export-btn { background: linear-gradient(90deg, #ff7a45, #ff4d4f); color: white; margin-bottom: 15px; font-weight: bold; border: none; box-shadow: 0 4px 15px rgba(255, 77, 79, 0.4); }
+.pdf-export-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 77, 79, 0.6); filter: brightness(1.1); }
 
-.secondary-btn:hover { 
-    background: rgba(144, 147, 153, 1); 
-}
-
-.cleanup-btn { 
-    background: rgba(245, 108, 108, 0.2); 
-    color: #f56c6c; 
-    border: 1px dashed #f56c6c; 
-}
-
-.cleanup-btn:hover { 
-    background: #f56c6c; 
-    color: white; 
-}
-
-.action-grid { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    gap: 10px; 
-}
-
-.action-btn { 
-    background: rgba(64, 158, 255, 0.85); 
-    color: white; 
-    border: 2px solid transparent;
-}
-
-.action-btn:hover { 
-    background: rgba(64, 158, 255, 1); 
-    transform: translateY(-2px); 
-}
-
-.danger-btn { 
-    background: rgba(245, 108, 108, 0.85); 
-}
-
-.danger-btn:hover { 
-    background: rgba(245, 108, 108, 1); 
-}
-
-.danger-btn:disabled { 
-    background: rgba(245, 108, 108, 0.4); 
-    cursor: not-allowed; 
-    transform: none;
-}
-
-.active-btn { 
-    border-color: #fff; 
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); 
-    transform: translateY(-2px); 
-}
+.cleanup-btn { background: rgba(245, 108, 108, 0.2); color: #f56c6c; border: 1px dashed #f56c6c; }
+.cleanup-btn:hover { background: #f56c6c; color: white; }
+.log-toggle-btn { width: 100%; border: 1px solid #52c41a; color: #52c41a; background: rgba(82, 196, 26, 0.05); }
+.log-toggle-btn:hover { transform: translateY(-2px); background: rgba(82, 196, 26, 0.15); box-shadow: 0 4px 12px rgba(82, 196, 26, 0.2); }
 
 /* =========================================
-   表单控件与工具类
+   4. 表单控件与工具类
 ========================================= */
-.checkbox-group { 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 8px; 
-}
+.checkbox-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.checkbox-label { padding: 6px 12px; background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: border-color 0.2s; }
+.checkbox-label:hover { border-color: #409eff; }
 
-.checkbox-label { 
-    padding: 6px 12px; 
-    background: rgba(255, 255, 255, 0.6); 
-    border: 1px solid rgba(0, 0, 0, 0.1); 
-    border-radius: 20px; 
-    font-size: 0.85rem; 
-    cursor: pointer; 
-    transition: border-color 0.2s;
-}
-
-.checkbox-label:hover { 
-    border-color: #409eff; 
-}
-
-.custom-select { 
-    width: 100%; 
-    padding: 8px 12px; 
-    border-radius: 8px; 
-    border: 1px solid rgba(0, 0, 0, 0.1); 
-    background: rgba(255, 255, 255, 0.6); 
-    outline: none; 
-}
-
-.divider { 
-    height: 1px; 
-    background: rgba(0, 0, 0, 0.1); 
-    margin: 15px 0; 
-}
-
-h4 { 
-    margin: 0 0 10px 0; 
-    font-size: 1rem; 
-}
-
-.mt-2 { margin-top: 10px; } 
-.mt-3 { margin-top: 15px; }
+.divider { height: 1px; background: rgba(0, 0, 0, 0.1); margin: 15px 0; }
+h4 { margin: 0 0 10px 0; font-size: 1rem; }
+.mt-2 { margin-top: 10px; } .mt-3 { margin-top: 15px; }
 .success-text { color: #52c41a; font-weight: bold; }
 
 /* =========================================
-   特殊核心按钮专属动效
+   5. 手搓丝滑下拉框组件 (核心黑科技区)
 ========================================= */
-.ai-magic-btn {
-    background: linear-gradient(90deg, #b37feb, #ff85c0);
-    color: white;
-    margin-bottom: 15px;
-}
-.ai-magic-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(179, 127, 235, 0.5);
-    filter: brightness(1.1);
-}
-
-.pdf-export-btn {
-    background: linear-gradient(90deg, #ff7a45, #ff4d4f);
-    color: white;
-    margin-bottom: 15px;
-    font-weight: bold;
-    border: none;
-    box-shadow: 0 4px 15px rgba(255, 77, 79, 0.4);
-}
-.pdf-export-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 77, 79, 0.6);
-    filter: brightness(1.1);
-}
-
-.log-toggle-btn {
-    width: 100%;
-    border: 1px solid #52c41a;
-    color: #52c41a;
-    background: rgba(82, 196, 26, 0.05);
-}
-.log-toggle-btn:hover {
-    transform: translateY(-2px);
-    background: rgba(82, 196, 26, 0.15);
-    box-shadow: 0 4px 12px rgba(82, 196, 26, 0.2);
-}
-
-/* =========================================
-   手搓丝滑下拉框组件
-========================================= */
-.custom-dropdown-container {
-    position: relative;
-    width: 100%;
-}
+.custom-dropdown-container { position: relative; width: 100%; }
 
 .custom-select-box {
     width: 100%;
-    height: 38px; /* 【核弹级修复1】：死锁高度！绝对不允许因为换行变高！ */
-    padding: 0 12px;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.6);
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-    box-sizing: border-box;
+    height: 38px; /* 死锁高度！绝对不允许因为换行变高 */
+    padding: 0 12px; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.6); cursor: pointer; display: flex;
+    justify-content: space-between; align-items: center; font-size: 0.9rem; transition: all 0.3s; box-sizing: border-box;
 }
+.custom-select-box:hover { border-color: #409eff; }
+.custom-select-box.disabled { opacity: 0.6; cursor: not-allowed; background: rgba(0, 0, 0, 0.05); }
 
-.custom-select-box:hover {
-    border-color: #409eff;
-}
-
-.custom-select-box.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    background: rgba(0, 0, 0, 0.05);
-}
-
-/* 【核弹级修复2】：强制内部文字单行截断，打破 Flexbox 最小宽度限制 */
+/* 强制内部文字单行截断，打破 Flexbox 最小宽度限制 */
 .custom-select-box span:first-child {
-    flex: 1;
-    min-width: 0; /* 极其重要：允许内容缩小到比字还短 */
-    white-space: nowrap; /* 绝对不许换行 */
-    overflow: hidden;
-    text-overflow: ellipsis; /* 超出变成 ... */
-    text-align: left;
+    flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left;
 }
-
 /* 保护右侧小箭头绝对不被挤压 */
-.custom-select-box .arrow {
-    flex-shrink: 0; /* 就算左边字再多，也不准压缩箭头 */
-    margin-left: 8px;
-    font-size: 0.7rem;
-    transition: transform 0.3s ease;
-    color: #888;
-}
+.custom-select-box .arrow { flex-shrink: 0; margin-left: 8px; font-size: 0.7rem; transition: transform 0.3s ease; color: #888; }
 
-/* =========================================
-   修复下拉菜单“死亡间隙”及内部文字折行
-========================================= */
 .custom-options-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    z-index: 100;
-    margin: 0;
-    padding: 5px 0;
-    list-style: none;
-    max-height: 200px;
-    overflow-y: auto;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 -2px 10px rgba(0, 0, 0, 0.05);
+    position: absolute; top: 100%; left: 0; width: 100%; z-index: 100; margin: 0; padding: 5px 0;
+    list-style: none; max-height: 200px; overflow-y: auto; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 -2px 10px rgba(0, 0, 0, 0.05);
 }
-
 .custom-option {
-    padding: 8px 15px;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-size: 0.9rem;
-
-    /* 【核弹级修复3】：连菜单里的选项也绝对不许换行！ */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding: 8px 15px; cursor: pointer; transition: background 0.2s; font-size: 0.9rem;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* 列表内的文字也不允许换行 */
 }
+.custom-option:hover { background: rgba(64, 158, 255, 0.15); }
+.custom-option.selected { color: #409eff; font-weight: bold; background: rgba(64, 158, 255, 0.05); }
 
-.custom-option:hover {
-    background: rgba(64, 158, 255, 0.15);
-}
-
-.custom-option.selected {
-    color: #409eff;
-    font-weight: bold;
-    background: rgba(64, 158, 255, 0.05);
-}
-
-/* 下拉菜单滑动动画 */
-.dropdown-slide-enter-active,
-.dropdown-slide-leave-active {
-    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-    transform-origin: top;
-}
-
-.dropdown-slide-enter-from,
-.dropdown-slide-leave-to {
-    opacity: 0;
-    transform: scaleY(0.8);
-}
+/* 下拉滑动动画 */
+.dropdown-slide-enter-active, .dropdown-slide-leave-active { transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); transform-origin: top; }
+.dropdown-slide-enter-from, .dropdown-slide-leave-to { opacity: 0; transform: scaleY(0.8); }
