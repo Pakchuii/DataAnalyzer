@@ -26,7 +26,7 @@ watch(() => store.logs.length, async () => {
   }
 });
 
-// 监听：全局深色模式切换
+// ================= 监听：全局深色模式切换 =================
 watch(() => store.isDarkMode, (newVal) => {
   if (newVal) {
     document.body.classList.add('dark-mode');
@@ -35,6 +35,9 @@ watch(() => store.isDarkMode, (newVal) => {
     document.body.classList.remove('dark-mode');
     actions.addLog("👉 界面已切换至【白天模式】", "info");
   }
+
+  // 【核心修复】：无论切到白天还是黑夜，强制唤醒色彩引擎重新渲染玻璃底色！
+  actions.applyThemeColor();
 });
 </script>
 
