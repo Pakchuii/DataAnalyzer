@@ -1,5 +1,11 @@
 <script setup>
 import { store, actions } from '../store.js'
+import { ref } from 'vue'
+
+const ttestDropdownOpen = ref(false);       // t检验分组
+const mlDropdownOpen = ref(false);          // 机器学习目标
+const radarIdDropdownOpen = ref(false);     // 雷达图身份
+const radarTargetDropdownOpen = ref(false); // 雷达图具体个体
 </script>
 
 <template>
@@ -70,10 +76,23 @@ import { store, actions } from '../store.js'
         </div>
 
         <h4 class="mt-3">t 检验分组变量：</h4>
-        <select v-model="store.selectedGroupVar" class="custom-select" :disabled="!store.fileInfo.binary_columns.length">
-          <option v-for="col in store.fileInfo.binary_columns" :key="col" :value="col">{{ col }}</option>
-          <option v-if="!store.fileInfo.binary_columns.length" value="">无二分类变量</option>
-        </select>
+        <div class="custom-dropdown-container" @mouseleave="ttestDropdownOpen = false">
+            <div class="custom-select-box" @click="store.fileInfo.binary_columns.length ? ttestDropdownOpen = !ttestDropdownOpen : null" :class="{ 'disabled': !store.fileInfo.binary_columns.length }">
+                <span>{{ store.selectedGroupVar || (store.fileInfo.binary_columns.length ? '请选择分组变量' : '无二分类变量') }}</span>
+                <span class="arrow" :style="{ transform: ttestDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }">▼</span>
+            </div>
+            <transition name="dropdown-slide">
+                <ul v-show="ttestDropdownOpen" class="custom-options-list glass-card" style="z-index: 104;">
+                    <li class="custom-option"
+                        v-for="col in store.fileInfo.binary_columns"
+                        :key="col"
+                        @click="store.selectedGroupVar = col; ttestDropdownOpen = false"
+                        :class="{ 'selected': store.selectedGroupVar === col }">
+                        {{ col }}
+                    </li>
+                </ul>
+            </transition>
+        </div>
 
         <div class="divider"></div>
         <div class="action-grid">
@@ -89,10 +108,23 @@ import { store, actions } from '../store.js'
         </h4>
         <div style="margin-bottom: 10px;">
             <label style="font-size: 0.85rem; color: #888;">目标变量 (预测谁)：</label>
-            <select v-model="store.mlTargetVar" class="custom-select" style="margin-top: 5px;">
-                <option value="">请选择目标(Y)</option>
-                <option v-for="col in store.fileInfo.numeric_columns" :key="col" :value="col">{{ col }}</option>
-            </select>
+            <div class="custom-dropdown-container" style="margin-top: 5px;" @mouseleave="mlDropdownOpen = false">
+            <div class="custom-select-box" @click="mlDropdownOpen = !mlDropdownOpen">
+                <span>{{ store.mlTargetVar || '请选择目标(Y)' }}</span>
+                <span class="arrow" :style="{ transform: mlDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }">▼</span>
+            </div>
+            <transition name="dropdown-slide">
+                <ul v-show="mlDropdownOpen" class="custom-options-list glass-card" style="z-index: 103;">
+                    <li class="custom-option"
+                        v-for="col in store.fileInfo.numeric_columns"
+                        :key="col"
+                        @click="store.mlTargetVar = col; mlDropdownOpen = false"
+                        :class="{ 'selected': store.mlTargetVar === col }">
+                        {{ col }}
+                    </li>
+                </ul>
+            </transition>
+        </div>
         </div>
         <div style="margin-bottom: 10px;">
             <label style="font-size: 0.85rem; color: #888;">特征变量 (影响因素)：</label>
@@ -117,14 +149,47 @@ import { store, actions } from '../store.js'
 
         <h4 class="mt-2">个体雷达图定位：</h4>
         <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-            <select v-model="store.radarIdCol" @change="actions.fetchRadarOptions" class="custom-select" style="flex:1;">
-                <option value="">1.选择身份</option>
-                <option v-for="col in store.fileInfo.columns.filter(c => !store.fileInfo.numeric_columns.includes(c))" :key="col" :value="col">{{ col }}</option>
-            </select>
-            <select v-model="store.selectedRadarTarget" class="custom-select" style="flex:1;" :disabled="!store.radarIdCol">
-                <option value="">2.选择个体</option>
-                <option v-for="opt in store.radarOptions" :key="opt" :value="opt">{{ opt }}</option>
-            </select>
+            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+
+            <div class="custom-dropdown-container" style="flex:1;" @mouseleave="radarIdDropdownOpen = false">
+                <div class="custom-select-box" @click="radarIdDropdownOpen = !radarIdDropdownOpen">
+                    <span>{{ store.radarIdCol || '1.选择身份' }}</span>
+                    <span class="arrow" :style="{ transform: radarIdDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }">▼</span>
+                </div>
+                <transition name="dropdown-slide">
+                    <ul v-show="radarIdDropdownOpen" class="custom-options-list glass-card" style="z-index: 102;">
+                        <li class="custom-option"
+                            v-for="col in store.fileInfo.columns.filter(c => !store.fileInfo.numeric_columns.includes(c))"
+                            :key="col"
+                            @click="store.radarIdCol = col; radarIdDropdownOpen = false; actions.fetchRadarOptions()"
+                            :class="{ 'selected': store.radarIdCol === col }">
+                            {{ col }}
+                        </li>
+                    </ul>
+                </transition>
+            </div>
+
+            <div class="custom-dropdown-container" style="flex:1;" @mouseleave="radarTargetDropdownOpen = false">
+                <div class="custom-select-box" @click="store.radarIdCol ? radarTargetDropdownOpen = !radarTargetDropdownOpen : null" :class="{ 'disabled': !store.radarIdCol }">
+                    <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90px;">
+                        {{ store.selectedRadarTarget || '2.选择个体' }}
+                    </span>
+                    <span class="arrow" :style="{ transform: radarTargetDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }">▼</span>
+                </div>
+                <transition name="dropdown-slide">
+                    <ul v-show="radarTargetDropdownOpen" class="custom-options-list glass-card" style="z-index: 101;">
+                        <li class="custom-option"
+                            v-for="opt in store.radarOptions"
+                            :key="opt"
+                            @click="store.selectedRadarTarget = opt; radarTargetDropdownOpen = false"
+                            :class="{ 'selected': store.selectedRadarTarget === opt }">
+                            {{ opt }}
+                        </li>
+                    </ul>
+                </transition>
+            </div>
+
+        </div>
         </div>
         <button @click="actions.runRadarChart" class="glass-btn action-btn" style="background: #e6a23c; color: white;" :class="{'active-btn': store.showRadar}" :disabled="!store.selectedRadarTarget">
           {{ store.showRadar ? '🕸️ 收起雷达图' : '🕸️ 生成雷达图' }}

@@ -251,3 +251,108 @@ h4 {
     background: rgba(82, 196, 26, 0.15);
     box-shadow: 0 4px 12px rgba(82, 196, 26, 0.2);
 }
+
+/* =========================================
+   手搓丝滑下拉框组件
+========================================= */
+.custom-dropdown-container {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select-box {
+    width: 100%;
+    height: 38px; /* 【核弹级修复1】：死锁高度！绝对不允许因为换行变高！ */
+    padding: 0 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+.custom-select-box:hover {
+    border-color: #409eff;
+}
+
+.custom-select-box.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* 【核弹级修复2】：强制内部文字单行截断，打破 Flexbox 最小宽度限制 */
+.custom-select-box span:first-child {
+    flex: 1;
+    min-width: 0; /* 极其重要：允许内容缩小到比字还短 */
+    white-space: nowrap; /* 绝对不许换行 */
+    overflow: hidden;
+    text-overflow: ellipsis; /* 超出变成 ... */
+    text-align: left;
+}
+
+/* 保护右侧小箭头绝对不被挤压 */
+.custom-select-box .arrow {
+    flex-shrink: 0; /* 就算左边字再多，也不准压缩箭头 */
+    margin-left: 8px;
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+    color: #888;
+}
+
+/* =========================================
+   修复下拉菜单“死亡间隙”及内部文字折行
+========================================= */
+.custom-options-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    margin: 0;
+    padding: 5px 0;
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.custom-option {
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 0.9rem;
+
+    /* 【核弹级修复3】：连菜单里的选项也绝对不许换行！ */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-option:hover {
+    background: rgba(64, 158, 255, 0.15);
+}
+
+.custom-option.selected {
+    color: #409eff;
+    font-weight: bold;
+    background: rgba(64, 158, 255, 0.05);
+}
+
+/* 下拉菜单滑动动画 */
+.dropdown-slide-enter-active,
+.dropdown-slide-leave-active {
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-origin: top;
+}
+
+.dropdown-slide-enter-from,
+.dropdown-slide-leave-to {
+    opacity: 0;
+    transform: scaleY(0.8);
+}

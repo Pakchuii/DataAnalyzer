@@ -152,6 +152,10 @@ export const actions = {
         store.selectedRadarTarget = '';
         store.radarResult = null;
         store.isMasked = false;
+        store.mlTargetVar = '';
+        store.mlFeatureVars = [];
+        store.mlResult = null;
+        store.showML = false;
     },
 
     async uploadFile(file) {
