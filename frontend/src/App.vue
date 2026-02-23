@@ -9,6 +9,7 @@ const logContainer = ref(null);
 // ================= 初始化：自动深浅色模式 =================
 onMounted(() => {
     actions.initTheme();
+    actions.initSettings();
 });
 
 // ================= 监听：日志自动滚动到底部 =================
@@ -34,13 +35,20 @@ watch(() => store.isDarkMode, (newVal) => {
 </script>
 
 <template>
-  <div :class="{ 'dark-mode': store.isDarkMode }" class="app-global-wrapper">
+  <div :class="{ 'dark-mode': store.isDarkMode }"
+       class="app-global-wrapper"
+       :style="{ '--glass-theme-color': store.windowTint ? store.windowTint : (store.isDarkMode ? 'rgba(20, 20, 30, 0.75)' : 'rgba(255, 255, 255, 0.75)') }">
 
     <div class="video-background">
-      <video :key="store.isDarkMode ? 'dark' : 'light'" autoplay loop muted playsinline class="bg-video">
+      <video v-if="store.bgType === 'default'" :key="store.isDarkMode ? 'dark' : 'light'" autoplay loop muted playsinline class="bg-video">
         <source :src="store.isDarkMode ? '/bg-dark.mp4' : '/bg-light.mp4'" type="video/mp4" />
       </video>
-      <div class="bg-overlay"></div>
+      <video v-else-if="store.bgType === 'video'" :key="store.bgUrl" autoplay loop muted playsinline class="bg-video">
+        <source :src="store.bgUrl" />
+      </video>
+      <img v-else-if="store.bgType === 'image'" :src="store.bgUrl" class="bg-video" style="object-fit: cover; width: 100%; height: 100%;" />
+
+      <div class="bg-overlay" :style="{ background: store.isDarkMode ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.1)' }"></div>
     </div>
 
     <button class="theme-toggle-btn" @click="store.isDarkMode = !store.isDarkMode">
@@ -68,6 +76,81 @@ watch(() => store.isDarkMode, (newVal) => {
           <button @click="store.dialog.onConfirm" class="glass-btn primary-btn" style="width: 120px;">确定</button>
         </div>
       </div>
+    </div>
+
+<div v-if="store.showSettings" class="modal-overlay" style="z-index: 3000;">
+        <div class="glass-card settings-modal-container">
+            <button @click="store.showSettings = false" class="close-btn modal-close-btn">✕</button>
+
+            <div class="settings-layout">
+                <div class="author-profile-card glass-inner">
+                    <div class="avatar-container">
+                        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Pakchuii&backgroundColor=f0e6e6" alt="Avatar" class="author-avatar" />
+                    </div>
+                    <h2 class="author-name">Pakchuii</h2>
+                    <p class="author-bio">不管是被别人粗暴的砍下还是自然枯萎，我和我的花儿总要告别</p>
+
+                    <div class="links-section">
+                        <div class="links-title">🔗 Links</div>
+                        <a href="#" class="author-link">Github个人链接</a>
+                        <a href="#" class="author-link">Gitee个人链接</a>
+                        <a href="#" class="author-link">bilibili主页</a>
+                    </div>
+                </div>
+
+                <div class="system-settings-panel">
+                    <h3 style="margin-top:0; color: #409eff; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 10px;">🎨 外观与个性化</h3>
+
+                    <div class="setting-block">
+                        <h4>更换系统壁纸 (图片/视频)</h4>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="file" id="bg-upload" accept="image/*, video/*" @change="actions.handleBgUpload" style="display: none;">
+                            <label for="bg-upload" class="glass-btn primary-btn" style="flex:1; text-align:center; padding: 8px;">📂 本地上传</label>
+                            <button @click="actions.resetBackground" class="glass-btn secondary-btn" style="flex:1; padding: 8px;">🔄 恢复默认</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-block">
+                        <h4>窗口氛围色滤镜</h4>
+                        <div class="color-palette">
+                            <button @click="actions.setWindowTint('')" class="color-btn default-color" title="系统默认"></button>
+                            <button @click="actions.setWindowTint('rgba(64, 158, 255, 0.65)')" class="color-btn" style="background: #409eff;" title="科技蓝"></button>
+                            <button @click="actions.setWindowTint('rgba(179, 127, 235, 0.65)')" class="color-btn" style="background: #b37feb;" title="暗夜紫"></button>
+                            <button @click="actions.setWindowTint('rgba(250, 140, 22, 0.65)')" class="color-btn" style="background: #fa8c16;" title="活力橙"></button>
+                            <button @click="actions.setWindowTint('rgba(255, 105, 180, 0.65)')" class="color-btn" style="background: #ff69b4;" title="猛男粉"></button>
+
+                            <label class="color-btn custom-color-picker" title="自定义取色" style="background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                                <span style="font-size: 1.2rem; font-weight: bold; color: white; text-shadow: 0 0 5px rgba(0,0,0,0.8); z-index: 2; pointer-events: none;">+</span>
+                                <input type="color" @input="actions.handleCustomTint" style="opacity: 0; position: absolute; top: -10px; left: -10px; width: 200%; height: 200%; cursor: pointer; z-index: 1;">
+                            </label>
+                            </div>
+                    </div>
+
+                    <div class="setting-block">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <h4 style="margin: 0;">面板通透度 (Opacity)</h4>
+                            <span style="font-weight: bold; color: #409eff;">{{ Math.round(store.glassOpacity * 100) }}%</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <span style="font-size: 0.8rem; color: #888;">全透</span>
+                            <input type="range" min="0.1" max="0.95" step="0.01"
+                                   :value="store.glassOpacity"
+                                   @input="actions.handleOpacityChange"
+                                   class="custom-slider">
+                            <span style="font-size: 0.8rem; color: #888;">厚重</span>
+                        </div>
+                    </div>
+
+                    <div class="setting-block" style="margin-top: auto;">
+                        <div class="version-info">
+                            <strong>DataAnalyzer Pro</strong><br>
+                            Version: 3.0 (Standalone Edition)<br>
+                            Core Engine: Flask V8 + Vue3 + ECharts
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div v-if="store.showManualModal" class="modal-overlay" style="z-index: 2500;">
@@ -126,6 +209,11 @@ watch(() => store.isDarkMode, (newVal) => {
             <p class="subtitle">集成统计分析与可视化表单数据处理系统</p>
             <p class="version">Version: 3.0 | 稳定版</p>
             <button @click="store.isEntered = true" class="enter-btn">🚀 点击进入系统</button>
+            <div style="margin-top: 20px;">
+                <button @click="store.showSettings = true" class="glass-btn secondary-btn" style="border-radius: 20px; font-weight: normal; font-size: 0.9rem;">
+                  ⚙️ 系统设置 & 作者名片
+                </button>
+            </div>
           </div>
         </div>
       </transition>

@@ -339,3 +339,198 @@
     0%, 100% { opacity: 1; } 
     50% { opacity: 0; } 
 }
+
+/* =========================================
+   系统设置与作者名片面板 (极致复刻版)
+========================================= */
+.settings-modal-container {
+    width: 800px;
+    max-width: 90vw;
+    height: 500px;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 10;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+.modal-close-btn:hover { background: #f5222d; color: white; }
+
+.settings-layout {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- 左侧名片区 --- */
+.author-profile-card {
+    width: 300px;
+    background: rgba(255, 255, 255, 0.4);
+    border-right: 1px solid rgba(255,255,255,0.3);
+    border-radius: 16px 0 0 16px;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.dark-mode .author-profile-card { background: rgba(0, 0, 0, 0.3); border-color: rgba(255,255,255,0.05); }
+
+.avatar-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, #ff8a00, #e52e71);
+    margin-bottom: 15px;
+}
+.author-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: white;
+}
+
+.author-name {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #e53935; /* 还原截图里的红色系 */
+    font-family: 'Times New Roman', serif;
+}
+
+.author-bio {
+    font-size: 0.85rem;
+    color: #d32f2f;
+    margin: 15px 0;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.author-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 15px 0 25px 0;
+    padding: 10px 0;
+    border-top: 1px dashed rgba(229, 57, 53, 0.3);
+    border-bottom: 1px dashed rgba(229, 57, 53, 0.3);
+}
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    color: #3b3b58;
+}
+.dark-mode .stat-item { color: #bbb; }
+.stat-item strong { font-size: 1.2rem; margin-bottom: 3px; }
+.stat-item span { font-size: 0.75rem; }
+.stat-divider { width: 1px; height: 30px; background: rgba(0,0,0,0.1); }
+
+.links-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+.links-title { color: #e53935; font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; }
+.author-link {
+    color: #e53935;
+    text-decoration: none;
+    font-size: 0.95rem;
+    position: relative;
+    padding-bottom: 3px;
+    transition: all 0.3s;
+}
+.author-link::after {
+    content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+    width: 60%; height: 1px; background: rgba(229, 57, 53, 0.5); transition: width 0.3s;
+}
+.author-link:hover::after { width: 100%; background: #e53935; }
+.author-link:hover { transform: scale(1.05); }
+
+/* --- 右侧设置区 --- */
+.system-settings-panel {
+    flex: 1;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.setting-block { margin-bottom: 25px; }
+.setting-block h4 { margin-bottom: 10px; color: #555; }
+.dark-mode .setting-block h4 { color: #ccc; }
+
+.color-palette {
+    display: flex;
+    gap: 15px;
+}
+.color-btn {
+    width: 40px; height: 40px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.8);
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.color-btn:hover { transform: scale(1.15); }
+.default-color { background: conic-gradient(#f0f2f5, #1a1a2e); }
+
+.version-info {
+    font-size: 0.8rem;
+    color: #888;
+    line-height: 1.8;
+    background: rgba(0,0,0,0.03);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* =========================================
+   苹果风无极滑动条 (Slider)
+========================================= */
+.custom-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s;
+}
+
+.dark-mode .custom-slider {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #409eff;
+    cursor: grab;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s;
+}
+
+.custom-slider::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.2);
+    background: #409eff;
+}

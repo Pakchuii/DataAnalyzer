@@ -4,6 +4,17 @@ import * as echarts from 'echarts'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 
+const openDB = () => new Promise((resolve, reject) => {
+    const request = indexedDB.open('DataAnalyzerDB', 1);
+    request.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains('settings')) {
+            db.createObjectStore('settings'); // 创建一个名为 settings 的仓库
+        }
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+});
 // ==========================================
 // 全局状态管理 (Store)
 // ==========================================
@@ -67,13 +78,153 @@ export const store = reactive({
 
     // 极客日志系统
     showLogs: false,
-    logs: []
+    logs: [],
+
+    // ======== 全新：个性化设置与作者名片 ========
+  showSettings: false,
+  bgType: 'default', // 'default', 'image', 'video'
+  bgUrl: '',
+  windowTint: '', // 窗口色彩滤镜
+  glassOpacity: 0.65,
 });
 
 // ==========================================
 // 核心业务行为 (Actions)
 // ==========================================
 export const actions = {
+
+
+ // ======== 全新增强：持久化设置面板控制与壁纸引擎 ========
+
+  // 1. 初始化读取本地缓存
+  async initSettings() {
+      // 读取滤镜颜色
+      const savedTint = localStorage.getItem('customWindowTint');
+      if (savedTint) store.windowTint = savedTint;
+
+      // 读取透明度
+      const savedOpacity = localStorage.getItem('customGlassOpacity');
+      if (savedOpacity) store.glassOpacity = parseFloat(savedOpacity);
+
+      // 读取庞大的媒体壁纸 (从 IndexedDB)
+      try {
+          const db = await openDB();
+          const tx = db.transaction('settings', 'readonly');
+          const req = tx.objectStore('settings').get('customBgBlob');
+          req.onsuccess = () => {
+              const fileBlob = req.result;
+              if (fileBlob) {
+                  store.bgUrl = URL.createObjectURL(fileBlob);
+                  store.bgType = localStorage.getItem('customBgType') || 'image';
+                  actions.addLog("💾 成功从本地缓存中加载自定义壁纸！", "success");
+              }
+          };
+      } catch (e) {
+          console.log("无本地壁纸缓存");
+      }
+
+      // 启动时，强制应用颜色和透明度
+      actions.applyThemeColor();
+  },
+
+  // 2. 处理壁纸上传并存入数据库 (保持不变)
+  async handleBgUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (store.bgUrl) URL.revokeObjectURL(store.bgUrl);
+
+      const fileUrl = URL.createObjectURL(file);
+      store.bgUrl = fileUrl;
+      store.bgType = file.type.startsWith('video/') ? 'video' : 'image';
+
+      actions.addLog(`🎨 正在应用壁纸并写入本地硬盘：${file.name}...`, "info");
+
+      try {
+          const db = await openDB();
+          const tx = db.transaction('settings', 'readwrite');
+          tx.objectStore('settings').put(file, 'customBgBlob');
+          localStorage.setItem('customBgType', store.bgType);
+          actions.addLog("💾 壁纸已持久化保存，下次打开自动加载！", "success");
+      } catch(err) {
+          actions.addLog("壁纸缓存失败，可能是文件超出限制", "error");
+      }
+  },
+
+  // 3. 恢复默认并清理硬盘缓存 (保持不变)
+  async resetBackground() {
+      if (store.bgUrl) URL.revokeObjectURL(store.bgUrl);
+      store.bgType = 'default';
+      store.bgUrl = '';
+
+      try {
+          const db = await openDB();
+          const tx = db.transaction('settings', 'readwrite');
+          tx.objectStore('settings').delete('customBgBlob');
+          localStorage.removeItem('customBgType');
+          actions.addLog("🔄 已恢复系统默认壁纸，并彻底清理本地壁纸缓存！", "success");
+      } catch(err) {}
+  },
+
+  // 4. 设置预设滤镜 (增加调用引擎)
+  setWindowTint(colorRgba) {
+      store.windowTint = colorRgba;
+      localStorage.setItem('customWindowTint', colorRgba);
+      actions.applyThemeColor(); // 通知引擎重新渲染颜色和透明度
+      actions.addLog("🌈 系统主题滤镜已切换并保存", "success");
+  },
+
+  // 5. 处理原生拾色器的自由调色 (增加调用引擎)
+  handleCustomTint(e) {
+      const hex = e.target.value;
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+
+      // 这里随便给个初始透明度，反正等下引擎会把它覆盖成滑块的透明度
+      const rgbaColor = `rgba(${r}, ${g}, ${b}, 0.65)`;
+
+      store.windowTint = rgbaColor;
+      localStorage.setItem('customWindowTint', rgbaColor);
+      actions.applyThemeColor(); // 通知引擎重新渲染颜色和透明度
+      actions.addLog(`🎨 毛玻璃主题色已切换为 ${hex}`, "info");
+  },
+
+  // 6. 【全新补全】真正的色彩与透明度渲染引擎！
+  applyThemeColor() {
+      let color = store.windowTint;
+      let r, g, b;
+
+      if (!color) {
+          // 如果没有选颜色，默认给个深浅模式的底色
+          r = store.isDarkMode ? 25 : 255;
+          g = store.isDarkMode ? 25 : 255;
+          b = store.isDarkMode ? 35 : 255;
+      } else {
+          // 黑科技：用正则强行提取当前颜色里的 R, G, B 数值
+          const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+          if (match) {
+              r = match[1]; g = match[2]; b = match[3];
+          } else {
+              r = 255; g = 255; b = 255;
+          }
+      }
+
+      // 把提取出的 RGB，配上滑块的最新透明度！
+      const finalColor = `rgba(${r}, ${g}, ${b}, ${store.glassOpacity})`;
+      store.windowTint = finalColor; // 同步给老代码
+
+      // 强行注入 CSS 全局变量（确保所有毛玻璃都能吃到）
+      document.documentElement.style.setProperty('--glass-theme-color', finalColor);
+  },
+
+  // 7. 【全新补全】处理透明度滑动条拖拽
+  handleOpacityChange(e) {
+      const val = parseFloat(e.target.value);
+      store.glassOpacity = val;
+      localStorage.setItem('customGlassOpacity', val);
+      actions.applyThemeColor(); // 滑动时实时刷新界面！
+  },
 
     /**
      * 系统日志写入工具
