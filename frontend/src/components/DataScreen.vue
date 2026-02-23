@@ -180,16 +180,26 @@ const stopDrag = () => {
       </div>
     </div>
 
-    <div v-if="store.showTTest && store.ttestResult" class="glass-card result-panel">
+<div v-if="store.showTTest && store.ttestResult" class="glass-card result-panel">
       <div class="panel-header">
           <h3 class="panel-title" style="color:#ff7875;">⚖️ 独立样本 t 检验 (分组: {{ store.selectedGroupVar }})</h3>
-          <button @click="exportTTest" class="glass-btn secondary-btn export-btn">⬇️ 导出 CSV</button>
+          <button @click="exportTTest" class="glass-btn secondary-btn export-btn" :disabled="store.ttestResult.length === 0">⬇️ 导出 CSV</button>
       </div>
-      <div class="table-responsive">
+
+      <div v-if="store.ttestResult.length === 0" style="text-align: center; padding: 40px 20px; color: #f5222d; background: rgba(245,34,45,0.05); border-radius: 8px; border: 1px dashed rgba(245,34,45,0.3);">
+          <div style="font-size: 2rem; margin-bottom: 10px;">⚠️</div>
+          <h4 style="margin: 0 0 5px 0; color: #f5222d;">样本量过少，无法执行 T 检验</h4>
+          <p style="font-size: 0.9rem; margin: 0; opacity: 0.8;">统计学定律限制：进行 T 检验要求每个对比组内至少包含 2 条有效数据以计算方差。<br>您当前的数据存在某一组只有一个样本（或无有效数据）的情况。</p>
+      </div>
+
+      <div v-else class="table-responsive">
           <table class="glass-table">
               <thead>
                   <tr>
-                      <th>分析变量</th><th>组1均值</th><th>组2均值</th><th>t 值</th><th>P 值</th><th>结论</th>
+                      <th>分析变量</th><th>组1均值</th><th>组2均值</th>
+                      <th><span class="help-tip" data-tip="t 值：衡量两组数据均值差异的程度。绝对值越大，说明两组差异越明显。">t 值</span></th>
+                      <th><span class="help-tip" data-tip="P 值：统计学中的概率值。通常 P < 0.05 即代表两组数据存在显著性差异。">P 值</span></th>
+                      <th>结论</th>
                   </tr>
               </thead>
               <tbody>
@@ -232,7 +242,7 @@ const stopDrag = () => {
       <table class="glass-table mb-3">
           <thead>
               <tr>
-                  <th>变量</th><th>W 值</th><th>P 值</th><th>Shapiro-Wilk 结论</th>
+                  <th>变量</th><th><span class="help-tip" data-tip="W 值 (Shapiro-Wilk 检验)：用于评估数据是否呈现正态分布。该值越接近 1，数据越符合正态分布曲线。">W 值</span></th><th><span class="help-tip" data-tip="P 值：在此处若 P > 0.05，则说明数据符合正态分布；若 P < 0.05，则偏离正态分布。">P 值</span></th><th>Shapiro-Wilk 结论</th>
               </tr>
           </thead>
           <tbody>
@@ -257,12 +267,12 @@ const stopDrag = () => {
 
       <div style="display: flex; gap: 15px; margin-bottom: 20px;">
           <div class="glass-inner" style="flex: 1; text-align: center; padding: 15px;">
-              <div style="font-size: 0.9rem; color: #888;">模型拟合优度 (R² Score)</div>
+              <div style="font-size: 0.9rem; color: #888;"><span class="help-tip" data-tip="决定系数 (R-squared)：取值在 0~1 之间。越接近 1，说明 AI 模型对数据的预测能力越强、越精准。">模型拟合优度 (R² Score)</span></div>
               <div style="font-size: 1.8rem; color: #722ed1; font-weight: bold;">{{ store.mlResult.r2 }}</div>
               <div style="font-size: 0.75rem; color: #aaa;">越接近1说明预测越准</div>
           </div>
           <div class="glass-inner" style="flex: 1; text-align: center; padding: 15px;">
-              <div style="font-size: 0.9rem; color: #888;">均方误差 (MSE)</div>
+           <div style="font-size: 0.9rem; color: #888;"><span class="help-tip" data-tip="预测误差的平方平均值。该数值越小，代表 AI 预测值与真实业务数据的偏差越小。">均方误差 (MSE)</span></div>
               <div style="font-size: 1.8rem; color: #fa8c16; font-weight: bold;">{{ store.mlResult.mse }}</div>
               <div style="font-size: 0.75rem; color: #aaa;">预测误差的平均水平</div>
           </div>

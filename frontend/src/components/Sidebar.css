@@ -211,3 +211,43 @@ h4 {
 .mt-2 { margin-top: 10px; } 
 .mt-3 { margin-top: 15px; }
 .success-text { color: #52c41a; font-weight: bold; }
+
+/* =========================================
+   特殊核心按钮专属动效
+========================================= */
+.ai-magic-btn {
+    background: linear-gradient(90deg, #b37feb, #ff85c0);
+    color: white;
+    margin-bottom: 15px;
+}
+.ai-magic-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(179, 127, 235, 0.5);
+    filter: brightness(1.1);
+}
+
+.pdf-export-btn {
+    background: linear-gradient(90deg, #ff7a45, #ff4d4f);
+    color: white;
+    margin-bottom: 15px;
+    font-weight: bold;
+    border: none;
+    box-shadow: 0 4px 15px rgba(255, 77, 79, 0.4);
+}
+.pdf-export-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 77, 79, 0.6);
+    filter: brightness(1.1);
+}
+
+.log-toggle-btn {
+    width: 100%;
+    border: 1px solid #52c41a;
+    color: #52c41a;
+    background: rgba(82, 196, 26, 0.05);
+}
+.log-toggle-btn:hover {
+    transform: translateY(-2px);
+    background: rgba(82, 196, 26, 0.15);
+    box-shadow: 0 4px 12px rgba(82, 196, 26, 0.2);
+}

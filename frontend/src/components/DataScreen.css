@@ -250,3 +250,58 @@
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
 }
+
+/* =========================================
+   数据术语悬浮提示窗 (Tooltip) 完美向下展开版
+========================================= */
+.help-tip {
+    position: relative;
+    cursor: help;
+    /* 彻底拔掉了讨厌的虚线下划线 */
+    display: inline-block;
+    color: inherit;
+}
+
+.help-tip::after {
+    content: attr(data-tip);
+    position: absolute;
+    /* 【核心修复】：把弹窗改到下方，彻底避开表头的“天花板裁切” */
+    top: 150%;
+    bottom: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 220px;
+    background: rgba(10, 10, 15, 0.95);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: normal;
+    white-space: normal;
+    line-height: 1.5;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 鼠标悬浮时的动画：从下方丝滑地上浮到位 */
+.help-tip:hover::after {
+    opacity: 1;
+    top: 120%;
+}
+/* =========================================
+   修复表头 Tooltip 互相遮挡的层叠暗病
+========================================= */
+.glass-table th {
+    transition: z-index 0.2s; /* 让层级切换也保持平滑 */
+}
+
+/* 鼠标放在哪个表头，哪个表头就瞬间成为最高层，压制旁边的兄弟节点 */
+.glass-table th:hover {
+    z-index: 10 !important;
+}

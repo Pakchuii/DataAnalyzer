@@ -111,9 +111,9 @@ import { store, actions } from '../store.js'
         <h4 style="color: #b37feb; display: flex; align-items: center; gap: 5px;">
           <span style="font-size: 1.2rem;">✨</span> 高阶智能画像：
         </h4>
-        <button @click="actions.runAiSummary" class="glass-btn" style="background: linear-gradient(90deg, #b37feb, #ff85c0); color: white; margin-bottom: 15px;" :class="{'active-btn': store.showAiSummary}">
-          {{ store.showAiSummary ? '🤖 隐藏解读' : '🤖 智能数据解读' }}
-        </button>
+    <button @click="actions.runAiSummary" class="glass-btn ai-magic-btn" :class="{'active-btn': store.showAiSummary}">
+  {{ store.showAiSummary ? '🤖 隐藏智能数据解读' : '🤖 智能数据解读' }}
+</button>
 
         <h4 class="mt-2">个体雷达图定位：</h4>
         <div style="display: flex; gap: 10px; margin-bottom: 10px;">
@@ -134,15 +134,15 @@ import { store, actions } from '../store.js'
         <h4 style="color: #ff4d4f; display: flex; align-items: center; gap: 5px;">
           <span style="font-size: 1.2rem;">📸</span> PDF数据报截图：
         </h4>
-        <button @click="actions.exportPDF" class="glass-btn" style="background: linear-gradient(90deg, #ff7a45, #ff4d4f); color: white; margin-bottom: 15px; font-weight: bold; border: none; box-shadow: 0 4px 15px rgba(255, 77, 79, 0.4);">
-          ⬇️ 一键导出高清 PDF 数据报
-        </button>
+<button @click="actions.exportPDF" class="glass-btn pdf-export-btn">
+  ⬇️ 一键导出高清 PDF 数据报
+</button>
 
       </div> </div> <div style="flex-grow: 1;"></div>
     <button @click="actions.triggerCleanup" class="glass-btn cleanup-btn mt-3">🧹 一键清理系统缓存</button>
-    <button @click="store.showLogs = !store.showLogs" class="glass-btn secondary-btn mt-3" style="width: 100%; border: 1px solid #52c41a; color: #52c41a; background: rgba(82,196,26,0.05);">
-        {{ store.showLogs ? '📟 收起系统操作日志' : '📟 展开系统操作日志' }}
-    </button>
+<button @click="store.showLogs = !store.showLogs" class="glass-btn log-toggle-btn mt-3">
+  {{ store.showLogs ? '📟 收起系统操作日志' : '📟 展开系统操作日志' }}
+</button>
   </aside>
 </template>
 
