@@ -86,6 +86,8 @@ export const store = reactive({
   bgUrl: '',
   windowTint: '', // 窗口色彩滤镜
   glassOpacity: 0.65,
+
+  showExitConfirm: false,
 });
 
 // ==========================================
@@ -909,5 +911,16 @@ export const actions = {
                 } catch (err) {}
             }
         });
-    }
+    },
+  // ======== 全新：丝滑退出主菜单功能 ========
+  // ======== 全新：丝滑退出主菜单功能 (自定义弹窗版) ========
+  confirmExitToMainMenu() {
+      // 1. 关闭拦截弹窗
+      store.showExitConfirm = false;
+      // 2. 清空当前项目的所有数据缓存
+      actions.resetSystemState();
+      // 3. 将状态拨回欢迎开机屏
+      store.isEntered = false;
+      actions.addLog("🚪 已返回主菜单，工作区数据已安全清空", "info");
+  },
 };

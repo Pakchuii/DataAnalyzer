@@ -85,7 +85,7 @@ watch(() => store.isDarkMode, (newVal) => {
             <div class="settings-layout">
                 <div class="author-profile-card glass-inner">
                     <div class="avatar-container">
-                        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Pakchuii&backgroundColor=f0e6e6" alt="Avatar" class="author-avatar" />
+                        <img src="http://pakchuii.xyz/wp-content/uploads/2025/10/cropped-91b3d00cbab31470cf578925de3e9685.jpg" alt="Avatar" class="author-avatar" />
                     </div>
                     <h2 class="author-name">Pakchuii</h2>
                     <p class="author-bio">不管是被别人粗暴的砍下还是自然枯萎，我和我的花儿总要告别</p>
