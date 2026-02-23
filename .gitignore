@@ -20,4 +20,5 @@ frontend/dist-ssr/
 # ====================
 .DS_Store
 Thumbs.dbg
-.idea
+.idea/
+__pycache__/
