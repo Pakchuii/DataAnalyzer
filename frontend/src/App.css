@@ -262,3 +262,15 @@
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* V2.0 枢纽卡片悬停特效 */
+.module-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.7) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    border-color: rgba(64, 158, 255, 0.5);
+}
+.dark-mode .module-card:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}

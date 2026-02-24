@@ -21,6 +21,12 @@ export function setupBase(store, actions) {
             store.dialog.onConfirm = () => { if (options.onConfirm) options.onConfirm(); store.dialog.show = false; };
             store.dialog.show = true;
         },
+        confirmExitToMainMenu() {
+            actions.resetSystemState();
+            store.showExitConfirm = false;
+            store.currentModule = 'portal'; // 退回到模块选择枢纽
+            actions.addLog("已安全退出当前工作区，返回系统枢纽", "info");
+        },
         resetSystemState() {
             store.fileInfo = null; store.cleanResult = null; store.statsResult = null;
             store.chartsData = []; store.advancedResult = null; store.isStandardized = false;

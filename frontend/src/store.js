@@ -5,7 +5,7 @@ import { reactive } from 'vue'
 // 全局状态管理 (Store) - 变量原封不动！
 // ==========================================
 export const store = reactive({
-    isEntered: false, isDarkMode: false,
+    isEntered: false, currentModule: 'portal',isDarkMode: false,
     showUploadModal: false, uploadedFileName: '', isDragging: false,
     fileInfo: null, currentDataFile: '', selectedGroupVar: '', selectedVars: [],
     showPreview: false, showStats: false, showCharts: false, showAdvanced: false,

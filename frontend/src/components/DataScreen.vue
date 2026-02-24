@@ -97,9 +97,9 @@ const stopDrag = () => {
             </div>
           </div>
           <div class="banner-right">
-            <button @click="store.showExitConfirm = false" class="glass-btn secondary-btn small-btn">取消手滑</button>
-            <button @click="actions.confirmExitToMainMenu" class="glass-btn primary-btn danger-btn small-btn">🗑️ 确定退出</button>
-          </div>
+        <button @click="store.showExitConfirm = false" class="glass-btn secondary-btn small-btn">取消手滑</button>
+        <button @click="actions.confirmExitToMainMenu(); store.isEntered = true; store.currentModule = 'portal';" class="glass-btn primary-btn danger-btn small-btn">🗑️ 确定退出</button>
+      </div>
         </div>
       </transition>
     </div>

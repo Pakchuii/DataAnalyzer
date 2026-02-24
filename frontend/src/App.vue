@@ -3,7 +3,7 @@ import { onMounted, watch, ref, nextTick } from 'vue'
 import { store, actions } from './store.js'
 import Sidebar from './components/Sidebar.vue'
 import DataScreen from './components/DataScreen.vue'
-
+import DataEditor from './components/DataEditor.vue';
 const logContainer = ref(null);
 
 // ==========================================
@@ -256,7 +256,7 @@ watch(() => store.isDarkMode, (newVal) => {
             <h1 class="glow-title">DataAnalyzer Pro</h1>
             <p class="subtitle">集成统计分析与可视化表单数据处理系统</p>
             <p class="version">Version: 3.0 | 稳定版</p>
-            <button @click="store.isEntered = true" class="enter-btn">🚀 点击进入系统</button>
+            <button @click="store.isEntered = true; store.currentModule = 'portal'" class="enter-btn">🚀 点击进入系统</button>
             <div style="margin-top: 20px;">
               <button @click="store.showSettings = true" class="glass-btn secondary-btn" style="border-radius: 20px; font-weight: normal; font-size: 0.9rem;">
                 ⚙️ 系统设置 & 作者名片
@@ -267,11 +267,48 @@ watch(() => store.isDarkMode, (newVal) => {
       </transition>
 
       <transition name="fade">
-        <div v-if="store.isEntered" class="main-dashboard">
+
+        <div v-if="store.isEntered && store.currentModule === 'portal'" style="position: absolute; top:0; left:0; width:100%; height:100%; display:flex; justify-content:center; align-items:center; z-index: 20;">
+          <div class="glass-card" style="width: 850px; max-width: 90vw; padding: 50px; text-align: center; animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+            <h2 style="font-size: 2rem; margin-top: 0; margin-bottom: 10px; color: var(--text-color, inherit);">🌌 请选择您的工作空间</h2>
+            <p style="color: #888; margin-bottom: 40px;">DataAnalyzer 企业级数据架构 V2.0</p>
+
+            <div style="display:flex; gap: 30px; justify-content: center;">
+
+              <div class="glass-inner module-card" @click="store.currentModule = 'analysis'" style="flex:1; padding: 40px 20px; cursor: pointer; transition: all 0.3s; border-radius: 16px;">
+                <div style="font-size: 4.5rem; margin-bottom: 20px; text-shadow: 0 10px 20px rgba(0,0,0,0.2);">📊</div>
+                <h3 style="font-size: 1.4rem; color: #409eff; margin-bottom: 10px;">智能分析中台</h3>
+                <p style="color:#888; font-size:0.9rem; line-height: 1.6; padding: 0 15px;">提供全自动数据清洗、多维可视化展现、高阶统计检验与机器学习推理引擎。</p>
+                <div style="margin-top: 20px;"><span style="background: rgba(64,158,255,0.1); color: #409eff; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(64,158,255,0.3);">🟢 稳定运行中</span></div>
+              </div>
+
+              <div class="glass-inner module-card" @click="store.currentModule = 'management'" style="flex:1; padding: 40px 20px; cursor: pointer; transition: all 0.3s; border-radius: 16px;">
+                <div style="font-size: 4.5rem; margin-bottom: 20px; text-shadow: 0 10px 20px rgba(0,0,0,0.2);">🗄️</div>
+                <h3 style="font-size: 1.4rem; color: #fa8c16; margin-bottom: 10px;">数据管理引擎</h3>
+                <p style="color:#888; font-size:0.9rem; line-height: 1.6; padding: 0 15px;">提供底层数据的增删改查 (CRUD)、云端多表联查与持久化云端存储服务。</p>
+                <div style="margin-top: 20px;"><span style="background: rgba(250,140,22,0.1); color: #fa8c16; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(250,140,22,0.3);">🟢 引擎已激活</span></div>
+              </div>
+
+            </div>
+
+            <button @click="store.isEntered = false" class="glass-btn secondary-btn" style="margin-top: 40px; width: 200px; border-radius: 30px;">⬅️ 返回系统主页</button>
+          </div>
+        </div>
+      </transition>
+
+      <transition name="fade">
+        <div v-if="store.isEntered && store.currentModule === 'analysis'" class="main-dashboard">
           <Sidebar />
           <DataScreen />
         </div>
       </transition>
+
+      <transition name="fade">
+        <div v-if="store.isEntered && store.currentModule === 'management'" class="main-dashboard" style="padding: 0;">
+          <DataEditor style="width: 100%; height: 100%;" />
+        </div>
+      </transition>
+
     </div>
   </div>
 
