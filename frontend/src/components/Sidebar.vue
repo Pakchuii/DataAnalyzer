@@ -129,6 +129,10 @@ const radarTargetDropdownOpen = ref(false); // 雷达图具体个体
           {{ store.showML ? '⚡ 收起预测面板' : '⚡ 训练随机森林模型' }}
         </button>
 
+        <button v-if="store.showML" @click="store.predictData ? store.predictData = null : actions.runNewPrediction()" class="glass-btn action-btn" style="background: linear-gradient(135deg, #9254de, #409eff); color: white; margin-top: 10px; border: none; animation: fadeIn 0.4s ease;">
+          {{ store.predictData ? '⬆️ 收起预测结果' : '✨ 进行未知数据预测' }}
+        </button>
+
         <div class="divider" style="margin-top: 25px;"></div>
 
         <h4 style="color: #b37feb; display: flex; align-items: center; gap: 5px;">

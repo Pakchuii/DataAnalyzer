@@ -16,11 +16,11 @@ export const store = reactive({
     showManualModal: false, manualGrid: [],
     showAiSummary: false, aiSummaryText: [], showRadar: false, radarIdCol: '',
     radarOptions: [], selectedRadarTarget: '', radarResult: null,
-    mlTargetVar: '', mlFeatureVars: [], mlResult: null, showML: false,
+    mlTargetVar: '', mlFeatureVars: [], mlResult: null, showML: false, predictData: null,
     isMasked: false, preMaskedFile: '',
     showLogs: false, logs: [],
     showSettings: false, bgType: 'default', bgUrl: '', windowTint: '', glassOpacity: 0.65,
-    showExitConfirm: false,
+    showExitConfirm: false, showCleanReportModal: false,
 });
 
 export const actions = {}; // 核心：空壳对象

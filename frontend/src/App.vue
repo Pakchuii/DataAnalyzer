@@ -188,8 +188,67 @@ watch(() => store.isDarkMode, (newVal) => {
           <button @click="actions.submitManualGrid" class="glass-btn primary-btn" style="width: 250px; font-size: 1.2rem; padding: 12px; box-shadow: 0 4px 15px rgba(64,158,255,0.4);">🚀 提交并生成分析</button>
         </div>
       </div>
-    </div>
 
+
+    </div>
+<div v-if="store.showCleanReportModal" class="modal-overlay" style="z-index: 3200;">
+      <div class="glass-card" style="width: 800px; max-width: 90vw; padding: 30px; position: relative; animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+
+        <div style="display:flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(0,0,0,0.1); padding-bottom: 15px; margin-bottom: 25px;">
+          <h2 style="margin:0; color:#52c41a; display: flex; align-items: center; gap: 10px;">
+            ✨ 智能清洗诊断战报
+          </h2>
+          <button @click="store.showCleanReportModal = false" class="close-btn" style="font-size: 1.5rem; background:none; border:none; cursor:pointer;">✕</button>
+        </div>
+
+        <div style="display: flex; gap: 20px; margin-bottom: 25px;">
+          <div class="glass-inner" style="flex: 1; text-align: center; padding: 20px; border-top: 4px solid #409eff;">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">🛡️</div>
+            <div style="font-size: 0.95rem; color: #888; font-weight: bold;">扫描样本总数</div>
+            <div style="font-size: 2.2rem; color: #409eff; font-weight: bold;">{{ store.cleanResult.total_rows }} <span style="font-size: 1rem;">条</span></div>
+          </div>
+          <div class="glass-inner" style="flex: 1; text-align: center; padding: 20px; border-top: 4px solid #fa8c16;">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">🕳️</div>
+            <div style="font-size: 0.95rem; color: #888; font-weight: bold;">修复缺失空项</div>
+            <div style="font-size: 2.2rem; color: #fa8c16; font-weight: bold;">{{ store.cleanResult.total_missing }} <span style="font-size: 1rem;">处</span></div>
+          </div>
+          <div class="glass-inner" style="flex: 1; text-align: center; padding: 20px; border-top: 4px solid #f5222d;">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">✂️</div>
+            <div style="font-size: 0.95rem; color: #888; font-weight: bold;">拦截异常数值</div>
+            <div style="font-size: 2.2rem; color: #f5222d; font-weight: bold;">{{ store.cleanResult.total_outliers }} <span style="font-size: 1rem;">处</span></div>
+          </div>
+        </div>
+
+        <div v-if="store.cleanResult.total_missing === 0 && store.cleanResult.total_outliers === 0" style="text-align: center; padding: 30px; background: rgba(82, 196, 26, 0.05); border-radius: 12px; border: 1px dashed rgba(82, 196, 26, 0.4);">
+          <h3 style="color: #52c41a; margin-top: 0;">🎉 数据质量极佳，无需任何手术！</h3>
+          <p style="color: #666; margin-bottom: 0;">系统地毯式扫描后，未在数值特征中检测到缺失项或极端异常值 (3σ)，您的数据集非常健康。</p>
+        </div>
+
+        <div v-else class="glass-inner" style="padding: 20px 25px; max-height: 250px; overflow-y: auto;">
+          <h4 style="margin-top: 0; color: #555; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 10px;">🛠️ 系统底层处理清单：</h4>
+          <ul style="list-style-type: none; padding: 0; margin: 0; font-size: 0.95rem; line-height: 2;">
+            <template v-if="store.cleanResult.total_missing > 0">
+              <li v-for="(count, col) in store.cleanResult.missing_details" :key="'m'+col" style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.05); padding: 6px 0;">
+                <span><span style="color: #fa8c16; font-weight: bold; margin-right: 8px;">[填补空值]</span> 特征列 <b>{{ col }}</b></span>
+                <span style="color: #888;">成功插补 {{ count }} 项 <span style="font-size: 0.8rem;">(均值算法)</span></span>
+              </li>
+            </template>
+            <template v-if="store.cleanResult.total_outliers > 0">
+              <li v-for="(count, col) in store.cleanResult.outliers_details" :key="'o'+col" style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.05); padding: 6px 0;">
+                <span><span style="color: #f5222d; font-weight: bold; margin-right: 8px;">[裁剪异常]</span> 特征列 <b>{{ col }}</b></span>
+                <span style="color: #888;">成功拦截 {{ count }} 项 <span style="font-size: 0.8rem;">(3σ 边界拦截)</span></span>
+              </li>
+            </template>
+          </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 25px;">
+          <button @click="store.showCleanReportModal = false" class="glass-btn primary-btn" style="width: 280px; font-size: 1.15rem; padding: 12px; background: linear-gradient(135deg, #52c41a, #389e0d); box-shadow: 0 4px 15px rgba(82, 196, 26, 0.4); border: none;">
+            ✅ 阅毕，开始探索数据
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="app-wrapper" :class="{ 'blur-bg': store.showUploadModal || store.dialog.show || store.showManualModal }">
       <transition name="fade">
         <div v-if="!store.isEntered" class="welcome-screen">

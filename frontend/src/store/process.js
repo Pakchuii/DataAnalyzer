@@ -21,6 +21,10 @@ export function setupProcess(store, actions) {
                     store.cleanResult = res.data.data;
                     store.currentDataFile = res.data.data.cleaned_filename;
                     store.showPreview = false;
+
+                    // 🚀 核心新增：打开清洗战报大弹窗！
+                    store.showCleanReportModal = true;
+
                     actions.addLog(`清洗完成: 生成新文件 ${store.currentDataFile}`, "success");
                 }
             } catch (err) {

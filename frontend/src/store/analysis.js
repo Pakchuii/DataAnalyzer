@@ -62,16 +62,42 @@ export function setupAnalysis(store, actions) {
                 if (res.data.status === 'success') { store.chartsData = res.data.data; store.visActiveVars = [...store.selectedVars]; store.showCharts = true; store.showVisControl = true; }
             } catch (error) {}
         },
-        renderCharts() {
+       renderCharts() {
             const initChart = (domId, options) => {
                 const dom = document.getElementById(domId);
                 if (dom) { let chart = echarts.getInstanceByDom(dom) || echarts.init(dom); chart.clear(); chart.setOption({...options, animation: true}); }
             };
+
+            // 统一的赛博黑玻璃 Tooltip 样式
+            const glassTooltip = {
+                trigger: 'item',
+                backgroundColor: 'rgba(20, 20, 25, 0.85)',
+                borderColor: 'rgba(255, 255, 255, 0.2)',
+                borderWidth: 1,
+                textStyle: { color: '#fff', fontSize: 13 },
+                backdropFilter: 'blur(4px)'
+            };
+
             store.chartsData.filter(item => store.visActiveVars.includes(item.variable)).forEach(item => {
-                initChart(`hist-${item.variable}`, { title: { text: `${item.variable} - 分布`, left: 'center' }, xAxis: { type: 'category', data: item.histogram.categories }, yAxis: { type: 'value' }, series: [{ data: item.histogram.series, type: 'bar', itemStyle: {color: '#5470c6'} }] });
-                initChart(`box-${item.variable}`, { title: { text: `${item.variable} - 箱线图`, left: 'center' }, xAxis: { type: 'category', data: [item.variable] }, yAxis: { type: 'value', scale: true }, series: [{ type: 'boxplot', data: [item.boxplot], itemStyle: {color: '#fac858'} }] });
+                // 直方图 (加上了 tooltip)
+                initChart(`hist-${item.variable}`, {
+                    title: { text: `${item.variable} - 分布`, left: 'center' },
+                    tooltip: { ...glassTooltip, formatter: '{b} <br/> 频数: <b>{c}</b>' },
+                    xAxis: { type: 'category', data: item.histogram.categories },
+                    yAxis: { type: 'value' },
+                    series: [{ data: item.histogram.series, type: 'bar', itemStyle: {color: '#5470c6'} }]
+                });
+
+                // 箱线图 (加上了 tooltip)
+                initChart(`box-${item.variable}`, {
+                    title: { text: `${item.variable} - 箱线图`, left: 'center' },
+                    tooltip: { ...glassTooltip, formatter: (p) => `${p.name}<br/>最大值: ${p.data[5]}<br/>3/4分位: ${p.data[4]}<br/>中位数: ${p.data[3]}<br/>1/4分位: ${p.data[2]}<br/>最小值: ${p.data[1]}` },
+                    xAxis: { type: 'category', data: [item.variable] },
+                    yAxis: { type: 'value', scale: true },
+                    series: [{ type: 'boxplot', data: [item.boxplot], itemStyle: {color: '#fac858'} }]
+                });
             });
-            actions.addLog("ECharts 引擎渲染完成！", "success");
+            actions.addLog("ECharts 引擎渲染完成 (Tooltip 悬浮已激活)！", "success");
         }
     };
 }

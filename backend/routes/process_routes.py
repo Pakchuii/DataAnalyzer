@@ -19,6 +19,7 @@ def preview_data():
         traceback.print_exc()
         return jsonify({"status": "error", "message": str(e)}), 500
 
+
 @process_bp.route('/api/clean', methods=['POST'])
 def clean_data():
     try:
@@ -26,28 +27,58 @@ def clean_data():
         df = read_df(os.path.join(UPLOAD_FOLDER, filename))
         numeric_cols = df.select_dtypes(include=['number']).columns
 
+        # 🚀 新增：战报数据收集器
+        total_rows = len(df)
+        missing_info = {}
+        outliers_info = {}
+        total_missing = 0
+        total_outliers = 0
+
         if len(numeric_cols) > 0:
+            # 1. 扫描缺失值 (空项)
+            for col in numeric_cols:
+                null_count = int(df[col].isnull().sum())
+                if null_count > 0:
+                    missing_info[col] = null_count
+                    total_missing += null_count
+
+            # 执行填补
             df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].mean())
-            outliers_handled = 0
+
+            # 2. 扫描异常值 (断档/离谱项)
             for col in numeric_cols:
                 mean = df[col].mean()
                 std = df[col].std()
-                # 【核心修复2】：防止小样本数据导致标准差计算出 NaN
-                if pd.isna(std):
-                    std = 0
+                if pd.isna(std): std = 0
                 lower_bound = mean - 3 * std
                 upper_bound = mean + 3 * std
-                outliers_handled += int(((df[col] < lower_bound) | (df[col] > upper_bound)).sum())
+
+                # 计算超出 3σ 边界的数量
+                outlier_count = int(((df[col] < lower_bound) | (df[col] > upper_bound)).sum())
+                if outlier_count > 0:
+                    outliers_info[col] = outlier_count
+                    total_outliers += outlier_count
+
+                # 执行裁剪
                 df[col] = df[col].clip(lower=lower_bound, upper=upper_bound)
-        else:
-            outliers_handled = 0
 
         cleaned_filename = f"cleaned_{filename.split('.')[0]}.csv"
         df.to_csv(os.path.join(UPLOAD_FOLDER, cleaned_filename), index=False, encoding='utf-8-sig')
 
-        return jsonify({"status": "success", "message": "清洗完成", "data": {"cleaned_filename": cleaned_filename, "outliers_handled": outliers_handled}})
+        # 🚀 将详尽的战报传给前端
+        return jsonify({
+            "status": "success",
+            "message": "清洗完成",
+            "data": {
+                "cleaned_filename": cleaned_filename,
+                "total_rows": total_rows,
+                "total_missing": total_missing,
+                "missing_details": missing_info,
+                "total_outliers": total_outliers,
+                "outliers_details": outliers_info
+            }
+        })
     except Exception as e:
-        # 【核心修复3】：让后端控制台打印出极其详细的报错原因
         traceback.print_exc()
         return jsonify({"status": "error", "message": str(e)}), 500
 

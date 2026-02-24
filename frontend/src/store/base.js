@@ -31,6 +31,7 @@ export function setupBase(store, actions) {
             store.radarIdCol = ''; store.radarOptions = []; store.selectedRadarTarget = '';
             store.radarResult = null; store.isMasked = false; store.mlTargetVar = '';
             store.mlFeatureVars = []; store.mlResult = null; store.showML = false;
+            store.showCleanReportModal = false;
         }
     };
 }

@@ -8,11 +8,15 @@ import { watch, nextTick, ref, onMounted } from 'vue'
 
 // AI 报告的打字机特效
 const typedText = ref([]);
+const isTyping = ref(false); // 🚀 新增：用来记录是否还在打字
 let typeInterval = null;
+
 watch(() => store.showAiSummary, (newVal) => {
   if (newVal && store.aiSummaryText.length > 0) {
     typedText.value = [];
+    isTyping.value = true; // 🚀 开始打字，显示光标
     let lineIndex = 0, charIndex = 0;
+
     if (typeInterval) clearInterval(typeInterval);
     typeInterval = setInterval(() => {
       if (lineIndex < store.aiSummaryText.length) {
@@ -21,9 +25,15 @@ watch(() => store.showAiSummary, (newVal) => {
           if (!typedText.value[lineIndex]) typedText.value[lineIndex] = '';
           typedText.value[lineIndex] += currentLine[charIndex];
           charIndex++;
-        } else { lineIndex++; charIndex = 0; }
-      } else { clearInterval(typeInterval); }
-    }, 30);
+        } else {
+          lineIndex++;
+          charIndex = 0;
+        }
+      } else {
+        clearInterval(typeInterval);
+        isTyping.value = false; // 🚀 打字结束，隐藏光标！
+      }
+    }, 30); // 如果你觉得打字太慢，可以把这里的 30 改成 15
   }
 });
 
@@ -101,13 +111,16 @@ const stopDrag = () => {
         <p>请在左侧点击按钮开启对应面板</p>
       </div>
 
-      <div v-if="store.showAiSummary" class="glass-card result-panel ai-panel">
+   <div v-if="store.showAiSummary" class="glass-card result-panel ai-panel">
         <div class="panel-header">
           <h3 class="panel-title" style="color:#b37feb;">🤖 数据解读报告</h3>
         </div>
         <div class="ai-content">
-          <p v-for="(line, index) in typedText" :key="index" v-html="line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')"></p>
-          <span class="cursor">|</span>
+          <p v-for="(line, index) in typedText" :key="index">
+            <span v-html="line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')"></span>
+
+            <span v-if="isTyping && index === typedText.length - 1" class="cursor">|</span>
+          </p>
         </div>
       </div>
 
@@ -239,8 +252,9 @@ const stopDrag = () => {
         </div>
       </div>
 
-      <div v-if="store.showML" class="result-panel glass-card scale-in mt-3">
-        <h3 class="panel-title" style="color: #722ed1;">🤖 机器学习预测模型 (Random Forest)</h3>
+     <div v-if="store.showML" class="result-panel glass-card scale-in mt-3">
+        <h3 class="panel-title" style="color: #722ed1; margin-bottom: 15px;">🤖 机器学习预测模型 (Random Forest)</h3>
+
         <div style="display: flex; gap: 15px; margin-bottom: 20px;">
           <div class="glass-inner" style="flex: 1; text-align: center; padding: 15px;">
             <div style="font-size: 0.9rem; color: #888;">模型拟合优度 (R² Score)</div>
@@ -253,10 +267,39 @@ const stopDrag = () => {
             <div style="font-size: 0.75rem; color: #aaa;">预测误差的平均水平</div>
           </div>
         </div>
-        <div class="chart-grid">
-          <div id="ml-importance-chart" class="chart-box glass-inner" style="height: 350px;"></div>
-          <div id="ml-scatter-chart" class="chart-box glass-inner" style="height: 350px;"></div>
+
+        <div class="chart-grid" key="original-ml-charts">
+          <div id="ml-importance-chart" class="chart-box glass-inner" style="height: 350px !important; min-height: 350px !important; max-height: 350px !important;"></div>
+          <div id="ml-scatter-chart" class="chart-box glass-inner" style="height: 350px !important; min-height: 350px !important; max-height: 350px !important;"></div>
         </div>
+
+        <transition name="expand-down">
+          <div v-if="store.predictData" class="predict-expand-wrapper">
+            <div style="margin-top: 25px; padding-top: 25px; border-top: 1px dashed rgba(0,0,0,0.1);">
+              <h4 style="color: #9254de; margin-top: 0; margin-bottom: 15px;">✨ 未知数据推理结果</h4>
+
+              <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                <div class="glass-inner" style="flex: 1; text-align: center; padding: 10px;">
+                  <div style="font-size: 0.85rem; color: #888;">平均预测置信度</div>
+                  <div style="font-size: 1.8rem; color: #52c41a; font-weight: bold;">{{ store.predictData.confidence }}<span style="font-size: 1rem;">%</span></div>
+                </div>
+                <div class="glass-inner" style="flex: 1; text-align: center; padding: 10px;">
+                  <div style="font-size: 0.85rem; color: #888;">测试样本量</div>
+                  <div style="font-size: 1.8rem; color: #1890ff; font-weight: bold;">{{ store.predictData.sampleSize }}<span style="font-size: 1rem;">条</span></div>
+                </div>
+              </div>
+
+              <div id="new-predict-chart" class="chart-box glass-inner" style="height: 300px !important; min-height: 300px !important; width: 100%;"></div>
+
+              <div style="margin-top: 15px; padding: 18px; background: rgba(114, 46, 209, 0.08); border-left: 4px solid #722ed1; border-radius: 0 8px 8px 0; animation: fadeIn 0.8s ease;">
+                <h5 style="color: #9254de; margin: 0 0 8px 0; font-size: 1rem; display: flex; align-items: center; gap: 6px;">
+                  💡 智能图表解读：
+                </h5>
+                <div style="font-size: 0.95rem; line-height: 1.6; opacity: 0.85;" v-html="store.predictData.insight.replace(/\*\*(.*?)\*\*/g, '<strong style=\'color: #722ed1;\'>$1</strong>')"></div>
+              </div>
+            </div>
+          </div>
+        </transition>
       </div>
 
     </main>
