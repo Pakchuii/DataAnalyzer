@@ -1,5 +1,5 @@
 /* =========================================
-   1. 全局基础配置与包裹器
+   【全局样式规范】：CSS3 原生变量注入与 Flexbox 大屏布局
 ========================================= */
 .app-global-wrapper {
     position: relative;
@@ -138,53 +138,25 @@
 
 .modal-content { padding: 40px; text-align: center; max-width: 450px; animation: slideUp 0.3s ease; }
 
-/* --- 5.1 系统设置与作者名片面板 --- */
 .settings-modal-container {
     width: 800px; max-width: 90vw; height: 500px;
     padding: 0; position: relative; overflow: hidden; display: flex;
 }
 .modal-close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    z-index: 50;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-
-    /* 核心修复：强制干掉浏览器原生按钮的任何边框和阴影 */
-    background: rgba(0, 0, 0, 0.08) !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #888;
-    font-size: 1.1rem;
-    cursor: pointer;
-    /* 加入丝滑的旋转动画曲线 */
+    position: absolute; top: 15px; right: 15px; z-index: 50; width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(0, 0, 0, 0.08) !important; border: none !important; outline: none !important; box-shadow: none !important;
+    display: flex; align-items: center; justify-content: center; color: #888; font-size: 1.1rem; cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .modal-close-btn:hover {
-    background: #f5222d !important;
-    color: white !important;
-    /* 鼠标放上去时，红色背景 + 微小阴影 + 优雅的顺时针旋转 90 度 */
-    transform: rotate(90deg);
-    box-shadow: 0 4px 12px rgba(245, 34, 45, 0.4) !important;
+    background: #f5222d !important; color: white !important;
+    transform: rotate(90deg); box-shadow: 0 4px 12px rgba(245, 34, 45, 0.4) !important;
 }
 
-/* 黑夜模式深度适配 */
-.dark-mode .modal-close-btn {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #ccc;
-}
-.dark-mode .modal-close-btn:hover {
-    background: #f5222d !important;
-    color: white !important;
-}
+.dark-mode .modal-close-btn { background: rgba(255, 255, 255, 0.1) !important; color: #ccc; }
+.dark-mode .modal-close-btn:hover { background: #f5222d !important; color: white !important; }
+
 .settings-layout { display: flex; width: 100%; height: 100%; }
 
 .author-profile-card {
@@ -216,13 +188,11 @@
 .default-color { background: conic-gradient(#f0f2f5, #1a1a2e); }
 .version-info { font-size: 0.8rem; color: #888; line-height: 1.8; background: rgba(0,0,0,0.03); padding: 15px; border-radius: 8px; text-align: center; }
 
-/* --- 5.2 苹果风无极滑动条 (Slider) --- */
 .custom-slider { flex: 1; -webkit-appearance: none; width: 100%; height: 6px; background: rgba(0, 0, 0, 0.1); border-radius: 5px; outline: none; transition: background 0.3s; }
 .dark-mode .custom-slider { background: rgba(255, 255, 255, 0.2); }
 .custom-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #ffffff; border: 2px solid #409eff; cursor: grab; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); transition: transform 0.1s; }
 .custom-slider::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.2); background: #409eff; }
 
-/* --- 5.3 在线表格编辑器专用样式 --- */
 .edit-input { width: 100%; box-sizing: border-box; background: transparent; border: none; text-align: center; font-size: 1rem; color: inherit; padding: 12px 8px; outline: none; transition: background 0.2s; }
 .edit-input:focus { background: rgba(255, 255, 255, 0.5); }
 .head-input { font-weight: bold; color: #333; }
@@ -255,7 +225,7 @@
 .blinking-cursor { display: inline-block; width: 8px; height: 12px; background: #4af626; animation: blink 1s step-end infinite; margin-top: 5px; }
 
 /* =========================================
-   7. 动画与关键帧
+   7. 动画引擎
 ========================================= */
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
@@ -263,7 +233,6 @@
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* V2.0 枢纽卡片悬停特效 */
 .module-card:hover {
     transform: translateY(-10px);
     background: rgba(255, 255, 255, 0.7) !important;

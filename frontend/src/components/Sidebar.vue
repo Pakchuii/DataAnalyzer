@@ -2,10 +2,10 @@
 import { store, actions } from '../store.js'
 import { ref } from 'vue'
 
-const ttestDropdownOpen = ref(false);       // t检验分组
-const mlDropdownOpen = ref(false);          // 机器学习目标
-const radarIdDropdownOpen = ref(false);     // 雷达图身份
-const radarTargetDropdownOpen = ref(false); // 雷达图具体个体
+const ttestDropdownOpen = ref(false);       // t检验分组下拉池
+const mlDropdownOpen = ref(false);          // 机器学习目标特征池
+const radarIdDropdownOpen = ref(false);     // 雷达图身份锚点池
+const radarTargetDropdownOpen = ref(false); // 雷达图具体查询实例池
 </script>
 
 <template>

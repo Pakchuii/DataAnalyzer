@@ -1,9 +1,9 @@
 /* =========================================
-   1. 侧边栏主容器与滚动条
+   【左侧控制台组件样式规范】：绝对禁止压缩 (Flex Shrink 防御)
 ========================================= */
 .sidebar {
     width: 380px;
-    flex-shrink: 0; /* 绝对禁止侧边栏被主内容区挤压变窄 */
+    flex-shrink: 0; /* 绝对禁止侧边栏被主内容区挤压变窄，维持系统骨架稳定性 */
     padding: 25px;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@
 }
 
 /* =========================================
-   2. 文件上传区域 (拖拽态与成功态)
+   2. 文件上传区域 (基于拖拽行为响应式变色)
 ========================================= */
 .upload-area {
     border: 2px dashed rgba(0, 0, 0, 0.2); border-radius: 12px;
@@ -35,7 +35,7 @@
 .file-name-text { font-size: 0.85rem; word-break: break-all; opacity: 0.8; margin-top: 5px; }
 
 /* =========================================
-   3. 侧边栏按钮与操作网格
+   3. 动作分发按钮矩阵 (Action Grid)
 ========================================= */
 .glass-btn { width: 100%; padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(4px); }
 .primary-btn { background: rgba(230, 162, 60, 0.9); color: white; }
@@ -52,7 +52,7 @@
 .danger-btn:hover { background: rgba(245, 108, 108, 1); }
 .danger-btn:disabled { background: rgba(245, 108, 108, 0.4); cursor: not-allowed; transform: none; }
 
-/* 核心特殊按钮 */
+/* 核心特效按键 */
 .ai-magic-btn { background: linear-gradient(90deg, #b37feb, #ff85c0); color: white; margin-bottom: 15px; }
 .ai-magic-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(179, 127, 235, 0.5); filter: brightness(1.1); }
 .pdf-export-btn { background: linear-gradient(90deg, #ff7a45, #ff4d4f); color: white; margin-bottom: 15px; font-weight: bold; border: none; box-shadow: 0 4px 15px rgba(255, 77, 79, 0.4); }
@@ -64,7 +64,7 @@
 .log-toggle-btn:hover { transform: translateY(-2px); background: rgba(82, 196, 26, 0.15); box-shadow: 0 4px 12px rgba(82, 196, 26, 0.2); }
 
 /* =========================================
-   4. 表单控件与工具类
+   4. 表单多选器 (Checkbox Matrix)
 ========================================= */
 .checkbox-group { display: flex; flex-wrap: wrap; gap: 8px; }
 .checkbox-label { padding: 6px 12px; background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: border-color 0.2s; }
@@ -76,13 +76,13 @@ h4 { margin: 0 0 10px 0; font-size: 1rem; }
 .success-text { color: #52c41a; font-weight: bold; }
 
 /* =========================================
-   5. 手搓丝滑下拉框组件 (核心黑科技区)
+   5. 【架构黑科技】：手搓原生防内存泄漏下拉框 (Dropdown Wrapper)
 ========================================= */
 .custom-dropdown-container { position: relative; width: 100%; }
 
 .custom-select-box {
     width: 100%;
-    height: 38px; /* 死锁高度！绝对不允许因为换行变高 */
+    height: 38px; /* 强制死锁高度！绝对不允许因为内部数据极长而破坏整体排版 */
     padding: 0 12px; border-radius: 8px; border: 1px solid rgba(0, 0, 0, 0.1);
     background: rgba(255, 255, 255, 0.6); cursor: pointer; display: flex;
     justify-content: space-between; align-items: center; font-size: 0.9rem; transition: all 0.3s; box-sizing: border-box;
@@ -90,11 +90,10 @@ h4 { margin: 0 0 10px 0; font-size: 1rem; }
 .custom-select-box:hover { border-color: #409eff; }
 .custom-select-box.disabled { opacity: 0.6; cursor: not-allowed; background: rgba(0, 0, 0, 0.05); }
 
-/* 强制内部文字单行截断，打破 Flexbox 最小宽度限制 */
+/* 强制单行截断，配合 Flexbox 保护箭头图标 */
 .custom-select-box span:first-child {
     flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left;
 }
-/* 保护右侧小箭头绝对不被挤压 */
 .custom-select-box .arrow { flex-shrink: 0; margin-left: 8px; font-size: 0.7rem; transition: transform 0.3s ease; color: #888; }
 
 .custom-options-list {
@@ -103,11 +102,11 @@ h4 { margin: 0 0 10px 0; font-size: 1rem; }
 }
 .custom-option {
     padding: 8px 15px; cursor: pointer; transition: background 0.2s; font-size: 0.9rem;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* 列表内的文字也不允许换行 */
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .custom-option:hover { background: rgba(64, 158, 255, 0.15); }
 .custom-option.selected { color: #409eff; font-weight: bold; background: rgba(64, 158, 255, 0.05); }
 
-/* 下拉滑动动画 */
+/* 下拉滑动过渡动画 (Transition hook) */
 .dropdown-slide-enter-active, .dropdown-slide-leave-active { transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); transform-origin: top; }
 .dropdown-slide-enter-from, .dropdown-slide-leave-to { opacity: 0; transform: scaleY(0.8); }

@@ -4,19 +4,18 @@ import { store, actions } from './store.js'
 import Sidebar from './components/Sidebar.vue'
 import DataScreen from './components/DataScreen.vue'
 import DataEditor from './components/DataEditor.vue';
+
 const logContainer = ref(null);
 
 // ==========================================
-// 生命周期与监听器 (Lifecycle & Watchers)
+// 【组件生命周期钩子】：挂载时激活主题引擎与本地缓存水化
 // ==========================================
-
-// 初始化：自动深浅色模式与本地设置
 onMounted(() => {
   actions.initTheme();
   actions.initSettings();
 });
 
-// 监听：日志自动滚动到底部
+// 【视图响应式监听】：终端日志更新时，强制触发微任务实现平滑滚动至底部
 watch(() => store.logs.length, async () => {
   if (store.showLogs) {
     await nextTick();
@@ -26,7 +25,7 @@ watch(() => store.logs.length, async () => {
   }
 });
 
-// ================= 监听：全局深色模式切换 =================
+// 【视图响应式监听】：全局深色模式调度拦截
 watch(() => store.isDarkMode, (newVal) => {
   if (newVal) {
     document.body.classList.add('dark-mode');
@@ -35,15 +34,13 @@ watch(() => store.isDarkMode, (newVal) => {
     document.body.classList.remove('dark-mode');
     actions.addLog("👉 界面已切换至【白天模式】", "info");
   }
-
-  // 【核心修复】：无论切到白天还是黑夜，强制唤醒色彩引擎重新渲染玻璃底色！
+  // 无论切到白天还是黑夜，强制唤醒色彩引擎重新合成 CSS 变量
   actions.applyThemeColor();
 });
 </script>
 
 <template>
-  <div :class="{ 'dark-mode': store.isDarkMode }"
-       class="app-global-wrapper">
+  <div :class="{ 'dark-mode': store.isDarkMode }" class="app-global-wrapper">
 
     <div class="video-background">
       <video v-if="store.bgType === 'default'" :key="store.isDarkMode ? 'dark' : 'light'" autoplay loop muted playsinline class="bg-video">
@@ -188,19 +185,14 @@ watch(() => store.isDarkMode, (newVal) => {
           <button @click="actions.submitManualGrid" class="glass-btn primary-btn" style="width: 250px; font-size: 1.2rem; padding: 12px; box-shadow: 0 4px 15px rgba(64,158,255,0.4);">🚀 提交并生成分析</button>
         </div>
       </div>
-
-
     </div>
-<div v-if="store.showCleanReportModal" class="modal-overlay" style="z-index: 3200;">
-      <div class="glass-card" style="width: 800px; max-width: 90vw; padding: 30px; position: relative; animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
 
+    <div v-if="store.showCleanReportModal" class="modal-overlay" style="z-index: 3200;">
+      <div class="glass-card" style="width: 800px; max-width: 90vw; padding: 30px; position: relative; animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
         <div style="display:flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(0,0,0,0.1); padding-bottom: 15px; margin-bottom: 25px;">
-          <h2 style="margin:0; color:#52c41a; display: flex; align-items: center; gap: 10px;">
-            ✨ 智能清洗诊断战报
-          </h2>
+          <h2 style="margin:0; color:#52c41a; display: flex; align-items: center; gap: 10px;">✨ 智能清洗诊断战报</h2>
           <button @click="store.showCleanReportModal = false" class="close-btn" style="font-size: 1.5rem; background:none; border:none; cursor:pointer;">✕</button>
         </div>
-
         <div style="display: flex; gap: 20px; margin-bottom: 25px;">
           <div class="glass-inner" style="flex: 1; text-align: center; padding: 20px; border-top: 4px solid #409eff;">
             <div style="font-size: 2.5rem; margin-bottom: 10px;">🛡️</div>
@@ -249,6 +241,7 @@ watch(() => store.isDarkMode, (newVal) => {
         </div>
       </div>
     </div>
+
     <div class="app-wrapper" :class="{ 'blur-bg': store.showUploadModal || store.dialog.show || store.showManualModal }">
       <transition name="fade">
         <div v-if="!store.isEntered" class="welcome-screen">
@@ -267,14 +260,12 @@ watch(() => store.isDarkMode, (newVal) => {
       </transition>
 
       <transition name="fade">
-
         <div v-if="store.isEntered && store.currentModule === 'portal'" style="position: absolute; top:0; left:0; width:100%; height:100%; display:flex; justify-content:center; align-items:center; z-index: 20;">
           <div class="glass-card" style="width: 850px; max-width: 90vw; padding: 50px; text-align: center; animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
             <h2 style="font-size: 2rem; margin-top: 0; margin-bottom: 10px; color: var(--text-color, inherit);">🌌 请选择您的工作空间</h2>
             <p style="color: #888; margin-bottom: 40px;">DataAnalyzer 企业级数据架构 V2.0</p>
 
             <div style="display:flex; gap: 30px; justify-content: center;">
-
               <div class="glass-inner module-card" @click="store.currentModule = 'analysis'" style="flex:1; padding: 40px 20px; cursor: pointer; transition: all 0.3s; border-radius: 16px;">
                 <div style="font-size: 4.5rem; margin-bottom: 20px; text-shadow: 0 10px 20px rgba(0,0,0,0.2);">📊</div>
                 <h3 style="font-size: 1.4rem; color: #409eff; margin-bottom: 10px;">智能分析中台</h3>
@@ -288,7 +279,6 @@ watch(() => store.isDarkMode, (newVal) => {
                 <p style="color:#888; font-size:0.9rem; line-height: 1.6; padding: 0 15px;">提供底层数据的增删改查 (CRUD)、云端多表联查与持久化云端存储服务。</p>
                 <div style="margin-top: 20px;"><span style="background: rgba(250,140,22,0.1); color: #fa8c16; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(250,140,22,0.3);">🟢 引擎已激活</span></div>
               </div>
-
             </div>
 
             <button @click="store.isEntered = false" class="glass-btn secondary-btn" style="margin-top: 40px; width: 200px; border-radius: 30px;">⬅️ 返回系统主页</button>
@@ -308,7 +298,6 @@ watch(() => store.isDarkMode, (newVal) => {
           <DataEditor style="width: 100%; height: 100%;" />
         </div>
       </transition>
-
     </div>
   </div>
 

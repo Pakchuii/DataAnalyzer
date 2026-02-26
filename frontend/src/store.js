@@ -2,7 +2,9 @@
 import { reactive } from 'vue'
 
 // ==========================================
-// 全局状态管理 (Store) - 变量原封不动！
+// 【架构设计：单一数据源 (Single Source of Truth)】
+// 采用 Vue3 reactive 构建全局响应式状态树。将零散的组件内部状态抽离，
+// 彻底解决多层级组件间 props 钻取 (Prop Drilling) 的跨组件通信难题。
 // ==========================================
 export const store = reactive({
     isEntered: false, currentModule: 'portal',isDarkMode: false,
@@ -23,9 +25,11 @@ export const store = reactive({
     showExitConfirm: false, showCleanReportModal: false,
 });
 
-export const actions = {}; // 核心：空壳对象
+// 【架构设计：动作派发总线 (Action Dispatcher)】
+// 定义空壳 actions 对象，强制规范“视图只负责渲染，逻辑交由 actions 处理”的单向数据流原则。
+export const actions = {};
 
-// 引入所有被拆分的模块
+// 引入所有被拆分的底层业务模块
 import { setupBase } from './store/base.js'
 import { setupSettings } from './store/settings.js'
 import { setupFile } from './store/file.js'
@@ -34,8 +38,9 @@ import { setupAnalysis } from './store/analysis.js'
 import { setupIntel } from './store/intel.js'
 import { setupExporter } from './store/exporter.js'
 
-// 【黑科技】：把七个部门的所有动作，全部挂载到 actions 身上！
-// 组件里依然是 actions.addLog(), 完美向下兼容！
+// 【黑科技：基于对象的动态混入 (Mixin) 挂载机制】
+// 将拆分在 7 个不同 JS 文件中的底层业务逻辑，动态聚合并注入到全局 actions 中，
+// 极大提升了代码的可维护性与模块的独立测试性。
 Object.assign(
     actions,
     setupBase(store, actions),

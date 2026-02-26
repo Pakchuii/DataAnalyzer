@@ -1,5 +1,5 @@
 /* =========================================
-   1. 大屏主布局与滚动条
+   【主大屏容器】：柔性 Flexbox 排版与 GPU 滑动条优化
 ========================================= */
 .content-area {
     flex: 1; display: flex; flex-direction: column; gap: 20px;
@@ -11,26 +11,26 @@
 
 .empty-state { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0.7; }
 
-/* 通用面板与表头 */
+/* 通用面板容器 */
 .result-panel { padding: 25px; animation: fadeIn 0.4s ease; }
 .panel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(0, 0, 0, 0.1); margin-bottom: 15px; padding-bottom: 10px; }
 .panel-title { margin: 0; border: none; padding: 0; }
 
 /* =========================================
-   2. 数据表格与图表网格
+   2. 全局通用数据渲染网格
 ========================================= */
 .table-responsive { overflow-x: auto; max-height: 400px; }
 .glass-table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.9rem; }
 .glass-table th, .glass-table td { padding: 10px; border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
 .glass-table th { background: rgba(255, 255, 255, 0.3); font-weight: bold; position: sticky; top: 0; backdrop-filter: blur(10px); z-index: 2; transition: z-index 0.2s; }
 .glass-table tr:hover { background: rgba(255, 255, 255, 0.5); }
-.glass-table th:hover { z-index: 10 !important; /* 修复 Tooltip 互相遮挡层叠暗病 */ }
+.glass-table th:hover { z-index: 10 !important; /* 修复 Tooltip 层级溢出覆盖问题 */ }
 
 .chart-grid { display: flex; gap: 20px; }
 .chart-box { flex: 1; height: 350px; padding: 10px; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02); }
 
 /* =========================================
-   3. 特殊交互组件 (拖拽悬浮窗、AI 打字机)
+   3. 特殊动态组件 (浮窗拖拽拦截系统、AI 打字机)
 ========================================= */
 .drag-modal { position: fixed; width: 300px; z-index: 2000; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); padding: 0; overflow: hidden; }
 .drag-header { background: rgba(0, 0, 0, 0.05); padding: 12px 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; cursor: grab; border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
@@ -44,7 +44,7 @@
 .cursor { display: inline-block; width: 2px; background-color: #b37feb; animation: blink 1s infinite; margin-left: 5px; }
 
 /* =========================================
-   4. 退出系统组件 (折角按钮与顶部横幅)
+   4. 安全退场拦截机制组件
 ========================================= */
 .exit-corner-btn {
     position: absolute; top: 0; right: 0; width: 30px; height: 30px; background: rgba(245, 34, 45, 0.15);
@@ -68,7 +68,7 @@
 .small-btn { padding: 8px 16px; font-size: 0.85rem; font-weight: normal; }
 
 /* =========================================
-   5. 数据术语悬浮提示窗 (Tooltip) 完美向下展开版
+   5. 数据术语下展提示窗 (Tooltip Dropdown Hook)
 ========================================= */
 .help-tip { position: relative; cursor: help; display: inline-block; color: inherit; }
 .help-tip::after {
@@ -81,7 +81,7 @@
 .help-tip:hover::after { opacity: 1; top: 120%; }
 
 /* =========================================
-   6. 通用组件与工具类
+   6. 基础原子组件
 ========================================= */
 .glass-btn { border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(4px); }
 .primary-btn { background: rgba(64, 158, 255, 0.9); color: white; }
@@ -105,18 +105,18 @@
 .dark-mode .warning-text-box p { color: #bbb; }
 .dark-mode .glass-card p { color: #ccc !important; }
 
-/* 动画系统 */
+/* 动画转场核心 */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .banner-slide-enter-active, .banner-slide-leave-active { transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .banner-slide-enter-from, .banner-slide-leave-to { opacity: 0; transform: translate(-50%, -150%); }
 
 /* =========================================
-   8. 预测面板平滑展开动画 (Accordion Dropdown)
+   8. 算法容器级联推拉动效 (Accordion Dropdown)
 ========================================= */
 .expand-down-enter-active,
 .expand-down-leave-active {
     transition: max-height 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
-    max-height: 800px; /* 预留足够的高度给抽屉展开 */
+    max-height: 800px; /* 强制锁定边界防止推拉导致的抖动 */
     opacity: 1;
     overflow: hidden;
 }

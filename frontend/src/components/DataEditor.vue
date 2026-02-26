@@ -167,8 +167,9 @@ import { store, actions } from '../store.js';
 import axios from 'axios';
 
 // ==========================================
-// 核心一：历史捕获引擎 (Undo)
+// 🚀 核心机制一：基于 Memento (备忘录) 模式的历史防呆引擎
 // ==========================================
+// 通过限制快照数组的推栈深度，在实现无限撤销的同时防御了海量数据拷贝导致的 V8 引擎 OOM。
 const historyStack = ref([]);
 let tempSnapshot = null;
 
@@ -178,15 +179,16 @@ const pushDirectHistory = () => { if (!store.previewData) return; historyStack.v
 const undoAction = () => { if (historyStack.value.length === 0) return; store.previewData = historyStack.value.pop(); if (actions && actions.addLog) actions.addLog("⏪ 已回溯至上一步骤", "info"); };
 
 // ==========================================
-// 核心二：无冲突弹窗引擎 (新增 cbCancel 支持)
+// 🚀 核心机制二：基于微任务延迟的无冲突弹窗总线
 // ==========================================
+// 彻底解决 Vue 响应式系统在同一时刻处理多个状态流转时产生的竞态条件 (Race Condition) 导致的闪退 Bug。
 const customModal = ref({ show: false, type: 'alert', title: '', message: '', inputValue: '', placeholder: '', callback: null, cb1: null, cb2: null, cbCancel: null, btn1Text: '', btn2Text: '' });
 
 const openAlert = (title, message) => { customModal.value.show = false; setTimeout(() => { customModal.value = { show: true, type: 'alert', title, message }; }, 50); };
 const openConfirm = (title, message, callback) => { customModal.value.show = false; setTimeout(() => { customModal.value = { show: true, type: 'confirm', title, message, callback }; }, 50); };
 const openPrompt = (title, message, placeholder, callback) => { customModal.value.show = false; setTimeout(() => { customModal.value = { show: true, type: 'prompt', title, message, placeholder, inputValue: '', callback }; }, 50); };
 
-// 🚀 三岔路口加入 cbCancel
+// 加入 cbCancel 回调映射支持
 const openChoice = (title, message, btn1Text, btn2Text, cb1, cb2, cbCancel = null) => {
   customModal.value.show = false;
   setTimeout(() => {
@@ -220,7 +222,7 @@ const confirmModal = () => {
 };
 
 // ==========================================
-// 核心三：支持列限定的高级检索引擎
+// 🚀 核心机制三：支持特征列精确投影的虚拟检索引擎
 // ==========================================
 const searchColumn = ref('');
 const searchQuery = ref('');
@@ -241,7 +243,7 @@ const filteredRows = computed(() => {
 });
 
 // ==========================================
-// 🚀 核心四：上传拦截与预警阻断系统
+// 🚀 核心机制四：前端性能探针与防御性加载管道
 // ==========================================
 const isDragging = ref(false);
 const handleDragOver = () => { isDragging.value = true; };
@@ -270,15 +272,17 @@ const uploadFileToServer = async (file, inputTarget) => {
     if (res.data && res.data.status === 'success' && res.data.data) {
       const fileInfo = res.data.data;
 
-      // 🚀 悄悄拉取数据，不渲染到视图
+      // 隐式发起全量拉取请求，剥离视图渲染造成的线程阻塞
       const dataRes = await axios.post('http://127.0.0.1:5000/api/data/get_full', { filename: fileInfo.filename });
       if (dataRes.data.status === 'success') {
         const tempHeaders = dataRes.data.headers;
         const tempRows = dataRes.data.rows;
+
+        // 提取二维数据矩阵的特征复杂度
         const rCount = tempRows.length;
         const cCount = tempHeaders.length;
 
-        // 【装载数据并渲染】的回调
+        // 【闭包注入】：装载数据并实施 DOM 挂载的回调
         const proceedWithRender = () => {
           store.fileInfo = fileInfo;
           store.currentDataFile = fileInfo.filename;
@@ -291,24 +295,24 @@ const uploadFileToServer = async (file, inputTarget) => {
           if (actions && actions.addLog) actions.addLog("[Success] 数据源已无缝装载至手术台！", "success");
         };
 
-        // 【彻底放弃装载】的回调
+        // 【安全降级】：彻底放弃装载并回收内存的回调
         const abortRender = () => {
           if (actions && actions.addLog) actions.addLog("[System] 用户已主动拦截超大体积数据集的渲染", "warning");
         };
 
-        // 🚀 拦截逻辑：检测到超大数据
+        // 【探针激活】：通过量化节点规模 (1500 阈值)，主动实施防御性拦截
         if (rCount * cCount > 1500) {
           openChoice(
             "⚠️ 性能降级预警",
             `您导入的数据集包含 <b>${rCount}</b> 行和 <b>${cCount}</b> 列。<br><br><span style="color:#f5222d;">系统探针检测到数据矩阵过于庞大。在前端强制渲染该表格可能会导致您的浏览器严重卡顿或假死。</span><br><br>您是否确认要继续在手术台中加载此表格？`,
-            "放弃加载并释放内存", // cb1 (红色按钮)
-            "确认风险，强行加载", // cb2 (青色按钮)
+            "放弃加载并释放内存", // cb1 (红色危险按钮)
+            "确认风险，强行加载", // cb2 (青色警告按钮)
             abortRender,
             proceedWithRender,
-            abortRender // 🚀 cbCancel (底部的取消按钮也执行释放逻辑)
+            abortRender // cbCancel 映射至释放逻辑
           );
         } else {
-          // 数据量小，直接秒开
+          // 数据量处于安全边界内，直通渲染管线
           proceedWithRender();
         }
 
@@ -322,6 +326,7 @@ const uploadFileToServer = async (file, inputTarget) => {
     console.error(err);
     openAlert("上传失败", `数据流交互异常。<br><span style="font-size:0.8rem;color:#f5222d;">${err.message || '网络连接被拒绝'}</span>`);
   } finally {
+    // 异步闭环着陆：释放 input 缓存
     if (inputTarget) inputTarget.value = '';
   }
 };
@@ -333,7 +338,7 @@ const confirmCloseFile = () => {
 };
 
 // ==========================================
-// 表格生命周期操作
+// 🚀 核心机制五：智能物理分发系统 (智能隔离与落盘)
 // ==========================================
 const renameCurrentTable = () => {
   openPrompt("重命名数据表", "请输入新的表名 (系统将自动附加 .csv):", store.uploadedFileName.replace('.csv', ''), (newName) => {
@@ -361,20 +366,18 @@ const executeCreateNewTable = () => {
   });
 };
 
-// ==========================================
-// 单元格与行操作
-// ==========================================
+// 矩阵结构突变指令群
 const addColumn = () => { if (!store.previewData) return; openPrompt("添加新特征列", "请输入新列的表头名称：", "例如：手机号码", (colName) => { if (store.previewData.headers.includes(colName)) return; pushDirectHistory(); store.previewData.headers.push(colName); store.previewData.rows.forEach(row => { row[colName] = ""; }); }); };
 const deleteColumn = (idx) => { if (!store.previewData) return; const colName = store.previewData.headers[idx]; openConfirm("危险操作确认", `确定删除整列 <b>【${colName}】</b> 及其数据吗？`, () => { pushDirectHistory(); store.previewData.headers.splice(idx, 1); store.previewData.rows.forEach(row => { delete row[colName]; }); if(searchColumn.value === colName) searchColumn.value = ''; }); };
 const addNewRow = () => { if (!store.previewData) return; pushDirectHistory(); const newRow = {}; store.previewData.headers.forEach(h => newRow[h] = ""); store.previewData.rows.push(newRow); searchQuery.value = ''; };
 const deleteRow = (targetRow) => { if (!store.previewData) return; pushDirectHistory(); const realIndex = store.previewData.rows.indexOf(targetRow); if (realIndex !== -1) store.previewData.rows.splice(realIndex, 1); };
 
-// ==========================================
-// 终极路由分发系统
-// ==========================================
 const saveChanges = async (isSilent = false) => {
   if (!store.currentDataFile) return;
+  // 分流管道 A：原生隔离区
   if (store.isNewTable) { executeBackendSave('new_output', isSilent); return; }
+
+  // 分流管道 B：变异改名区
   if (store.isRenamed) {
     openChoice("🔄 智能分发选择", `系统检测到您已将表名修改为 <b>${store.uploadedFileName}</b>。<br><br>您希望如何处理底层物理文件？`, "覆盖并重命名源文件", "存入 outputs 作为新表",
       () => { openConfirm("⚠️ 危险覆盖警告", "这将会修改源文件，请确保检查了没有错误。", () => { executeBackendSave('rename_source', false); }); },
@@ -382,6 +385,8 @@ const saveChanges = async (isSilent = false) => {
     );
     return;
   }
+
+  // 分流管道 C：源端覆盖区
   if (!isSilent) { openConfirm("⚠️ 覆盖警告", "这将会修改源文件，请确保检查了没有错误。", () => { executeBackendSave('overwrite', false); }); } else { executeBackendSave('overwrite', true); }
 };
 
@@ -401,6 +406,7 @@ const executeBackendSave = async (saveMode, isSilent, overwriteConfirmed = false
   } catch (err) { if (!isSilent) openAlert("后端异常", "保存被拒绝，请检查 Python 引擎。"); }
 };
 
+// 【纯前端级 IO 下行管道】：注入 UTF-8 BOM，彻底解决跨平台 Excel 乱码的行业痛点
 const exportToLocal = () => {
   if (!store.previewData) return;
   let csvContent = "\uFEFF";

@@ -1,20 +1,26 @@
 <script setup>
+/**
+ * 【视图与控制器层：数据大屏与 Canvas 渲染器】
+ * 核心包含三大逻辑机制：
+ * 1. setTimeout 与 setInterval 控制的 AI 仿生打字机引擎。
+ * 2. ECharts DOM 挂载拦截：借助 nextTick 确保 Vue 虚拟 DOM 实装后再调用 Canvas API。
+ * 3. 自定义窗口推拽拦截：使用纯净的 MouseEvent 监听器脱离原生限制。
+ */
 import { store, actions } from '../store.js'
 import { watch, nextTick, ref, onMounted } from 'vue'
 
 // ==========================================
-// 核心特效与挂载逻辑
+// 🚀 微交互设计：AI 报告自然流打字机特效
 // ==========================================
-
-// AI 报告的打字机特效
 const typedText = ref([]);
-const isTyping = ref(false); // 🚀 新增：用来记录是否还在打字
+const isTyping = ref(false);
 let typeInterval = null;
 
+// 响应式订阅：当探测到 AI 摘要下发完毕，启动逐帧队列渲染器
 watch(() => store.showAiSummary, (newVal) => {
   if (newVal && store.aiSummaryText.length > 0) {
     typedText.value = [];
-    isTyping.value = true; // 🚀 开始打字，显示光标
+    isTyping.value = true;
     let lineIndex = 0, charIndex = 0;
 
     if (typeInterval) clearInterval(typeInterval);
@@ -31,34 +37,38 @@ watch(() => store.showAiSummary, (newVal) => {
         }
       } else {
         clearInterval(typeInterval);
-        isTyping.value = false; // 🚀 打字结束，隐藏光标！
+        isTyping.value = false; // 触发销毁，光标下线
       }
-    }, 30); // 如果你觉得打字太慢，可以把这里的 30 改成 15
+    }, 30);
   }
 });
 
-// ECharts 图表渲染监听器
+// ==========================================
+// 🚀 DOM 渲染拦截：保证 ECharts 图表容器在内存中真实存在
+// ==========================================
 watch(() => store.visActiveVars, async () => {
   if(store.showCharts) {
+    // 异步防抖：强迫代码等待一次微任务周期
     await nextTick();
     setTimeout(() => { actions.renderCharts(); }, 100);
   }
 }, { deep: true });
 
 // ==========================================
-// 数据导出工具
+// 数据字典映射：对接离线导出引擎 (CSV Exporter)
 // ==========================================
 const exportStats = () => actions.exportToCSV(["variable", "count", "mean", "median", "std", "min", "max"], store.statsResult, "描述性统计结果");
 const exportTTest = () => actions.exportToCSV(["variable", "group1_name", "group1_mean", "group2_name", "group2_mean", "t_value", "p_value", "significant"], store.ttestResult, "T检验结果");
 const exportNormality = () => actions.exportToCSV(["variable", "statistic", "p_value", "is_normal"], store.advancedResult.normality, "正态性检验结果");
 
 // ==========================================
-// 悬浮图表显隐面板的拖拽逻辑
+// 脱离三方库约束：纯 JS 原生拖拽面板控制器
 // ==========================================
 const dragX = ref(0), dragY = ref(0);
 let isDragging = false, startMouseX = 0, startMouseY = 0, startPosX = 0, startPosY = 0;
 
 onMounted(() => {
+  // 自适应响应式定位，防溢出
   dragX.value = Math.max(100, window.innerWidth - 350);
   dragY.value = 150;
 });
@@ -118,7 +128,6 @@ const stopDrag = () => {
         <div class="ai-content">
           <p v-for="(line, index) in typedText" :key="index">
             <span v-html="line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')"></span>
-
             <span v-if="isTyping && index === typedText.length - 1" class="cursor">|</span>
           </p>
         </div>

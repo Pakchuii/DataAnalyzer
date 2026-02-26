@@ -5,34 +5,23 @@ import pandas as pd
 import numpy as np
 from flask import Blueprint, request, jsonify
 from config import UPLOAD_FOLDER, allowed_file
+from utils import read_df
 
 upload_bp = Blueprint('upload', __name__)
 
-# [Pro哥点评: 难点解决 - 编码地狱]
-# 中文 Windows 系统下保存的 CSV 很多是 GBK 编码，而 Pandas 默认用 UTF-8 读取。
-# 这里的 try-except 完美化解了 UnicodeDecodeError 这个最常见的数据读取报错！
-def read_df(filepath):
-    """通用文件读取函数 (支持编码自动降级)"""
-    ext = filepath.rsplit('.', 1)[1].lower()
-    if ext == 'csv':
-        try:
-            return pd.read_csv(filepath, encoding='utf-8')
-        except UnicodeDecodeError:
-            return pd.read_csv(filepath, encoding='gbk')
-    else:
-        return pd.read_excel(filepath, engine='openpyxl' if ext == 'xlsx' else 'xlrd')
-
 def process_and_respond(df, safe_filename, original_name):
-    """通用响应构建器：智能推断数据列的业务属性"""
+    """
+    【特征工程：智能字段属性推断与分类引擎】
+    负责在数据入库前，对其包含的维度进行初步的业务属性探伤。
+    """
     columns = df.columns.tolist()
 
-    # [Pro哥点评: 创新点 - 智能特征过滤]
-    # 自动识别数值列，同时利用关键词识别，把“学号”、“ID”这种假数值（本质是标识符）剔除，
-    # 防止它们跑到统计图表里去拉低分析的专业度。
+    # 智能过滤：识别真正的连续型数值列。
+    # 采用正则/关键字匹配探测技术，强行剔除“学号”、“流水号”等伪数值列(标识符)，保证后续统计算法不被污染。
     numeric_cols = [c for c in columns if pd.api.types.is_numeric_dtype(df[c]) and not any(
         kw in str(c).lower() for kw in ['号', 'id', '编号', '代码', '索引'])]
 
-    # 识别二分类变量，专门为后续的 T 检验提供分组备选项
+    # 特征挖掘：探测所有唯一值数量严格等于2的特征列，提名为二分类变量（为后续 T检验 储备靶点）
     binary_cols = [c for c in columns if df[c].nunique() == 2]
 
     return jsonify({
@@ -49,7 +38,7 @@ def process_and_respond(df, safe_filename, original_name):
 
 @upload_bp.route('/api/upload', methods=['POST'])
 def upload_file():
-    """处理物理文件上传"""
+    """处理物理文件流的 Multipart 上传并固化"""
     if 'file' not in request.files:
         return jsonify({"status": "error", "message": "请求中未包含文件对象"}), 400
 
@@ -59,7 +48,9 @@ def upload_file():
 
     if file and allowed_file(file.filename):
         ext = file.filename.rsplit('.', 1)[1].lower()
-        safe_filename = f"upload_{int(time.time())}.{ext}" # 使用时间戳防止重名覆盖
+        # 【并发安全防护：时间戳哈希重命名策略】
+        # 替换用户原文件名，彻底防止高并发下多用户上传同名文件产生的覆写越权漏洞
+        safe_filename = f"upload_{int(time.time())}.{ext}"
         filepath = os.path.join(UPLOAD_FOLDER, safe_filename)
         file.save(filepath)
 
@@ -73,26 +64,27 @@ def upload_file():
 
 @upload_bp.route('/api/upload_manual', methods=['POST'])
 def upload_manual():
-    """处理前端手工输入的表格数据"""
+    """处理前端 Web 内存级手工表格矩阵的解析与落地"""
     data = request.json.get('grid')
     if not data or len(data) < 2:
         return jsonify({"status": "error", "message": "表格内容不足，请至少输入一行数据"}), 400
 
     try:
-        # [Pro哥点评: 难点解决 - 数据安全降级]
-        # 放弃 Pandas 自带的不稳定 replace，使用纯 Python 列表推导式进行初级清洗。
-        # 这样能彻底避免前端传来的空字符串或怪异字符导致后端类型推断崩溃。
+        # 【数据清洗防御：防表头冲突注入】
         raw_headers = data[0]
         headers = []
         for i, h in enumerate(raw_headers):
             h_str = str(h).strip() if h else f"指标_{i + 1}"
+            # 动态检测，如果存在重名表头，追加后缀保证列唯一性，防止 Pandas 解析崩溃
             while h_str in headers:
-                h_str = f"{h_str}_副本" # 防止表头重名
+                h_str = f"{h_str}_副本"
             headers.append(h_str)
 
+        # 清洗有效数据行，利用 np.nan 将空白格转为标准缺失值
         cleaned_rows = []
         for row in data[1:]:
             cleaned_row = [np.nan if str(val).strip() == "" else str(val).strip() for val in row]
+            # 仅当这一行至少有一个非空数据时才装载
             if any(pd.notna(val) for val in cleaned_row):
                 cleaned_rows.append(cleaned_row)
 
@@ -101,6 +93,7 @@ def upload_manual():
 
         df = pd.DataFrame(cleaned_rows, columns=headers)
 
+        # 向上转型 (Upcasting)：强制试探并恢复手工输入数据的原生数值类型
         for col in df.columns:
             try:
                 df[col] = pd.to_numeric(df[col])
@@ -116,7 +109,7 @@ def upload_manual():
 
 @upload_bp.route('/api/cleanup', methods=['POST'])
 def cleanup_cache():
-    """清理服务器缓存"""
+    """【内存与 I/O 维护】核心系统缓存空间一键强制回收"""
     try:
         shutil.rmtree(UPLOAD_FOLDER)
         os.makedirs(UPLOAD_FOLDER, exist_ok=True)
