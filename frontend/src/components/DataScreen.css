@@ -126,3 +126,29 @@
     max-height: 0;
     opacity: 0;
 }
+
+/* =========================================
+   🚀 统计算法引擎探针 (Algorithm Probe Tags)
+========================================= */
+.algorithm-probe-tag {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+/* 常规安全色：IQR 或 常规 T检验 */
+.probe-success {
+    background-color: rgba(82, 196, 26, 0.15);
+    color: #52c41a;
+    border: 1px solid rgba(82, 196, 26, 0.3);
+}
+
+/* 警告高亮色：Dixon 检验 或 Bootstrap 重抽样 */
+.probe-warning {
+    background-color: rgba(250, 140, 22, 0.15);
+    color: #fa8c16;
+    border: 1px solid rgba(250, 140, 22, 0.3);
+}

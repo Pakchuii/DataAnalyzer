@@ -213,7 +213,7 @@ watch(() => store.isDarkMode, (newVal) => {
 
         <div v-if="store.cleanResult.total_missing === 0 && store.cleanResult.total_outliers === 0" style="text-align: center; padding: 30px; background: rgba(82, 196, 26, 0.05); border-radius: 12px; border: 1px dashed rgba(82, 196, 26, 0.4);">
           <h3 style="color: #52c41a; margin-top: 0;">🎉 数据质量极佳，无需任何手术！</h3>
-          <p style="color: #666; margin-bottom: 0;">系统地毯式扫描后，未在数值特征中检测到缺失项或极端异常值 (3σ)，您的数据集非常健康。</p>
+          <p style="color: #666; margin-bottom: 0;">系统地毯式扫描后，未在数值特征中检测到缺失项或极端异常值，您的数据集非常健康。</p>
         </div>
 
         <div v-else class="glass-inner" style="padding: 20px 25px; max-height: 250px; overflow-y: auto;">
@@ -222,13 +222,13 @@ watch(() => store.isDarkMode, (newVal) => {
             <template v-if="store.cleanResult.total_missing > 0">
               <li v-for="(count, col) in store.cleanResult.missing_details" :key="'m'+col" style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.05); padding: 6px 0;">
                 <span><span style="color: #fa8c16; font-weight: bold; margin-right: 8px;">[填补空值]</span> 特征列 <b>{{ col }}</b></span>
-                <span style="color: #888;">成功插补 {{ count }} 项 <span style="font-size: 0.8rem;">(均值算法)</span></span>
+                <span style="color: #888;">成功插补 {{ count }} 项 <span style="font-size: 0.8rem;">(均值插补)</span></span>
               </li>
             </template>
             <template v-if="store.cleanResult.total_outliers > 0">
               <li v-for="(count, col) in store.cleanResult.outliers_details" :key="'o'+col" style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.05); padding: 6px 0;">
                 <span><span style="color: #f5222d; font-weight: bold; margin-right: 8px;">[裁剪异常]</span> 特征列 <b>{{ col }}</b></span>
-                <span style="color: #888;">成功拦截 {{ count }} 项 <span style="font-size: 0.8rem;">(3σ 边界拦截)</span></span>
+                <span style="color: #888;">成功拦截 {{ count }} 项 <span style="font-size: 0.85rem; font-weight: bold; color: #fa8c16;">({{ store.cleanResult.cleaning_methods[col] || '自适应边界限幅' }})</span></span>
               </li>
             </template>
           </ul>

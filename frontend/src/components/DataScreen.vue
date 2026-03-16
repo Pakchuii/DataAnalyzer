@@ -1,22 +1,11 @@
 <script setup>
-/**
- * 【视图与控制器层：数据大屏与 Canvas 渲染器】
- * 核心包含三大逻辑机制：
- * 1. setTimeout 与 setInterval 控制的 AI 仿生打字机引擎。
- * 2. ECharts DOM 挂载拦截：借助 nextTick 确保 Vue 虚拟 DOM 实装后再调用 Canvas API。
- * 3. 自定义窗口推拽拦截：使用纯净的 MouseEvent 监听器脱离原生限制。
- */
 import { store, actions } from '../store.js'
 import { watch, nextTick, ref, onMounted } from 'vue'
 
-// ==========================================
-// 🚀 微交互设计：AI 报告自然流打字机特效
-// ==========================================
 const typedText = ref([]);
 const isTyping = ref(false);
 let typeInterval = null;
 
-// 响应式订阅：当探测到 AI 摘要下发完毕，启动逐帧队列渲染器
 watch(() => store.showAiSummary, (newVal) => {
   if (newVal && store.aiSummaryText.length > 0) {
     typedText.value = [];
@@ -37,38 +26,27 @@ watch(() => store.showAiSummary, (newVal) => {
         }
       } else {
         clearInterval(typeInterval);
-        isTyping.value = false; // 触发销毁，光标下线
+        isTyping.value = false;
       }
     }, 30);
   }
 });
 
-// ==========================================
-// 🚀 DOM 渲染拦截：保证 ECharts 图表容器在内存中真实存在
-// ==========================================
 watch(() => store.visActiveVars, async () => {
   if(store.showCharts) {
-    // 异步防抖：强迫代码等待一次微任务周期
     await nextTick();
     setTimeout(() => { actions.renderCharts(); }, 100);
   }
 }, { deep: true });
 
-// ==========================================
-// 数据字典映射：对接离线导出引擎 (CSV Exporter)
-// ==========================================
 const exportStats = () => actions.exportToCSV(["variable", "count", "mean", "median", "std", "min", "max"], store.statsResult, "描述性统计结果");
 const exportTTest = () => actions.exportToCSV(["variable", "group1_name", "group1_mean", "group2_name", "group2_mean", "t_value", "p_value", "significant"], store.ttestResult, "T检验结果");
 const exportNormality = () => actions.exportToCSV(["variable", "statistic", "p_value", "is_normal"], store.advancedResult.normality, "正态性检验结果");
 
-// ==========================================
-// 脱离三方库约束：纯 JS 原生拖拽面板控制器
-// ==========================================
 const dragX = ref(0), dragY = ref(0);
 let isDragging = false, startMouseX = 0, startMouseY = 0, startPosX = 0, startPosY = 0;
 
 onMounted(() => {
-  // 自适应响应式定位，防溢出
   dragX.value = Math.max(100, window.innerWidth - 350);
   dragY.value = 150;
 });
@@ -107,9 +85,9 @@ const stopDrag = () => {
             </div>
           </div>
           <div class="banner-right">
-        <button @click="store.showExitConfirm = false" class="glass-btn secondary-btn small-btn">取消手滑</button>
-        <button @click="actions.confirmExitToMainMenu(); store.isEntered = true; store.currentModule = 'portal';" class="glass-btn primary-btn danger-btn small-btn">🗑️ 确定退出</button>
-      </div>
+            <button @click="store.showExitConfirm = false" class="glass-btn secondary-btn small-btn">取消手滑</button>
+            <button @click="actions.confirmExitToMainMenu(); store.isEntered = true; store.currentModule = 'portal';" class="glass-btn primary-btn danger-btn small-btn">🗑️ 确定退出</button>
+          </div>
         </div>
       </transition>
     </div>
@@ -121,7 +99,7 @@ const stopDrag = () => {
         <p>请在左侧点击按钮开启对应面板</p>
       </div>
 
-   <div v-if="store.showAiSummary" class="glass-card result-panel ai-panel">
+      <div v-if="store.showAiSummary" class="glass-card result-panel ai-panel">
         <div class="panel-header">
           <h3 class="panel-title" style="color:#b37feb;">🤖 数据解读报告</h3>
         </div>
@@ -161,7 +139,11 @@ const stopDrag = () => {
         </div>
         <div class="table-responsive">
           <table class="glass-table">
-            <thead><tr><th v-for="col in store.previewData.columns" :key="col">{{ col }}</th></tr></thead>
+            <thead>
+              <tr>
+                <th v-for="col in store.previewData.columns" :key="col">{{ col }}</th>
+              </tr>
+            </thead>
             <tbody>
               <tr v-for="(row, i) in store.previewData.rows" :key="i">
                 <td v-for="col in store.previewData.columns" :key="col">{{ row[col] }}</td>
@@ -208,12 +190,24 @@ const stopDrag = () => {
                 <th><span class="help-tip" data-tip="t 值：衡量两组数据均值差异的程度。绝对值越大，说明两组差异越明显。">t 值</span></th>
                 <th><span class="help-tip" data-tip="P 值：统计学中的概率值。通常 P < 0.05 即代表两组数据存在显著性差异。">P 值</span></th>
                 <th>结论</th>
+                <th><span class="help-tip" data-tip="底层系统自动调度的统计算法引擎">统计学引擎探针</span></th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(res, index) in store.ttestResult" :key="index">
-                <td class="var-name">{{ res.variable }}</td><td>{{ res.group1_mean }}</td><td>{{ res.group2_mean }}</td><td>{{ res.t_value }}</td><td>{{ res.p_value }}</td>
-                <td :class="res.significant ? 'danger-text' : 'success-text'">{{ res.significant ? '🔥 显著 (p<0.05)' : '➖ 不显著' }}</td>
+                <td class="var-name">{{ res.variable }}</td>
+                <td>{{ res.group1_mean }}</td>
+                <td>{{ res.group2_mean }}</td>
+                <td>{{ res.t_value }}</td>
+                <td>{{ res.p_value }}</td>
+                <td :class="res.significant ? 'danger-text' : 'success-text'">
+                  {{ res.significant ? '🔥 显著 (p<0.05)' : '➖ 不显著' }}
+                </td>
+                <td>
+                  <span :class="['algorithm-probe-tag', res.note.includes('Bootstrap') ? 'probe-warning' : 'probe-success']">
+                    {{ res.note }}
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>

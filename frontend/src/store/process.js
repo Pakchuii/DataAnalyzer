@@ -14,12 +14,11 @@ export function setupProcess(store, actions) {
                     actions.addLog("预览数据加载完毕");
                 }
             } catch (err) {
-                // 【探照灯错误捕获】：将后端具体报错暴露在面板日志中
                 actions.addLog(`预览失败: ${err.response?.data?.message || err.message}`, "error");
             }
         },
 
-        // 【自动化特征工程】：清洗与噪声排除机制
+        // 【自动化特征工程】：清洗与噪声排除机制 (接入了智能算法展示)
         async triggerDataCleaning() {
             actions.addLog("正在执行全自动数据清洗...");
             try {
@@ -29,10 +28,23 @@ export function setupProcess(store, actions) {
                     store.currentDataFile = res.data.data.cleaned_filename;
                     store.showPreview = false;
 
-                    // 🚀 核心状态更新：打开清洗战报大弹窗
-                    store.showCleanReportModal = true;
-                    actions.addLog(`清洗完成！已处理缺失值与异常值，并生成独立快照文件。`, "success");
+                    // 🚀 核心升级：提取后端传回的智能算法分配名单
+                    const { cleaning_methods, total_outliers } = res.data.data;
+                    let methodText = `共探测并修复了 ${total_outliers} 个极值异常。\n\n[系统探针已动态分配清洗引擎]:\n`;
+                    for (const [col, method] of Object.entries(cleaning_methods)) {
+                        methodText += `• ${col} ➔ ${method}\n`;
+                    }
 
+                    actions.showDialog({
+                        type: 'info',
+                        title: '✨ 智能清洗管道执行完毕',
+                        message: methodText,
+                        onConfirm: () => {
+                            store.showCleanReportModal = true;
+                        }
+                    });
+
+                    actions.addLog(`清洗完成！已触发自适应算法处理缺失值与异常值。`, "success");
                     if (store.radarIdCol) { actions.fetchRadarOptions(); }
                 }
             } catch (err) {
@@ -40,7 +52,6 @@ export function setupProcess(store, actions) {
             }
         },
 
-        // 【数据标准化】：Z-Score 特征缩放算法调用
         async triggerStandardization() {
             actions.addLog("正在执行 Z-score 标准化...");
             try {
@@ -56,7 +67,6 @@ export function setupProcess(store, actions) {
             }
         },
 
-        // 状态撤回机制：取消标准化
         undoStandardization() {
             actions.showDialog({
                 type: 'confirm', title: '↩️ 撤销操作', message: '确定要撤销标准化并恢复原始数据吗？',
@@ -64,7 +74,6 @@ export function setupProcess(store, actions) {
             });
         },
 
-        // 【数据合规与隐私保护】：调用不可逆脱敏算法
         async triggerMasking() {
             if (store.isMasked) return;
             actions.addLog("启动安全协议：正在进行数据脱敏...");
@@ -75,7 +84,6 @@ export function setupProcess(store, actions) {
                     store.currentDataFile = res.data.data.masked_filename;
                     store.isMasked = true;
                     actions.addLog(`🔒 脱敏完成！`, "success");
-
                     if (store.showPreview) { store.showPreview = false; setTimeout(() => actions.togglePreview(), 200); }
                     if (store.radarIdCol) { actions.fetchRadarOptions(); }
                 }
@@ -84,7 +92,6 @@ export function setupProcess(store, actions) {
             }
         },
 
-        // 权限管理：解除脱敏
         undoMasking() {
             actions.showDialog({
                 type: 'confirm', title: '🔓 解除脱敏协议', message: '确定要解除数据脱敏吗？',
