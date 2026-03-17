@@ -25,7 +25,7 @@ def preview_data():
 
 def smart_clean_series(s):
     """
-    【智能清洗引擎】: 自动路由 IQR 与 Dixon's Q
+    【三阶自适应智能清洗引擎】: 自动路由 Dixon's Q, 3σ 准则 与 IQR 箱线图
     """
     s_valid = s.dropna()
     n = len(s_valid)
@@ -33,20 +33,8 @@ def smart_clean_series(s):
     if n < 3:
         return s, "样本极小(跳过)", 0
 
-    if n >= 30:
-        # 大样本：非参数 IQR 箱线图法
-        Q1 = s_valid.quantile(0.25)
-        Q3 = s_valid.quantile(0.75)
-        IQR = Q3 - Q1
-        lower_bound = Q1 - 1.5 * IQR
-        upper_bound = Q3 + 1.5 * IQR
-
-        outliers_count = int(((s_valid < lower_bound) | (s_valid > upper_bound)).sum())
-        s_clean = s.clip(lower=lower_bound, upper=upper_bound)
-        return s_clean, "IQR箱线图法 (N>=30)", outliers_count
-
-    else:
-        # 小样本：Dixon's Q 检验
+    if n < 30:
+        # 第一阶：小样本防御机制 - Dixon's Q 检验
         q95 = {3: 0.941, 4: 0.765, 5: 0.642, 6: 0.560, 7: 0.507, 8: 0.468,
                9: 0.437, 10: 0.412, 11: 0.392, 12: 0.376, 13: 0.361, 14: 0.349,
                15: 0.338, 16: 0.329, 17: 0.320, 18: 0.313, 19: 0.306, 20: 0.300,
@@ -69,6 +57,37 @@ def smart_clean_series(s):
                 outliers_count += 1
 
         return s_clean, "Dixon's Q检验 (N<30)", outliers_count
+
+    else:
+        # 大样本 (N >= 30)：引入形态探针 (Skewness 偏度) 进行高阶动态路由
+        skewness = s_valid.skew()
+
+        # 偏度绝对值 <= 1.0 通常被认为数据形态相对对称/近似正态
+        if pd.notna(skewness) and abs(skewness) <= 1.0:
+            # 第二阶：近似正态分布 - 3σ 准则 (数学效率最高)
+            mean_val = s_valid.mean()
+            std_val = s_valid.std()
+            if pd.isna(std_val) or std_val == 0:
+                return s, "3σ边界拦截 (标准差异常)", 0
+
+            lower_bound = mean_val - 3 * std_val
+            upper_bound = mean_val + 3 * std_val
+
+            outliers_count = int(((s_valid < lower_bound) | (s_valid > upper_bound)).sum())
+            s_clean = s.clip(lower=lower_bound, upper=upper_bound)
+            return s_clean, "3σ边界拦截 (N>=30, 呈近似正态)", outliers_count
+
+        else:
+            # 第三阶：严重偏态分布 - IQR 箱线图法 (非参数模型，极度稳健抗偏态)
+            Q1 = s_valid.quantile(0.25)
+            Q3 = s_valid.quantile(0.75)
+            IQR = Q3 - Q1
+            lower_bound = Q1 - 1.5 * IQR
+            upper_bound = Q3 + 1.5 * IQR
+
+            outliers_count = int(((s_valid < lower_bound) | (s_valid > upper_bound)).sum())
+            s_clean = s.clip(lower=lower_bound, upper=upper_bound)
+            return s_clean, "IQR箱线图法 (N>=30, 呈偏态分布)", outliers_count
 
 
 @process_bp.route('/api/clean', methods=['POST'])
@@ -223,9 +242,7 @@ def get_full_data():
 
 @process_bp.route('/api/standardize', methods=['POST', 'OPTIONS'])
 def standardize_data():
-    """
-    【数据中心化预处理】：Z-Score 标准化引擎
-    """
+    """Z-Score 标准化引擎"""
     if request.method == 'OPTIONS':
         response = make_response()
         response.headers.add("Access-Control-Allow-Origin", "*")
@@ -244,11 +261,10 @@ def standardize_data():
         if len(numeric_cols) > 0:
             for col in numeric_cols:
                 std_val = df[col].std()
-                # Z-Score 核心算法：(当前值 - 均值) / 标准差
                 if pd.notna(std_val) and std_val != 0:
                     df[col] = (df[col] - df[col].mean()) / std_val
                 else:
-                    df[col] = 0.0  # 防止除以 0 导致无限大崩溃
+                    df[col] = 0.0
 
         standardized_filename = f"standard_{filename.split('.')[0]}.csv"
         df.to_csv(os.path.join(UPLOAD_FOLDER, standardized_filename), index=False, encoding='utf-8-sig')
@@ -264,7 +280,6 @@ def standardize_data():
         return res
 
     except Exception as e:
-        import traceback
         traceback.print_exc()
         res = jsonify({"status": "error", "message": f"标准化失败: {str(e)}"})
         res.headers.add("Access-Control-Allow-Origin", "*")
