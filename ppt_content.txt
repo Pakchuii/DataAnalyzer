@@ -1,0 +1,634 @@
+--- Slide 1 ---
+汇报人：
+毛旭锋
+集成统计分析与可视化的表单数据处理系统
+2026
+软件工程
+论文答辩
+指导老师
+：
+严然辉
+
+--- Slide 2 ---
+目录
+CONTENTS
+01.
+课题背景
+Work Overview
+02.
+技术基础
+Work Highlights
+03.
+功能实现
+Work Reflection
+04.
+未来计划
+Future Plans
+
+--- Slide 3 ---
+课题背景
+演示文稿是一种实用的工具，可以是演示，演讲，报告等。大部分时间，它们都是在为观众服务。它们有多种用途，是演讲和教学的有力工具。如果您想在演示文稿中展现内容，可以选择多种可以选择多种方式
+WORK OVERVIEW
+PART ONE
+
+--- Slide 4 ---
+01.
+课题背景
+PART ONE
+在海量表单数据爆发的当下，非专业用户面临着极其尴尬的工具断层。
+因此本系统旨在开发一款
+低门槛
+，
+拥有完整功能
+，能够满足大多数用户的数据分析需求的
+数据分析平台
+课题研发背景
+传统表格软件（如
+ Excel
+）在处理十万级数据时极易发生内存溢出与假死。
+专业分析工具（如
+ SPSS
+、
+Python 
+脚本）又存在代码门槛与复杂的统计学壁垒，导致普通用户陷入
+“
+有数据、无算力
+”
+的困境
+
+--- Slide 5 ---
+01.
+研究现状
+PART ONE
+</a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="162" name="TextBox 11"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="1600200" y="5753100"/><a:ext cx="7358380" cy="1297305"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="l"><a:lnSpc><a:spcPts val="5060"/></a:lnSpc></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="3615"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:latin typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:ea typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:cs typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:sym typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>前端领域研究：数据结构与
+UI/UX
+研究热点
+虚拟滚动（
+Virtual Scrolling
+）技术在大型数据集展现方面的优化
+</a:ln></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="173" name="Group 22"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="1371434" y="7432579"/><a:ext cx="1639893" cy="431664"/><a:chOff x="0" y="0"/><a:chExt cx="910909" cy="239776"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="174" name="Freeform 23"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="910909" cy="239776"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="910909" h="239776"><a:moveTo><a:pt x="119888" y="0"/></a:moveTo><a:lnTo><a:pt x="791021" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="857233" y="0"/><a:pt x="910909" y="53676"/><a:pt x="910909" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="910909" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="910909" y="186100"/><a:pt x="857233" y="239776"/><a:pt x="791021" y="239776"/></a:cubicBezTo><a:lnTo><a:pt x="119888" y="239776"/></a:lnTo><a:cubicBezTo><a:pt x="53676" y="239776"/><a:pt x="0" y="186100"/><a:pt x="0" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="53676"/><a:pt x="53676" y="0"/><a:pt x="119888" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:solidFill><a:srgbClr val="FFFFFF"><a:alpha val="13725"/></a:srgbClr></a:solidFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="175" name="TextBox 24"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-28575"/><a:ext cx="910909" cy="268351"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="43752" tIns="43752" rIns="43752" bIns="43752" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="176" name="TextBox 25"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="1351915" y="7475855"/><a:ext cx="1659255" cy="324485"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2535"/></a:lnSpc></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="2400" b="1"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:latin typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:ea typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:cs typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:sym typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>待解决问题
+</a:ln></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="32" name="Group 7"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="7010400" y="2098040"/><a:ext cx="4954270" cy="3147060"/><a:chOff x="0" y="0"/><a:chExt cx="1779323" cy="1541514"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="33" name="Freeform 8"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1779324" cy="1541514"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1779324" h="1541514"><a:moveTo><a:pt x="15027" y="0"/></a:moveTo><a:lnTo><a:pt x="1764297" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="1772596" y="0"/><a:pt x="1779324" y="6728"/><a:pt x="1779324" y="15027"/></a:cubicBezTo><a:lnTo><a:pt x="1779324" y="1526487"/></a:lnTo><a:cubicBezTo><a:pt x="1779324" y="1534786"/><a:pt x="1772596" y="1541514"/><a:pt x="1764297" y="1541514"/></a:cubicBezTo><a:lnTo><a:pt x="15027" y="1541514"/></a:lnTo><a:cubicBezTo><a:pt x="6728" y="1541514"/><a:pt x="0" y="1534786"/><a:pt x="0" y="1526487"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="15027"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="6728"/><a:pt x="6728" y="0"/><a:pt x="15027" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="F0F3FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="33333"><a:srgbClr val="F0F3FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="66667"><a:srgbClr val="F0F3FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="C1CCF7"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill><a:ln w="19050" cap="sq"><a:solidFill><a:srgbClr val="3D77FF"/></a:solidFill><a:prstDash val="solid"/><a:miter/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="34" name="TextBox 9"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-38100"/><a:ext cx="1779323" cy="1579614"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="55859" tIns="55859" rIns="55859" bIns="55859" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr marL="0" lvl="0" indent="0" algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc><a:spcBef><a:spcPct val="0"/></a:spcBef></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="35" name="TextBox 14"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="1332230" y="2171700"/><a:ext cx="4952365" cy="1297305"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="l"><a:lnSpc><a:spcPts val="5060"/></a:lnSpc></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="2400" b="1"><a:solidFill><a:srgbClr val="3D77FF"/></a:solidFill><a:latin typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:ea typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:cs typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:sym typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>国外厂商：
+Google Looker/Tableau
+</a:ln></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="55" name="Group 46"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="1391080" y="3207385"/><a:ext cx="1639893" cy="431664"/><a:chOff x="0" y="0"/><a:chExt cx="910909" cy="239776"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="56" name="Freeform 47"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="910909" cy="239776"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="910909" h="239776"><a:moveTo><a:pt x="119888" y="0"/></a:moveTo><a:lnTo><a:pt x="791021" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="857233" y="0"/><a:pt x="910909" y="53676"/><a:pt x="910909" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="910909" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="910909" y="186100"/><a:pt x="857233" y="239776"/><a:pt x="791021" y="239776"/></a:cubicBezTo><a:lnTo><a:pt x="119888" y="239776"/></a:lnTo><a:cubicBezTo><a:pt x="53676" y="239776"/><a:pt x="0" y="186100"/><a:pt x="0" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="53676"/><a:pt x="53676" y="0"/><a:pt x="119888" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="57" name="TextBox 48"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-28575"/><a:ext cx="910909" cy="268351"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="43752" tIns="43752" rIns="43752" bIns="43752" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="58" name="TextBox 49"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="1523727" y="3238268"/><a:ext cx="1374599" cy="324485"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2535"/></a:lnSpc></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="2400" b="1"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:latin typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:ea typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:cs typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:sym typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>优势
+强大的云端数据分析能力，丰富的可视化图表库，广泛的市场认可度。
+</a:ln></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="61" name="Group 46"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="1385365" y="4227830"/><a:ext cx="1639893" cy="431664"/><a:chOff x="0" y="0"/><a:chExt cx="910909" cy="239776"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="62" name="Freeform 47"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="910909" cy="239776"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="910909" h="239776"><a:moveTo><a:pt x="119888" y="0"/></a:moveTo><a:lnTo><a:pt x="791021" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="857233" y="0"/><a:pt x="910909" y="53676"/><a:pt x="910909" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="910909" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="910909" y="186100"/><a:pt x="857233" y="239776"/><a:pt x="791021" y="239776"/></a:cubicBezTo><a:lnTo><a:pt x="119888" y="239776"/></a:lnTo><a:cubicBezTo><a:pt x="53676" y="239776"/><a:pt x="0" y="186100"/><a:pt x="0" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="53676"/><a:pt x="53676" y="0"/><a:pt x="119888" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="87" name="TextBox 48"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-28575"/><a:ext cx="910909" cy="268351"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="43752" tIns="43752" rIns="43752" bIns="43752" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="88" name="TextBox 49"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="1518012" y="4258713"/><a:ext cx="1374599" cy="324485"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2535"/></a:lnSpc></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="2400" b="1"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:latin typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:ea typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:cs typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:sym typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>局限
+对本地流处理的支持较弱，高昂的许可费用和复杂的部署配置。
+</a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="91" name="TextBox 14"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="7103745" y="2171700"/><a:ext cx="4952365" cy="673100"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:noAutofit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="l"><a:lnSpc><a:spcPts val="5060"/></a:lnSpc></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="2400"><a:solidFill><a:srgbClr val="3D77FF"/></a:solidFill><a:latin typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:ea typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:cs typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:sym typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>国内开源项目：
+ECharts / AntV
+</a:ln></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="93" name="Group 46"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="7162595" y="3207385"/><a:ext cx="1639893" cy="431664"/><a:chOff x="0" y="0"/><a:chExt cx="910909" cy="239776"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="94" name="Freeform 47"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="910909" cy="239776"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="910909" h="239776"><a:moveTo><a:pt x="119888" y="0"/></a:moveTo><a:lnTo><a:pt x="791021" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="857233" y="0"/><a:pt x="910909" y="53676"/><a:pt x="910909" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="910909" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="910909" y="186100"/><a:pt x="857233" y="239776"/><a:pt x="791021" y="239776"/></a:cubicBezTo><a:lnTo><a:pt x="119888" y="239776"/></a:lnTo><a:cubicBezTo><a:pt x="53676" y="239776"/><a:pt x="0" y="186100"/><a:pt x="0" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="53676"/><a:pt x="53676" y="0"/><a:pt x="119888" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="95" name="TextBox 48"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-28575"/><a:ext cx="910909" cy="268351"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="43752" tIns="43752" rIns="43752" bIns="43752" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="96" name="TextBox 49"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="7295242" y="3238268"/><a:ext cx="1374599" cy="324485"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2535"/></a:lnSpc></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="2400" b="1"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:latin typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:ea typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:cs typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:sym typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>优势
+在可视化领域表现突出，提供丰富灵活的图表组件，社区活跃，免费使用。
+</a:ln></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="99" name="Group 46"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="7156880" y="4227830"/><a:ext cx="1639893" cy="431664"/><a:chOff x="0" y="0"/><a:chExt cx="910909" cy="239776"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="100" name="Freeform 47"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="910909" cy="239776"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="910909" h="239776"><a:moveTo><a:pt x="119888" y="0"/></a:moveTo><a:lnTo><a:pt x="791021" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="857233" y="0"/><a:pt x="910909" y="53676"/><a:pt x="910909" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="910909" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="910909" y="186100"/><a:pt x="857233" y="239776"/><a:pt x="791021" y="239776"/></a:cubicBezTo><a:lnTo><a:pt x="119888" y="239776"/></a:lnTo><a:cubicBezTo><a:pt x="53676" y="239776"/><a:pt x="0" y="186100"/><a:pt x="0" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="53676"/><a:pt x="53676" y="0"/><a:pt x="119888" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="101" name="TextBox 48"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-28575"/><a:ext cx="910909" cy="268351"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="43752" tIns="43752" rIns="43752" bIns="43752" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="102" name="TextBox 49"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="7289527" y="4258713"/><a:ext cx="1374599" cy="324485"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2535"/></a:lnSpc></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="2400" b="1"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:latin typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:ea typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:cs typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:sym typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>局限
+通常专注于特定可视化功能，缺乏从数据采集到最终诊断的完整生命周期管理。
+</a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="105" name="TextBox 20"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="3276600" y="7475855"/><a:ext cx="5276215" cy="387985"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:noAutofit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="l"><a:lnSpc><a:spcPts val="2520"/></a:lnSpc></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="2400"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:latin typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:ea typeface="微软雅黑" panose="020B0503020204020204" charset="-122"/><a:cs typeface="思源黑体" panose="020B0500000000000000" charset="-122"/><a:sym typeface="思源黑体" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>复杂表单的双向绑定与数据验证
+
+--- Slide 6 ---
+01.
+研究意义与创新点
+PART ONE
+对比分析：本系统 vs 现有方案
+
+--- Slide 7 ---
+01.
+课题目的
+PART ONE
+</a:ln></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="202" name="Group 18"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="2776220" y="2127885"/><a:ext cx="2087245" cy="2137410"/><a:chOff x="0" y="0"/><a:chExt cx="812800" cy="812800"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="203" name="Freeform 19"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="812800" cy="812800"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="812800" h="812800"><a:moveTo><a:pt x="406400" y="0"/></a:moveTo><a:cubicBezTo><a:pt x="181951" y="0"/><a:pt x="0" y="181951"/><a:pt x="0" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="0" y="630849"/><a:pt x="181951" y="812800"/><a:pt x="406400" y="812800"/></a:cubicBezTo><a:cubicBezTo><a:pt x="630849" y="812800"/><a:pt x="812800" y="630849"/><a:pt x="812800" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="812800" y="181951"/><a:pt x="630849" y="0"/><a:pt x="406400" y="0"/></a:cubicBezTo><a:lnTo><a:pt x="406400" y="0"/></a:lnTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill><a:ln cap="sq"><a:noFill/><a:prstDash val="solid"/><a:miter/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="204" name="TextBox 20"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="76200" y="38100"/><a:ext cx="660400" cy="698500"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="32256" tIns="32256" rIns="32256" bIns="32256" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr marL="0" lvl="0" indent="0" algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc><a:spcBef><a:spcPct val="0"/></a:spcBef></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="214" name="AutoShape 30"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="11049244" y="7582043"/><a:ext cx="4417975" cy="0"/></a:xfrm><a:prstGeom prst="line"><a:avLst/></a:prstGeom><a:ln w="19050" cap="rnd"><a:gradFill><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="0"/></a:gradFill><a:prstDash val="solid"/><a:headEnd type="none" w="sm" len="sm"/><a:tailEnd type="none" w="sm" len="sm"/></a:ln></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="215" name="Group 31"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="11049244" y="7869413"/><a:ext cx="2059641" cy="431664"/><a:chOff x="0" y="0"/><a:chExt cx="1144066" cy="239776"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="216" name="Freeform 32"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1144066" cy="239776"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1144066" h="239776"><a:moveTo><a:pt x="119888" y="0"/></a:moveTo><a:lnTo><a:pt x="1024178" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="1090390" y="0"/><a:pt x="1144066" y="53676"/><a:pt x="1144066" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="1144066" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="1144066" y="186100"/><a:pt x="1090390" y="239776"/><a:pt x="1024178" y="239776"/></a:cubicBezTo><a:lnTo><a:pt x="119888" y="239776"/></a:lnTo><a:cubicBezTo><a:pt x="53676" y="239776"/><a:pt x="0" y="186100"/><a:pt x="0" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="53676"/><a:pt x="53676" y="0"/><a:pt x="119888" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="14000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="14000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="217" name="TextBox 33"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-28575"/><a:ext cx="1144066" cy="268351"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="43752" tIns="43752" rIns="43752" bIns="43752" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="218" name="TextBox 34"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="11215843" y="7900296"/><a:ext cx="1726442" cy="324485"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2535"/></a:lnSpc></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="1810"><a:solidFill><a:srgbClr val="3D77FF"/></a:solidFill><a:latin typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:ea typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:cs typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:sym typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>数据分析
+数据编辑
+低门槛
+功能完整
+高性能
+系统设计特点
+综上所述，本系统将旨在与实现一个低门槛，功能全，高性能的数据分析平台
+针对传统工具学习成本高的问题，系统采用
+“
+零代码
+”
+的纯图形化交互，让统计推断实现开箱即用。
+系统打通了从脏数据导入、自适应清洗、假设检验到机器学习预测的全链路，提供了一站式的数据闭环解决方案。
+面对海量表单数据的承载挑战，系统重构了底层渲染管线与算力调度，成功实现了业务流程的高性能保障。
+系统设计架构
+为确保系统的高并发承载力与算力扩展性，本课题严格遵循前后端分离（
+B/S
+）架构规范，并深度融合现代化的统计推断原理与机器学习算法，构建一个兼具数据分析功能与数据操作功能双系统的高可用数据中台。
+低门槛
+功能全
+高性能
+
+--- Slide 8 ---
+技术基础
+演示文稿是一种实用的工具，可以是演示，演讲，报告等。大部分时间，它们都是在为观众服务。它们有多种用途，是演讲和教学的有力工具。如果您想在演示文稿中展现内容，可以选择多种可以选择多种方式
+WORK HIGHLIGHTS
+PART TWO
+
+--- Slide 9 ---
+02.
+业务流程
+PART FOUR
+数据生命周期
+数据在系统中的生命周期贯穿了
+“
+无感采集
+➔
+智能分析
+➔
+高帧率可视化
+➔
+沙盒化管理
+”
+四大核心节点。
+采集
+前端交互拦截
+网关路由转发
+分析
+后端算力解析
+算法模型推断
+可视化
+前端图表重绘
+数据双向绑定
+管理
+沙盒物理隔离
+资产安全导出
+
+--- Slide 10 ---
+02.
+系统架构设计
+PART TWO
+
+--- Slide 11 ---
+02.
+系统架构设计
+PART TWO
+用户展示层
+前端业务层
+通信路由层
+后端算力层
+</a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="43" name="AutoShape 33"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="6838029" y="6556041"/><a:ext cx="3122135" cy="0"/></a:xfrm><a:prstGeom prst="line"><a:avLst/></a:prstGeom><a:ln w="28575" cap="flat"><a:solidFill><a:srgbClr val="0069B8"/></a:solidFill><a:prstDash val="solid"/><a:headEnd type="diamond" w="lg" len="lg"/><a:tailEnd type="diamond" w="lg" len="lg"/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="44" name="AutoShape 34"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="6125925" y="8180832"/><a:ext cx="3834239" cy="0"/></a:xfrm><a:prstGeom prst="line"><a:avLst/></a:prstGeom><a:ln w="28575" cap="flat"><a:solidFill><a:srgbClr val="0069B8"/></a:solidFill><a:prstDash val="solid"/><a:headEnd type="diamond" w="lg" len="lg"/><a:tailEnd type="diamond" w="lg" len="lg"/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="45" name="AutoShape 35"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm flipV="1"><a:off x="7295020" y="4931250"/><a:ext cx="2665144" cy="0"/></a:xfrm><a:prstGeom prst="line"><a:avLst/></a:prstGeom><a:ln w="28575" cap="flat"><a:solidFill><a:srgbClr val="5496A1"/></a:solidFill><a:prstDash val="solid"/><a:headEnd type="diamond" w="lg" len="lg"/><a:tailEnd type="diamond" w="lg" len="lg"/></a:ln></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="46" name="Group 36"/><p:cNvGrpSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId4"/></p:custDataLst></p:nvPr></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="10264964" y="2481334"/><a:ext cx="5886047" cy="1232059"/><a:chOff x="0" y="-9525"/><a:chExt cx="7848063" cy="1642745"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="47" name="TextBox 37"/><p:cNvSpPr txBox="1"/><p:nvPr><p:custDataLst><p:tags r:id="rId5"/></p:custDataLst></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-9525"/><a:ext cx="7848063" cy="615527"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="l"><a:lnSpc><a:spcPts val="3600"/></a:lnSpc><a:spcBef><a:spcPct val="0"/></a:spcBef></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="3000" b="1" spc="59"><a:solidFill><a:srgbClr val="0069B8"/></a:solidFill><a:latin typeface="思源黑体 Bold" panose="020B0800000000000000" charset="-122"/><a:ea typeface="思源黑体 Bold" panose="020B0800000000000000" charset="-122"/><a:cs typeface="思源黑体 Bold" panose="020B0800000000000000" charset="-122"/><a:sym typeface="思源黑体 Bold" panose="020B0800000000000000" charset="-122"/></a:rPr><a:t>用户展示层
+负责最终的视图呈现。采用
+ Vue 3.0 
+与
+ ECharts 
+引擎，构建响应式大屏与数据双向绑定。
+前端业务层
+负责状态管理与拦截。集成
+ Pinia 
+状态树、
+30 
+层撤销栈（备忘录模式），以及
+ IndexedDB 
+本地沙盒。
+通信路由层
+前后端的数据桥梁。采用
+ Axios 
+动态路由匹配，配合
+ Nginx 
+反向代理，彻底击穿
+ CORS 
+跨域屏障。
+后端算力层
+核心数据引擎。基于
+ Python Flask 
+微服务架构，驱动
+ Pandas 
+与
+ Scikit-learn 
+进行矩阵运算与机器学习。
+
+--- Slide 12 ---
+02.
+系统架构设计
+PART TWO
+</a:gradFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="28" name="Group 17"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="5400000"><a:off x="7490223" y="4097269"/><a:ext cx="678215" cy="652690"/><a:chOff x="0" y="0"/><a:chExt cx="904286" cy="870254"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="29" name="Freeform 18"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="16764" y="2794"/><a:ext cx="884174" cy="851789"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="884174" h="851789"><a:moveTo><a:pt x="832358" y="851789"/></a:moveTo><a:cubicBezTo><a:pt x="739521" y="673354"/><a:pt x="617474" y="511810"/><a:pt x="471424" y="373761"/></a:cubicBezTo><a:cubicBezTo><a:pt x="332359" y="242443"/><a:pt x="173228" y="134112"/><a:pt x="0" y="52832"/></a:cubicBezTo><a:lnTo><a:pt x="24892" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="203708" y="83820"/><a:pt x="367919" y="195707"/><a:pt x="511429" y="331343"/></a:cubicBezTo><a:lnTo><a:pt x="491363" y="352552"/></a:lnTo><a:lnTo><a:pt x="511429" y="331343"/></a:lnTo><a:cubicBezTo><a:pt x="662432" y="473837"/><a:pt x="788416" y="640588"/><a:pt x="884174" y="824738"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:solidFill><a:srgbClr val="44546A"/></a:solidFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="30" name="Group 19"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="5400000"><a:off x="5531184" y="4113564"/><a:ext cx="655454" cy="600039"/><a:chOff x="0" y="0"/><a:chExt cx="873938" cy="800052"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="31" name="Freeform 20"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="17272" y="14732"/><a:ext cx="852805" cy="782701"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="852805" h="782701"><a:moveTo><a:pt x="852805" y="28956"/></a:moveTo><a:cubicBezTo><a:pt x="762127" y="188341"/><a:pt x="647700" y="332867"/><a:pt x="513461" y="457708"/></a:cubicBezTo><a:cubicBezTo><a:pt x="369189" y="592074"/><a:pt x="203708" y="701802"/><a:pt x="23876" y="782701"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="729488"/></a:lnTo><a:cubicBezTo><a:pt x="173990" y="651256"/><a:pt x="334010" y="544957"/><a:pt x="473710" y="415036"/></a:cubicBezTo><a:lnTo><a:pt x="493649" y="436372"/></a:lnTo><a:lnTo><a:pt x="473710" y="415036"/></a:lnTo><a:cubicBezTo><a:pt x="603631" y="294132"/><a:pt x="714375" y="154178"/><a:pt x="802132" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:solidFill><a:srgbClr val="44546A"/></a:solidFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="32" name="Group 21"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="5400000"><a:off x="6092734" y="4156592"/><a:ext cx="1497654" cy="1497652"/><a:chOff x="0" y="0"/><a:chExt cx="1996872" cy="1996870"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="33" name="Freeform 22"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1996948" cy="1996948"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1996948" h="1996948"><a:moveTo><a:pt x="0" y="998474"/></a:moveTo><a:cubicBezTo><a:pt x="0" y="447040"/><a:pt x="447040" y="0"/><a:pt x="998474" y="0"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1549908" y="0"/><a:pt x="1996948" y="447040"/><a:pt x="1996948" y="998474"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1996948" y="1549908"/><a:pt x="1549908" y="1996948"/><a:pt x="998474" y="1996948"/></a:cubicBezTo><a:cubicBezTo><a:pt x="447040" y="1996948"/><a:pt x="0" y="1549908"/><a:pt x="0" y="998474"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="86B8C0"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="38646B"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="0"/></a:gradFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="34" name="Group 23"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="5400000"><a:off x="12065578" y="4098094"/><a:ext cx="671562" cy="638421"/><a:chOff x="0" y="0"/><a:chExt cx="895416" cy="851228"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="35" name="Freeform 24"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="16764" y="2794"/><a:ext cx="875157" cy="833120"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="875157" h="833120"><a:moveTo><a:pt x="823722" y="833120"/></a:moveTo><a:cubicBezTo><a:pt x="731647" y="662305"/><a:pt x="612775" y="507365"/><a:pt x="471551" y="374269"/></a:cubicBezTo><a:lnTo><a:pt x="491617" y="353060"/></a:lnTo><a:lnTo><a:pt x="471551" y="374269"/></a:lnTo><a:cubicBezTo><a:pt x="332359" y="242951"/><a:pt x="173228" y="134493"/><a:pt x="0" y="52832"/></a:cubicBezTo><a:lnTo><a:pt x="24892" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="203708" y="84201"/><a:pt x="367919" y="196215"/><a:pt x="511683" y="331724"/></a:cubicBezTo><a:cubicBezTo><a:pt x="657352" y="469138"/><a:pt x="780034" y="629031"/><a:pt x="875157" y="805307"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:solidFill><a:srgbClr val="44546A"/></a:solidFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="36" name="Group 25"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="5400000"><a:off x="10099036" y="4117405"/><a:ext cx="646359" cy="594906"/><a:chOff x="0" y="0"/><a:chExt cx="861812" cy="793208"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="37" name="Freeform 26"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="17145" y="14986"/><a:ext cx="840867" cy="775716"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="840867" h="775716"><a:moveTo><a:pt x="840867" y="28575"/></a:moveTo><a:cubicBezTo><a:pt x="751967" y="186944"/><a:pt x="639191" y="330835"/><a:pt x="506349" y="454787"/></a:cubicBezTo><a:cubicBezTo><a:pt x="364363" y="587502"/><a:pt x="201422" y="695960"/><a:pt x="24003" y="775716"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="722376"/></a:lnTo><a:cubicBezTo><a:pt x="171450" y="645287"/><a:pt x="329057" y="540512"/><a:pt x="466471" y="412115"/></a:cubicBezTo><a:lnTo><a:pt x="486410" y="433451"/></a:lnTo><a:lnTo><a:pt x="466471" y="412115"/></a:lnTo><a:cubicBezTo><a:pt x="594868" y="292227"/><a:pt x="703961" y="153162"/><a:pt x="789940" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:solidFill><a:srgbClr val="44546A"/></a:solidFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="38" name="Group 27"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="5400000"><a:off x="10650674" y="4156592"/><a:ext cx="1497654" cy="1497653"/><a:chOff x="0" y="0"/><a:chExt cx="1996872" cy="1996870"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="39" name="Freeform 28"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1996948" cy="1996948"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1996948" h="1996948"><a:moveTo><a:pt x="0" y="998474"/></a:moveTo><a:cubicBezTo><a:pt x="0" y="447040"/><a:pt x="447040" y="0"/><a:pt x="998474" y="0"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1549908" y="0"/><a:pt x="1996948" y="447040"/><a:pt x="1996948" y="998474"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1996948" y="1549908"/><a:pt x="1549908" y="1996948"/><a:pt x="998474" y="1996948"/></a:cubicBezTo><a:cubicBezTo><a:pt x="447040" y="1996948"/><a:pt x="0" y="1549908"/><a:pt x="0" y="998474"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="86B8C0"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="38646B"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="0"/></a:gradFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="40" name="Group 29"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="5400000"><a:off x="12075372" y="2623277"/><a:ext cx="1497650" cy="1497652"/><a:chOff x="0" y="0"/><a:chExt cx="1996866" cy="1996870"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="41" name="Freeform 30"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1996948" cy="1996948"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1996948" h="1996948"><a:moveTo><a:pt x="0" y="998474"/></a:moveTo><a:cubicBezTo><a:pt x="0" y="447040"/><a:pt x="447040" y="0"/><a:pt x="998474" y="0"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1549908" y="0"/><a:pt x="1996948" y="447040"/><a:pt x="1996948" y="998474"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1996948" y="1549908"/><a:pt x="1549908" y="1996948"/><a:pt x="998474" y="1996948"/></a:cubicBezTo><a:cubicBezTo><a:pt x="447040" y="1996948"/><a:pt x="0" y="1549908"/><a:pt x="0" y="998474"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="7DC7FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="0069B8"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="18900003"/></a:gradFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="42" name="Group 31"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="5400000"><a:off x="9251296" y="2623276"/><a:ext cx="1497650" cy="1497652"/><a:chOff x="0" y="0"/><a:chExt cx="1996866" cy="1996870"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="43" name="Freeform 32"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1996948" cy="1996948"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1996948" h="1996948"><a:moveTo><a:pt x="0" y="998474"/></a:moveTo><a:cubicBezTo><a:pt x="0" y="447040"/><a:pt x="447040" y="0"/><a:pt x="998474" y="0"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1549908" y="0"/><a:pt x="1996948" y="447040"/><a:pt x="1996948" y="998474"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1996948" y="1549908"/><a:pt x="1549908" y="1996948"/><a:pt x="998474" y="1996948"/></a:cubicBezTo><a:cubicBezTo><a:pt x="447040" y="1996948"/><a:pt x="0" y="1549908"/><a:pt x="0" y="998474"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="7DC7FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="0069B8"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="18900003"/></a:gradFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="44" name="Group 33"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="5400000"><a:off x="7513006" y="2623276"/><a:ext cx="1497650" cy="1497650"/><a:chOff x="0" y="0"/><a:chExt cx="1996866" cy="1996866"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="45" name="Freeform 34"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1996948" cy="1996948"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1996948" h="1996948"><a:moveTo><a:pt x="0" y="998474"/></a:moveTo><a:cubicBezTo><a:pt x="0" y="447040"/><a:pt x="447040" y="0"/><a:pt x="998474" y="0"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1549908" y="0"/><a:pt x="1996948" y="447040"/><a:pt x="1996948" y="998474"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1996948" y="1549908"/><a:pt x="1549908" y="1996948"/><a:pt x="998474" y="1996948"/></a:cubicBezTo><a:cubicBezTo><a:pt x="447040" y="1996948"/><a:pt x="0" y="1549908"/><a:pt x="0" y="998474"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="7DC7FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="0069B8"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="18900000"/></a:gradFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="46" name="Group 35"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="5400000"><a:off x="4688936" y="2623276"/><a:ext cx="1497650" cy="1497652"/><a:chOff x="0" y="0"/><a:chExt cx="1996866" cy="1996870"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="47" name="Freeform 36"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1996948" cy="1996948"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1996948" h="1996948"><a:moveTo><a:pt x="0" y="998474"/></a:moveTo><a:cubicBezTo><a:pt x="0" y="447040"/><a:pt x="447040" y="0"/><a:pt x="998474" y="0"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1549908" y="0"/><a:pt x="1996948" y="447040"/><a:pt x="1996948" y="998474"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1996948" y="1549908"/><a:pt x="1549908" y="1996948"/><a:pt x="998474" y="1996948"/></a:cubicBezTo><a:cubicBezTo><a:pt x="447040" y="1996948"/><a:pt x="0" y="1549908"/><a:pt x="0" y="998474"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="7DC7FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="0069B8"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="18900003"/></a:gradFill></p:spPr></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="48" name="Freeform 37"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="8754679" y="6586144"/><a:ext cx="707054" cy="707054"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="707054" h="707054"><a:moveTo><a:pt x="0" y="0"/></a:moveTo><a:lnTo><a:pt x="707054" y="0"/></a:lnTo><a:lnTo><a:pt x="707054" y="707053"/></a:lnTo><a:lnTo><a:pt x="0" y="707053"/></a:lnTo><a:lnTo><a:pt x="0" y="0"/></a:lnTo><a:close/></a:path></a:pathLst></a:custGeom><a:blipFill><a:blip r:embed="rId4"><a:extLst><a:ext uri="{96DAC541-7B7A-43D3-8B79-37D633B846F1}"><asvg:svgBlip xmlns:asvg="http://schemas.microsoft.com/office/drawing/2016/SVG/main" r:embed="rId5"/></a:ext></a:extLst></a:blip><a:stretch><a:fillRect/></a:stretch></a:blipFill></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="49" name="Group 38"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="1221815" y="5277392"/><a:ext cx="3712933" cy="853140"/><a:chOff x="0" y="0"/><a:chExt cx="1768684" cy="406400"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="50" name="Freeform 39"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1768684" cy="406400"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1768684" h="406400"><a:moveTo><a:pt x="1565484" y="0"/></a:moveTo><a:lnTo><a:pt x="0" y="0"/></a:lnTo><a:lnTo><a:pt x="0" y="406400"/></a:lnTo><a:lnTo><a:pt x="1565484" y="406400"/></a:lnTo><a:lnTo><a:pt x="1768684" y="203200"/></a:lnTo><a:lnTo><a:pt x="1565484" y="0"/></a:lnTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="0069B8"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="004F8A"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="13500000"/></a:gradFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="51" name="TextBox 40"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1654384" cy="406400"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="50800" tIns="50800" rIns="50800" bIns="50800" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2400"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="52" name="TextBox 42"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="4298347" y="3181603"/><a:ext cx="2278826" cy="415290"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="3240"/></a:lnSpc><a:spcBef><a:spcPct val="0"/></a:spcBef></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="2700" spc="53"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:latin typeface="思源黑体" panose="020B0500000000000000" charset="-122"/><a:ea typeface="思源黑体" panose="020B0500000000000000" charset="-122"/><a:cs typeface="思源黑体" panose="020B0500000000000000" charset="-122"/><a:sym typeface="思源黑体" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>视图容器
+状态总栈
+路由
+统计模型
+前端
+后端
+文件架构
+前端目录树
+封装
+ DataScreen (
+大屏
+) 
+与
+ DataEditor (
+编辑区
+) 
+等核心组件，保障海量表单数据的流畅渲染与交互。
+细分
+ process
+、
+analysis 
+等全局响应式管线，作为神经中枢统一调度系统状态，阻断内存溢出风险。
+后端目录树
+按业务解耦
+ upload
+、
+analysis 
+等接口蓝图，负责前后端高频通信的精准调度与物理沙盒分发。
+集成
+ stats (
+基础统计
+) 
+与
+ ml (
+机器学习
+) 
+核心算力，将自适应清洗与预测引擎封装为底层
+ API
+。
+
+--- Slide 13 ---
+02.
+统计分析基础
+PART ONE
+三阶段数据清洗算法
+为确保数据质量，系统采用自适应三阶段清洗策略，根据数据特征智能选择离群值检测方法。
+其他情况
+使用IQR四分位法
+N ≥ 30 且偏度≤1
+使用3σ判定法
+N &lt; 30
+使用Dixon's Q检验
+样本规模 N
+检查样本大小
+Dixon's Q检验（小样本）
+：适用于N &lt; 30的有限小样本数据集，通过比较可疑值与最接近值的差值与极差的比值来判断离群点。
+3σ原则（正态分布）
+：当N ≥ 30且数据近似正态分布（|偏度| ≤ 1）时，基于标准差的经典方法，将超出±3个标准差范围的数据视为异常。
+IQR箱线图法（非正态分布）
+：对于非正态分布或大样本中存在偏斜的数据，利用四分位距（IQR）定义异常值范围，具有更强的鲁棒性。
+假设检验与统计推断
+系统内置多种统计检验方法，用于评估数据差异的显著性，辅助用户进行科学决策。
+Welch's t检验
+：在两组数据方差不齐时，提供比传统学生t检验更稳健的均值差异评估。
+Shapiro-Wilk正态性检验
+：用于判断样本数据是否来自正态分布总体，是许多参数检验的前提。
+Bootstrap重抽样
+：通过有放回地重复抽样构建经验分布，用于估计参数的置信区间或进行假设检验，尤其适用于小样本或复杂分布。
+偏态分布
+正态分布
+上图对比了理想的正态分布与常见的偏态分布，直观展示了数据分布对统计推断的影响。
+机器学习与模型评估
+系统整合机器学习能力，支持数据间的关系探索、趋势预测与智能诊断。
+Pearson相关系数
+：衡量两个连续变量之间线性相关程度的指标，数值范围在-1到1之间。
+R²决定系数
+：评估回归模型拟合优度，表示因变量方差中能被自变量解释的比例，数值越接近1表示拟合效果越好。
+置信度惩罚损失函数
+：在模型训练中引入对置信度过高的预测的惩罚，避免过拟合，提升模型泛化能力。
+过拟合示意图
+：
+此图展示了过拟合模型在训练数据上表现良好，但在未见过的数据上可能泛化能力差；而良好拟合模型则能更好地捕捉数据趋势。
+
+--- Slide 14 ---
+Vue.js
+渐进式响应式前端框架
+Vite
+次世代前端构建与热更新工具
+ECharts
+高性能
+ Canvas 
+数据可视化引擎
+02.
+技术栈
+PART ONE
+Python &amp; Flask
+轻量级敏捷微服务后端
+Pandas 
+&amp; NumPy
+全链路数据清洗、特征切片与底层向量化计算
+Scikit-learn
+高阶机器学习与推断算法模块
+
+--- Slide 15 ---
+功能实现
+演示文稿是一种实用的工具，可以是演示，演讲，报告等。大部分时间，它们都是在为观众服务。它们有多种用途，是演讲和教学的有力工具。如果您想在演示文稿中展现内容，可以选择多种可以选择多种方式
+WORK REFLECTION
+PART THREE
+
+--- Slide 16 ---
+</a:ln></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="10" name="Group 10"/><p:cNvGrpSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId8"/></p:custDataLst></p:nvPr></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="2121989" y="3113574"/><a:ext cx="808336" cy="808336"/><a:chOff x="0" y="0"/><a:chExt cx="812800" cy="812800"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="11" name="Freeform 11"/><p:cNvSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId9"/></p:custDataLst></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="812800" cy="812800"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="812800" h="812800"><a:moveTo><a:pt x="406400" y="0"/></a:moveTo><a:cubicBezTo><a:pt x="181951" y="0"/><a:pt x="0" y="181951"/><a:pt x="0" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="0" y="630849"/><a:pt x="181951" y="812800"/><a:pt x="406400" y="812800"/></a:cubicBezTo><a:cubicBezTo><a:pt x="630849" y="812800"/><a:pt x="812800" y="630849"/><a:pt x="812800" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="812800" y="181951"/><a:pt x="630849" y="0"/><a:pt x="406400" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:ln w="28575" cap="sq"><a:solidFill><a:srgbClr val="3B64C9"/></a:solidFill><a:prstDash val="solid"/><a:miter/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="12" name="TextBox 12"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="76200" y="38100"/><a:ext cx="660400" cy="698500"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="50800" tIns="50800" rIns="50800" bIns="50800" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2520"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="13" name="Freeform 13"/><p:cNvSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId10"/></p:custDataLst></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="2331347" y="3300408"/><a:ext cx="389621" cy="434668"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="389621" h="434668"><a:moveTo><a:pt x="0" y="0"/></a:moveTo><a:lnTo><a:pt x="389621" y="0"/></a:lnTo><a:lnTo><a:pt x="389621" y="434668"/></a:lnTo><a:lnTo><a:pt x="0" y="434668"/></a:lnTo><a:lnTo><a:pt x="0" y="0"/></a:lnTo><a:close/></a:path></a:pathLst></a:custGeom><a:blipFill><a:blip r:embed="rId11"><a:extLst><a:ext uri="{96DAC541-7B7A-43D3-8B79-37D633B846F1}"><asvg:svgBlip xmlns:asvg="http://schemas.microsoft.com/office/drawing/2016/SVG/main" r:embed="rId12"/></a:ext></a:extLst></a:blip><a:stretch><a:fillRect/></a:stretch></a:blipFill></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="14" name="Group 14"/><p:cNvGrpSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId13"/></p:custDataLst></p:nvPr></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="3072504" y="3442303"/><a:ext cx="150878" cy="150878"/><a:chOff x="0" y="0"/><a:chExt cx="812800" cy="812800"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="15" name="Freeform 15"/><p:cNvSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId14"/></p:custDataLst></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="812800" cy="812800"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="812800" h="812800"><a:moveTo><a:pt x="406400" y="0"/></a:moveTo><a:cubicBezTo><a:pt x="181951" y="0"/><a:pt x="0" y="181951"/><a:pt x="0" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="0" y="630849"/><a:pt x="181951" y="812800"/><a:pt x="406400" y="812800"/></a:cubicBezTo><a:cubicBezTo><a:pt x="630849" y="812800"/><a:pt x="812800" y="630849"/><a:pt x="812800" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="812800" y="181951"/><a:pt x="630849" y="0"/><a:pt x="406400" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:solidFill><a:srgbClr val="7593DD"/></a:solidFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="16" name="TextBox 16"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="76200" y="38100"/><a:ext cx="660400" cy="698500"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="50800" tIns="50800" rIns="50800" bIns="50800" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2520"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="17" name="Group 17"/><p:cNvGrpSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId15"/></p:custDataLst></p:nvPr></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="2121989" y="5177933"/><a:ext cx="808336" cy="808336"/><a:chOff x="0" y="0"/><a:chExt cx="812800" cy="812800"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="18" name="Freeform 18"/><p:cNvSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId16"/></p:custDataLst></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="812800" cy="812800"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="812800" h="812800"><a:moveTo><a:pt x="406400" y="0"/></a:moveTo><a:cubicBezTo><a:pt x="181951" y="0"/><a:pt x="0" y="181951"/><a:pt x="0" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="0" y="630849"/><a:pt x="181951" y="812800"/><a:pt x="406400" y="812800"/></a:cubicBezTo><a:cubicBezTo><a:pt x="630849" y="812800"/><a:pt x="812800" y="630849"/><a:pt x="812800" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="812800" y="181951"/><a:pt x="630849" y="0"/><a:pt x="406400" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:ln w="28575" cap="sq"><a:solidFill><a:srgbClr val="3B64C9"/></a:solidFill><a:prstDash val="solid"/><a:miter/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="19" name="TextBox 19"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="76200" y="38100"/><a:ext cx="660400" cy="698500"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="50800" tIns="50800" rIns="50800" bIns="50800" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2520"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="20" name="Freeform 20"/><p:cNvSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId17"/></p:custDataLst></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="2331347" y="5364767"/><a:ext cx="389621" cy="434668"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="389621" h="434668"><a:moveTo><a:pt x="0" y="0"/></a:moveTo><a:lnTo><a:pt x="389621" y="0"/></a:lnTo><a:lnTo><a:pt x="389621" y="434669"/></a:lnTo><a:lnTo><a:pt x="0" y="434669"/></a:lnTo><a:lnTo><a:pt x="0" y="0"/></a:lnTo><a:close/></a:path></a:pathLst></a:custGeom><a:blipFill><a:blip r:embed="rId11"><a:extLst><a:ext uri="{96DAC541-7B7A-43D3-8B79-37D633B846F1}"><asvg:svgBlip xmlns:asvg="http://schemas.microsoft.com/office/drawing/2016/SVG/main" r:embed="rId12"/></a:ext></a:extLst></a:blip><a:stretch><a:fillRect/></a:stretch></a:blipFill></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="21" name="Group 21"/><p:cNvGrpSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId18"/></p:custDataLst></p:nvPr></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="3072504" y="5506662"/><a:ext cx="150878" cy="150878"/><a:chOff x="0" y="0"/><a:chExt cx="812800" cy="812800"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="22" name="Freeform 22"/><p:cNvSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId19"/></p:custDataLst></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="812800" cy="812800"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="812800" h="812800"><a:moveTo><a:pt x="406400" y="0"/></a:moveTo><a:cubicBezTo><a:pt x="181951" y="0"/><a:pt x="0" y="181951"/><a:pt x="0" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="0" y="630849"/><a:pt x="181951" y="812800"/><a:pt x="406400" y="812800"/></a:cubicBezTo><a:cubicBezTo><a:pt x="630849" y="812800"/><a:pt x="812800" y="630849"/><a:pt x="812800" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="812800" y="181951"/><a:pt x="630849" y="0"/><a:pt x="406400" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:solidFill><a:srgbClr val="7593DD"/></a:solidFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="23" name="TextBox 23"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="76200" y="38100"/><a:ext cx="660400" cy="698500"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="50800" tIns="50800" rIns="50800" bIns="50800" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2520"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="24" name="Group 24"/><p:cNvGrpSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId20"/></p:custDataLst></p:nvPr></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="2121989" y="7242293"/><a:ext cx="808336" cy="808336"/><a:chOff x="0" y="0"/><a:chExt cx="812800" cy="812800"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="25" name="Freeform 25"/><p:cNvSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId21"/></p:custDataLst></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="812800" cy="812800"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="812800" h="812800"><a:moveTo><a:pt x="406400" y="0"/></a:moveTo><a:cubicBezTo><a:pt x="181951" y="0"/><a:pt x="0" y="181951"/><a:pt x="0" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="0" y="630849"/><a:pt x="181951" y="812800"/><a:pt x="406400" y="812800"/></a:cubicBezTo><a:cubicBezTo><a:pt x="630849" y="812800"/><a:pt x="812800" y="630849"/><a:pt x="812800" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="812800" y="181951"/><a:pt x="630849" y="0"/><a:pt x="406400" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:ln w="28575" cap="sq"><a:solidFill><a:srgbClr val="3B64C9"/></a:solidFill><a:prstDash val="solid"/><a:miter/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="26" name="TextBox 26"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="76200" y="38100"/><a:ext cx="660400" cy="698500"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="50800" tIns="50800" rIns="50800" bIns="50800" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2520"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="27" name="Freeform 27"/><p:cNvSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId22"/></p:custDataLst></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="2331347" y="7429127"/><a:ext cx="389621" cy="434668"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="389621" h="434668"><a:moveTo><a:pt x="0" y="0"/></a:moveTo><a:lnTo><a:pt x="389621" y="0"/></a:lnTo><a:lnTo><a:pt x="389621" y="434668"/></a:lnTo><a:lnTo><a:pt x="0" y="434668"/></a:lnTo><a:lnTo><a:pt x="0" y="0"/></a:lnTo><a:close/></a:path></a:pathLst></a:custGeom><a:blipFill><a:blip r:embed="rId11"><a:extLst><a:ext uri="{96DAC541-7B7A-43D3-8B79-37D633B846F1}"><asvg:svgBlip xmlns:asvg="http://schemas.microsoft.com/office/drawing/2016/SVG/main" r:embed="rId12"/></a:ext></a:extLst></a:blip><a:stretch><a:fillRect/></a:stretch></a:blipFill></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="28" name="Group 28"/><p:cNvGrpSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId23"/></p:custDataLst></p:nvPr></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="3072504" y="7571022"/><a:ext cx="150878" cy="150878"/><a:chOff x="0" y="0"/><a:chExt cx="812800" cy="812800"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="29" name="Freeform 29"/><p:cNvSpPr/><p:nvPr><p:custDataLst><p:tags r:id="rId24"/></p:custDataLst></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="812800" cy="812800"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="812800" h="812800"><a:moveTo><a:pt x="406400" y="0"/></a:moveTo><a:cubicBezTo><a:pt x="181951" y="0"/><a:pt x="0" y="181951"/><a:pt x="0" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="0" y="630849"/><a:pt x="181951" y="812800"/><a:pt x="406400" y="812800"/></a:cubicBezTo><a:cubicBezTo><a:pt x="630849" y="812800"/><a:pt x="812800" y="630849"/><a:pt x="812800" y="406400"/></a:cubicBezTo><a:cubicBezTo><a:pt x="812800" y="181951"/><a:pt x="630849" y="0"/><a:pt x="406400" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:solidFill><a:srgbClr val="7593DD"/></a:solidFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="30" name="TextBox 30"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="76200" y="38100"/><a:ext cx="660400" cy="698500"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="50800" tIns="50800" rIns="50800" bIns="50800" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2520"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="31" name="TextBox 31"/><p:cNvSpPr txBox="1"/><p:nvPr><p:custDataLst><p:tags r:id="rId25"/></p:custDataLst></p:nvPr></p:nvSpPr><p:spPr><a:xfrm><a:off x="3365561" y="3046899"/><a:ext cx="6845257" cy="645795"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="l"><a:lnSpc><a:spcPts val="5040"/></a:lnSpc></a:pPr><a:r><a:rPr lang="zh-CN" altLang="en-US" sz="3600" spc="179"><a:solidFill><a:srgbClr val="3B64C9"/></a:solidFill><a:latin typeface="思源宋体-超粗体" panose="02020900000000000000" charset="-122"/><a:ea typeface="思源宋体-超粗体" panose="02020900000000000000" charset="-122"/><a:cs typeface="思源宋体-超粗体" panose="02020900000000000000" charset="-122"/><a:sym typeface="思源宋体-超粗体" panose="02020900000000000000" charset="-122"/></a:rPr><a:t>功能设计
+演示文稿是一种实用的工具，可以是演示，演讲，报告等。大部分时间，它们都是在为观众服务
+界面设计
+演示文稿是一种实用的工具，可以是演示，演讲，报告等。大部分时间，它们都是在为观众服务
+部署设计
+演示文稿是一种实用的工具，可以是演示，演讲，报告等。大部分时间，它们都是在为观众服务
+03.
+多方面分析
+PART THREE
+
+--- Slide 17 ---
+03.
+功能设计
+PART TWO
+自适应三阶段数据清洗
+数据清洗功能是确保数据质量的基石。系统没有采用死板的单一截断方式，而是编写了一套
+“
+三阶自适应智能清洗引擎
+”
+。
+第一阶段采用
+ Dixon's Q 
+检验处理样本量小于
+ 30 
+的极小样本，有效寻找断崖特征。
+第二阶段针对大于
+ 30 
+且呈近似正态分布的数据，启用
+ 3σ 
+边界准则进行数学拦截。
+如果数据呈严重偏态，则会自动进入第三阶段，使用非参数检验的
+ IQR
+（四分位距）箱线图法来进行切割。
+三阶数据清理
+其他情况
+使用IQR四分位法
+N ≥ 30 且偏度≤1
+使用3σ判定法
+N &lt; 30
+使用Dixon's Q检验
+样本规模 N
+检查样本大小
+
+--- Slide 18 ---
+03.
+功能设计
+PART TWO
+Z-score
+和隐私化
+面对大体量文件，前端若强制一次性渲染极易发生内存溢出，所以我开发了截取数据前
+15
+行进行的轻量预览接口。为了确保数据合规性，还开发了隐私探针，自动对名为
+“
+姓名
+”
+、
+“
+手机
+”
+的字符特征实施不可逆长度混淆掩码脱敏。另外利用公式集成了
+ Z-Score
+一键标准化技术以实现特征的去量纲化。
+Z-score
+和隐私化，数据预览
+
+--- Slide 19 ---
+03.
+功能设计
+PART TWO
+描述统计与可视化
+该模块除了基础五数概况（最大最小、均值等），我在底层加入自动分箱生成直方分布的函数。为了深挖矩阵内潜在联系，不仅自动校验
+ Shapiro-Wilk 
+正态拟合度概率，还构筑了
+ Pearson 
+线性关联热力矩阵来计算特征与特征之间的双变量对应极值。
+描述统计与可视化，关联分析
+
+--- Slide 20 ---
+03.
+功能设计
+PART TWO
+T
+检验
+  T
+检验对数据的独立双分类型分布和正态性要求极高。如果盲目报错会极大损害用户体验，故我的代码写了一层极具容错性的拦截重载：在调用
+ Welch's t
+检验
+前如果检测发现任意组不达标，立刻自动执行基于大数定律的
+ Bootstrap 100
+次有放回重抽样来拯救异常分布，保证
+ T
+检验分析流程。
+T
+检验
+
+--- Slide 21 ---
+03.
+功能设计
+PART TWO
+机器学习与模型预测
+该功能的底座采用的是
+ Sklearn 
+库的
+ RandomForest (
+随机森林算法
+) 
+作为核心。重点在于我在预测返回值中，创造性地加入了判断拟合曲线散乱程度的
+“
+多维联动惩罚机制
+”
+，一旦
+ R
+²
+拟合表现极差，程序将无情压制预测置信度，从而客观地防止模型输出反向的谬误指导用户。另外模型还会自动反向提取并下发所有的
+ Feature Importances
+（特征重要度）拆解。
+机器学习与模型预测
+
+--- Slide 22 ---
+03.
+功能设计
+PART TWO
+个人雷达图
+这个组件为了展示个体差异做到了极致的自动标量化。系统先拉伸出全量数值参数的组平均特征线以形成骨架，随后依据检索寻找特定的某一个人对应的标量并做叠加渲染。为了视觉留白防止撑爆雷达，各维度会自动向外放大
+1.1
+倍极值比例尺。
+个人雷达图
+
+--- Slide 23 ---
+03.
+功能设计
+PART TWO
+清理缓存，沙盒
+面对用户可能导致的破坏性数据覆写，本系统架构自带了一个
+“
+安全沙盒
+ (outputs)”
+隔离机制。在数据落盘时，可利用分支判断生成新表隔绝底层覆盖，保护原始资产。针对前端浏览器的导出操作，系统特意封装注入了原生跨平台的
+ \uFEFF (UTF-8 BOM)
+，从应用层彻底解决了导出的
+ CSV 
+丢入
+ Excel 
+会发生乱码这一痛点。
+【附着代码（后端与前端综合）】
+导出功能，清理缓存，沙盒
+
+--- Slide 24 ---
+03.
+功能设计
+PART TWO
+操作日志
+该控制台扮演前端调试板（
+Console
+）的作用，专门针对用户的各类核心操作（保存、计算、清理等）进行轨迹溯源和色彩化输出，让小白用户知道现在系统后端发生了什么进而拥有明确的操作安全感。
+操作日志
+
+--- Slide 25 ---
+03.
+功能设计
+PART TWO
+增删改查
+该模块为实现类似
+ Excel 
+的增删改查编辑体验，摆脱了单纯传死对象，而是针对
+ Vue
+响应式数组
+的特定索引使用了
+ Array
+的
+ push 
+和
+ splice
+，实现针对矩阵级别的行
+/
+列级别的无缝增加与剔除，同时配套相应的全局检索能力。
+增删改查
+
+--- Slide 26 ---
+03.
+功能设计
+PART TWO
+撤回功能
+撤回并不是简单地倒带，如果涉及万级别的坐标网格，反复记录全量副本极易击穿前端
+ V8 
+内存配额。本系统自创的撤回架构，引入了编程概念
+“Memento
+（备忘录设计模式）
+”
+，并强制设立堆栈抛弃封锁上限（超过
+30
+步强行覆盖）。
+撤回功能
+
+--- Slide 27 ---
+03.
+功能设计
+PART TWO
+替换和导出的防呆措施
+如果在上传新文件或重命名时直接覆盖，会让一切工作毁于一旦。针对容易造成
+“
+车祸
+”
+的修改源文件请求，系统通过异步拦截器实现多次二次确认。只要系统发现目标路径下存在同名冲突文件，即刻强制开启确认锁（
+Overwrite Confirmed 
+参数验证机制），要求操作主体明令确认。
+替换和导出的防呆措施
+
+--- Slide 28 ---
+整体界面设计风格
+摒弃了传统分析工具白纸黑字的简陋。整套核心界面设计深度绑定今年来风靡全球
+ UI 
+设计界的
+ Glassmorphism (
+极致拟物毛玻璃
+)
+。在背景容器插入
+ HTML5 
+动态视频作为渲染底座，随后依托一层厚厚的
+ CSS backdrop-filter: blur(10px) 
+特性进行层层堆叠，形成半透但不违和的卡片呼吸动态视觉享受。
+数据分析系统的左右界面设计
+分析系统讲究高低强弱。左侧规划为导航枢纽与变量操纵阀门组件
+ Sidebar.vue
+；而右侧占比如最宽阔海域的是
+ DataScreen.vue
+，专用来承载各种
+ ECharts
+。符合视网膜从左到右寻找导航焦点的基础人体工学设计轨迹。
+03.
+界面设计
+PART TWO
+
+--- Slide 29 ---
+03.
+界面设计
+PART THREE
+双系统的警告界面设计
+Vue 
+的多异步进程极容易造成原生浏览器
+ Alert 
+阻碍导致数据源撕裂冲突。此警告界面的设计利用统一的微任务系统延迟调度解决。全部以绝对定位浮盖整个前端的
+ z-index 
+层，将文字配以警醒红与橙黄区分安全级别，以玻璃体容器阻绝所有后端请求进行危险操作保护。
+
+--- Slide 30 ---
+03.
+用户体验
+PART THREE
+数据操作系统的界面设计
+相较于上面的约束感，当用户翻转到管理界面，他们扮演的角色不再是分析师而是工程师。因此立刻取消左右阻挡结构，调用全面屏网格引擎展示出带有无边际感
+ grid/table 
+组件的
+ DataEditor.vue
+，将所有的行列特征值铺设出最为辽阔的视角区间，减少横向滑动的痛苦体验。
+
+--- Slide 31 ---
+03.
+界面设计
+PART THREE
+</a:ln></p:spPr></p:sp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="17" name="Group 3"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="1874100" y="4202841"/><a:ext cx="1163158" cy="4599308"/><a:chOff x="0" y="0"/><a:chExt cx="309003" cy="1221845"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="18" name="Freeform 4"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="309003" cy="1221845"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="309003" h="1221845"><a:moveTo><a:pt x="73215" y="0"/></a:moveTo><a:lnTo><a:pt x="235787" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="255205" y="0"/><a:pt x="273828" y="7714"/><a:pt x="287559" y="21444"/></a:cubicBezTo><a:cubicBezTo><a:pt x="301289" y="35175"/><a:pt x="309003" y="53797"/><a:pt x="309003" y="73215"/></a:cubicBezTo><a:lnTo><a:pt x="309003" y="1148630"/></a:lnTo><a:cubicBezTo><a:pt x="309003" y="1168048"/><a:pt x="301289" y="1186670"/><a:pt x="287559" y="1200401"/></a:cubicBezTo><a:cubicBezTo><a:pt x="273828" y="1214132"/><a:pt x="255205" y="1221845"/><a:pt x="235787" y="1221845"/></a:cubicBezTo><a:lnTo><a:pt x="73215" y="1221845"/></a:lnTo><a:cubicBezTo><a:pt x="53797" y="1221845"/><a:pt x="35175" y="1214132"/><a:pt x="21444" y="1200401"/></a:cubicBezTo><a:cubicBezTo><a:pt x="7714" y="1186670"/><a:pt x="0" y="1168048"/><a:pt x="0" y="1148630"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="73215"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="53797"/><a:pt x="7714" y="35175"/><a:pt x="21444" y="21444"/></a:cubicBezTo><a:cubicBezTo><a:pt x="35175" y="7714"/><a:pt x="53797" y="0"/><a:pt x="73215" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill><a:ln cap="sq"><a:noFill/><a:prstDash val="solid"/><a:miter/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="19" name="TextBox 5"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-28575"/><a:ext cx="309003" cy="1250420"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="55859" tIns="55859" rIns="55859" bIns="55859" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr marL="0" lvl="0" indent="0" algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc><a:spcBef><a:spcPct val="0"/></a:spcBef></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="20" name="Group 6"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="15103975" y="4202841"/><a:ext cx="1309926" cy="4599308"/><a:chOff x="0" y="0"/><a:chExt cx="347993" cy="1221845"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="21" name="Freeform 7"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="347993" cy="1221845"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="347993" h="1221845"><a:moveTo><a:pt x="65012" y="0"/></a:moveTo><a:lnTo><a:pt x="282981" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="300223" y="0"/><a:pt x="316759" y="6849"/><a:pt x="328951" y="19042"/></a:cubicBezTo><a:cubicBezTo><a:pt x="341143" y="31234"/><a:pt x="347993" y="47770"/><a:pt x="347993" y="65012"/></a:cubicBezTo><a:lnTo><a:pt x="347993" y="1156833"/></a:lnTo><a:cubicBezTo><a:pt x="347993" y="1174076"/><a:pt x="341143" y="1190612"/><a:pt x="328951" y="1202804"/></a:cubicBezTo><a:cubicBezTo><a:pt x="316759" y="1214996"/><a:pt x="300223" y="1221845"/><a:pt x="282981" y="1221845"/></a:cubicBezTo><a:lnTo><a:pt x="65012" y="1221845"/></a:lnTo><a:cubicBezTo><a:pt x="47770" y="1221845"/><a:pt x="31234" y="1214996"/><a:pt x="19042" y="1202804"/></a:cubicBezTo><a:cubicBezTo><a:pt x="6849" y="1190612"/><a:pt x="0" y="1174076"/><a:pt x="0" y="1156833"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="65012"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="47770"/><a:pt x="6849" y="31234"/><a:pt x="19042" y="19042"/></a:cubicBezTo><a:cubicBezTo><a:pt x="31234" y="6849"/><a:pt x="47770" y="0"/><a:pt x="65012" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill><a:ln cap="sq"><a:noFill/><a:prstDash val="solid"/><a:miter/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="22" name="TextBox 8"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-28575"/><a:ext cx="347993" cy="1250420"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="55859" tIns="55859" rIns="55859" bIns="55859" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr marL="0" lvl="0" indent="0" algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc><a:spcBef><a:spcPct val="0"/></a:spcBef></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="23" name="Group 9"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="2916735" y="3895484"/><a:ext cx="6054752" cy="5214020"/><a:chOff x="0" y="0"/><a:chExt cx="1608497" cy="1385149"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="24" name="Freeform 10"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1608497" cy="1385149"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1608497" h="1385149"><a:moveTo><a:pt x="16622" y="0"/></a:moveTo><a:lnTo><a:pt x="1591874" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="1601055" y="0"/><a:pt x="1608497" y="7442"/><a:pt x="1608497" y="16622"/></a:cubicBezTo><a:lnTo><a:pt x="1608497" y="1368527"/></a:lnTo><a:cubicBezTo><a:pt x="1608497" y="1377707"/><a:pt x="1601055" y="1385149"/><a:pt x="1591874" y="1385149"/></a:cubicBezTo><a:lnTo><a:pt x="16622" y="1385149"/></a:lnTo><a:cubicBezTo><a:pt x="7442" y="1385149"/><a:pt x="0" y="1377707"/><a:pt x="0" y="1368527"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="16622"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="7442"/><a:pt x="7442" y="0"/><a:pt x="16622" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="F0F3FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="33333"><a:srgbClr val="F0F3FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="66667"><a:srgbClr val="F0F3FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="C1CCF7"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill><a:ln w="19050" cap="sq"><a:solidFill><a:srgbClr val="3D77FF"/></a:solidFill><a:prstDash val="solid"/><a:miter/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="25" name="TextBox 11"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-38100"/><a:ext cx="1608497" cy="1423249"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="55859" tIns="55859" rIns="55859" bIns="55859" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr marL="0" lvl="0" indent="0" algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc><a:spcBef><a:spcPct val="0"/></a:spcBef></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="26" name="Group 12"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="9307486" y="3895484"/><a:ext cx="6054752" cy="5214020"/><a:chOff x="0" y="0"/><a:chExt cx="1608497" cy="1385149"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="27" name="Freeform 13"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1608497" cy="1385149"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1608497" h="1385149"><a:moveTo><a:pt x="16622" y="0"/></a:moveTo><a:lnTo><a:pt x="1591874" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="1601055" y="0"/><a:pt x="1608497" y="7442"/><a:pt x="1608497" y="16622"/></a:cubicBezTo><a:lnTo><a:pt x="1608497" y="1368527"/></a:lnTo><a:cubicBezTo><a:pt x="1608497" y="1377707"/><a:pt x="1601055" y="1385149"/><a:pt x="1591874" y="1385149"/></a:cubicBezTo><a:lnTo><a:pt x="16622" y="1385149"/></a:lnTo><a:cubicBezTo><a:pt x="7442" y="1385149"/><a:pt x="0" y="1377707"/><a:pt x="0" y="1368527"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="16622"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="7442"/><a:pt x="7442" y="0"/><a:pt x="16622" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="F0F3FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="33333"><a:srgbClr val="F0F3FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="66667"><a:srgbClr val="F0F3FF"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="C1CCF7"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill><a:ln w="19050" cap="sq"><a:solidFill><a:srgbClr val="3D77FF"/></a:solidFill><a:prstDash val="solid"/><a:miter/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="28" name="TextBox 14"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-38100"/><a:ext cx="1608497" cy="1423249"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="55859" tIns="55859" rIns="55859" bIns="55859" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr marL="0" lvl="0" indent="0" algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc><a:spcBef><a:spcPct val="0"/></a:spcBef></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="29" name="Freeform 15"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="2096611" y="7937644"/><a:ext cx="597612" cy="630876"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="597612" h="630876"><a:moveTo><a:pt x="0" y="0"/></a:moveTo><a:lnTo><a:pt x="597612" y="0"/></a:lnTo><a:lnTo><a:pt x="597612" y="630876"/></a:lnTo><a:lnTo><a:pt x="0" y="630876"/></a:lnTo><a:lnTo><a:pt x="0" y="0"/></a:lnTo><a:close/></a:path></a:pathLst></a:custGeom><a:blipFill><a:blip r:embed="rId4"><a:alphaModFix amt="64000"/><a:extLst><a:ext uri="{96DAC541-7B7A-43D3-8B79-37D633B846F1}"><asvg:svgBlip xmlns:asvg="http://schemas.microsoft.com/office/drawing/2016/SVG/main" r:embed="rId5"/></a:ext></a:extLst></a:blip><a:stretch><a:fillRect/></a:stretch></a:blipFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="30" name="Freeform 16"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="15622528" y="7937644"/><a:ext cx="531083" cy="630876"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="531083" h="630876"><a:moveTo><a:pt x="0" y="0"/></a:moveTo><a:lnTo><a:pt x="531083" y="0"/></a:lnTo><a:lnTo><a:pt x="531083" y="630876"/></a:lnTo><a:lnTo><a:pt x="0" y="630876"/></a:lnTo><a:lnTo><a:pt x="0" y="0"/></a:lnTo><a:close/></a:path></a:pathLst></a:custGeom><a:blipFill><a:blip r:embed="rId6"><a:alphaModFix amt="64000"/><a:extLst><a:ext uri="{96DAC541-7B7A-43D3-8B79-37D633B846F1}"><asvg:svgBlip xmlns:asvg="http://schemas.microsoft.com/office/drawing/2016/SVG/main" r:embed="rId7"/></a:ext></a:extLst></a:blip><a:stretch><a:fillRect/></a:stretch></a:blipFill><a:ln cap="sq"><a:noFill/><a:prstDash val="solid"/><a:miter/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="31" name="AutoShape 17"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="3200887" y="4904840"/><a:ext cx="5486448" cy="0"/></a:xfrm><a:prstGeom prst="line"><a:avLst/></a:prstGeom><a:ln w="19050" cap="rnd"><a:gradFill><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="0"/></a:gradFill><a:prstDash val="solid"/><a:headEnd type="none" w="sm" len="sm"/><a:tailEnd type="none" w="sm" len="sm"/></a:ln></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="32" name="AutoShape 18"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="9591638" y="4904840"/><a:ext cx="5486448" cy="0"/></a:xfrm><a:prstGeom prst="line"><a:avLst/></a:prstGeom><a:ln w="19050" cap="rnd"><a:gradFill><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="100000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="100000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="0"/></a:gradFill><a:prstDash val="solid"/><a:headEnd type="none" w="sm" len="sm"/><a:tailEnd type="none" w="sm" len="sm"/></a:ln></p:spPr></p:sp><p:pic><p:nvPicPr><p:cNvPr id="33" name="Picture 19"/><p:cNvPicPr><a:picLocks noChangeAspect="1"/></p:cNvPicPr><p:nvPr/></p:nvPicPr><p:blipFill><a:blip r:embed="rId8"/><a:stretch><a:fillRect/></a:stretch></p:blipFill><p:spPr><a:xfrm><a:off x="2652242" y="5862049"/><a:ext cx="6583738" cy="3726870"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr></p:pic><p:grpSp><p:nvGrpSpPr><p:cNvPr id="34" name="Group 20"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="9591638" y="5991858"/><a:ext cx="2613048" cy="2224129"/><a:chOff x="0" y="0"/><a:chExt cx="404830" cy="344576"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="35" name="Freeform 21"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="404830" cy="344576"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="404830" h="344576"><a:moveTo><a:pt x="17777" y="0"/></a:moveTo><a:lnTo><a:pt x="387053" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="391767" y="0"/><a:pt x="396289" y="1873"/><a:pt x="399623" y="5207"/></a:cubicBezTo><a:cubicBezTo><a:pt x="402957" y="8540"/><a:pt x="404830" y="13062"/><a:pt x="404830" y="17777"/></a:cubicBezTo><a:lnTo><a:pt x="404830" y="326799"/></a:lnTo><a:cubicBezTo><a:pt x="404830" y="331514"/><a:pt x="402957" y="336035"/><a:pt x="399623" y="339369"/></a:cubicBezTo><a:cubicBezTo><a:pt x="396289" y="342703"/><a:pt x="391767" y="344576"/><a:pt x="387053" y="344576"/></a:cubicBezTo><a:lnTo><a:pt x="17777" y="344576"/></a:lnTo><a:cubicBezTo><a:pt x="13062" y="344576"/><a:pt x="8540" y="342703"/><a:pt x="5207" y="339369"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1873" y="336035"/><a:pt x="0" y="331514"/><a:pt x="0" y="326799"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="17777"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="13062"/><a:pt x="1873" y="8540"/><a:pt x="5207" y="5207"/></a:cubicBezTo><a:cubicBezTo><a:pt x="8540" y="1873"/><a:pt x="13062" y="0"/><a:pt x="17777" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:blipFill><a:blip r:embed="rId9"/><a:stretch><a:fillRect l="-13877" r="-13877"/></a:stretch></a:blipFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="36" name="Group 22"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="12465038" y="5991858"/><a:ext cx="2613048" cy="2224129"/><a:chOff x="0" y="0"/><a:chExt cx="404830" cy="344576"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="37" name="Freeform 23"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="404830" cy="344576"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="404830" h="344576"><a:moveTo><a:pt x="17777" y="0"/></a:moveTo><a:lnTo><a:pt x="387053" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="391767" y="0"/><a:pt x="396289" y="1873"/><a:pt x="399623" y="5207"/></a:cubicBezTo><a:cubicBezTo><a:pt x="402957" y="8540"/><a:pt x="404830" y="13062"/><a:pt x="404830" y="17777"/></a:cubicBezTo><a:lnTo><a:pt x="404830" y="326799"/></a:lnTo><a:cubicBezTo><a:pt x="404830" y="331514"/><a:pt x="402957" y="336035"/><a:pt x="399623" y="339369"/></a:cubicBezTo><a:cubicBezTo><a:pt x="396289" y="342703"/><a:pt x="391767" y="344576"/><a:pt x="387053" y="344576"/></a:cubicBezTo><a:lnTo><a:pt x="17777" y="344576"/></a:lnTo><a:cubicBezTo><a:pt x="13062" y="344576"/><a:pt x="8540" y="342703"/><a:pt x="5207" y="339369"/></a:cubicBezTo><a:cubicBezTo><a:pt x="1873" y="336035"/><a:pt x="0" y="331514"/><a:pt x="0" y="326799"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="17777"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="13062"/><a:pt x="1873" y="8540"/><a:pt x="5207" y="5207"/></a:cubicBezTo><a:cubicBezTo><a:pt x="8540" y="1873"/><a:pt x="13062" y="0"/><a:pt x="17777" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:blipFill><a:blip r:embed="rId10"/><a:stretch><a:fillRect l="-25491" r="-25491"/></a:stretch></a:blipFill></p:spPr></p:sp></p:grpSp><p:grpSp><p:nvGrpSpPr><p:cNvPr id="38" name="Group 24"/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm rot="0"><a:off x="9591638" y="8370485"/><a:ext cx="2613048" cy="431664"/><a:chOff x="0" y="0"/><a:chExt cx="1451466" cy="239776"/></a:xfrm></p:grpSpPr><p:sp><p:nvSpPr><p:cNvPr id="39" name="Freeform 25"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1451466" cy="239776"/></a:xfrm><a:custGeom><a:avLst/><a:gdLst/><a:ahLst/><a:cxnLst/><a:rect l="l" t="t" r="r" b="b"/><a:pathLst><a:path w="1451466" h="239776"><a:moveTo><a:pt x="119888" y="0"/></a:moveTo><a:lnTo><a:pt x="1331578" y="0"/></a:lnTo><a:cubicBezTo><a:pt x="1397791" y="0"/><a:pt x="1451466" y="53676"/><a:pt x="1451466" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="1451466" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="1451466" y="186100"/><a:pt x="1397791" y="239776"/><a:pt x="1331578" y="239776"/></a:cubicBezTo><a:lnTo><a:pt x="119888" y="239776"/></a:lnTo><a:cubicBezTo><a:pt x="53676" y="239776"/><a:pt x="0" y="186100"/><a:pt x="0" y="119888"/></a:cubicBezTo><a:lnTo><a:pt x="0" y="119888"/></a:lnTo><a:cubicBezTo><a:pt x="0" y="53676"/><a:pt x="53676" y="0"/><a:pt x="119888" y="0"/></a:cubicBezTo><a:close/></a:path></a:pathLst></a:custGeom><a:gradFill rotWithShape="1"><a:gsLst><a:gs pos="0"><a:srgbClr val="15B5FC"><a:alpha val="14000"/></a:srgbClr></a:gs><a:gs pos="100000"><a:srgbClr val="3D77FF"><a:alpha val="14000"/></a:srgbClr></a:gs></a:gsLst><a:lin ang="2700000"/></a:gradFill></p:spPr></p:sp><p:sp><p:nvSpPr><p:cNvPr id="40" name="TextBox 26"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="0" y="-28575"/><a:ext cx="1451466" cy="268351"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="43752" tIns="43752" rIns="43752" bIns="43752" rtlCol="0" anchor="ctr"/><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2660"/></a:lnSpc></a:pPr></a:p></p:txBody></p:sp></p:grpSp><p:sp><p:nvSpPr><p:cNvPr id="41" name="TextBox 27"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr><a:xfrm><a:off x="9803002" y="8401368"/><a:ext cx="2190322" cy="322273"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr><p:txBody><a:bodyPr lIns="0" tIns="0" rIns="0" bIns="0" rtlCol="0" anchor="t"><a:spAutoFit/></a:bodyPr><a:lstStyle/><a:p><a:pPr algn="ctr"><a:lnSpc><a:spcPts val="2535"/></a:lnSpc></a:pPr><a:r><a:rPr lang="en-US" sz="1810"><a:solidFill><a:srgbClr val="3D77FF"/></a:solidFill><a:latin typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:ea typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:cs typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/><a:sym typeface="可画耀动黑-简" panose="020B0500000000000000" charset="-122"/></a:rPr><a:t>添加文本
+添加文本
+个性化自定义设计，日夜间模式
+该设计不单是加深暗色，而是底层重铸了一套动态变量表。利用
+ JS 
+能够实时注入更改
+ DOM Node 
+的属性。结合了十六进制原生颜色抓取器与原生滑动条，用户既可以指定夜间黑色系涂装，还可以自己取红绿等主题颜色深度渲染组件的外侧光晕，打造完全独属于该分析师个人的特调皮肤系统。
+01
+02
+此处添加文本
+演示文稿是一种实用的工具，可以是演示，演讲，报告等。大部分时间，它们都是在为观众服务。它们有多种用途，是演讲和教学的有力工具。如果您想在演示文稿中展现内容，可以选择多种可以选择多种方式
+此处添加文本
+演示文稿是一种实用的工具，可以是演示，演讲，报告等。大部分时间，它们都是在为观众服务
+
+--- Slide 32 ---
+03.
+部署实现
+PART FOUR
+近期目标
+演示文稿是一种实用的工具，可以是演示，演讲，报告等。大部分时间，它们都是在为观众服务
+webui
+桌面端部署
+该桌面化形式解决了传统依赖必须用繁杂冗长的
+ CMD 
+命令装库的弊病。对于前端通过命令：
+npm run build 
+利用
+ Vite 
+引擎进行硬核混淆与压缩，随后生成静态的
+ dist 
+包。后端则是通过挂载
+ PyInstaller 
+和
+ pywebview 
+等封装技术手段。将其做了一次
+“
+脱水缩容打包集总
+”
+。输出的完全是一个跨系统通用的
+ .exe 
+等执行二进制，真正实现
+“
+傻瓜式双击应用方案
+”
+，极大拓宽受众面积。
+云服务器的网页部署
+而在标准的局域网或公网集群配置下，利用云端的虚拟化与宝塔进行部署。此服务器上架构以
+ Debian/CentOS 
+级别的
+ Linux 
+为底座核心。核心由
+ Nginx 
+网关进行反向代理映射。对静态画面数据实施端口分发，面对并发式的高算力挖掘运算请求，则无缝引入
+ Gunicorn
+（
+Python WSGI 
+服务器组件）构筑异步任务守护进程池，使得这个数据系统能够服务成型的中小型企业单位内部运转。
+
+--- Slide 33 ---
+汇报人：张小可
+感谢您的观看
+简约风
+2023
+述职报告/ 部门汇报/ 项目汇报
+演示文稿是一种实用的工具，可以是演示，演讲，报告等。大部分时间，它们都是在为观众服务。它们有多种用途，是演讲和教学的有力工具。如果您想在演示文稿中展现内容，可以选择多种可以选择多种方式
