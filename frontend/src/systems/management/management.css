@@ -1,0 +1,13 @@
+/* =========================================
+   【第2层：数据管理引擎系统专属样式】
+   仅影响数据编辑器，分析系统和未来新系统不受干扰
+========================================= */
+.hover-scale { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+.hover-scale:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 6px 20px rgba(0,0,0,0.15) !important; }
+.hover-scale:active { transform: translateY(1px); }
+.table-row-hover:hover td { background: var(--glass-bg, rgba(255,255,255,0.4)) !important; }
+@keyframes editorScaleIn { 0% { opacity: 0; transform: scale(0.95) translateY(10px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--glass-border, rgba(0,0,0,0.05)); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: rgba(136, 136, 136, 0.4); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(136, 136, 136, 0.6); }

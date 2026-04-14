@@ -1,9 +1,9 @@
 <script setup>
 import { onMounted, watch, ref, nextTick } from 'vue'
-import { store, actions } from './store.js'
-import Sidebar from './components/Sidebar.vue'
-import DataScreen from './components/DataScreen.vue'
-import DataEditor from './components/DataEditor.vue';
+import { store, actions } from '@/core/store.js'
+import AnalysisSidebar from '@/systems/analysis/AnalysisSidebar.vue'
+import AnalysisScreen from '@/systems/analysis/AnalysisScreen.vue'
+import ManagementView from '@/systems/management/ManagementView.vue'
 
 const logContainer = ref(null);
 
@@ -37,6 +37,12 @@ watch(() => store.isDarkMode, (newVal) => {
   // 无论切到白天还是黑夜，强制唤醒色彩引擎重新合成 CSS 变量
   actions.applyThemeColor();
 });
+
+// 手动表格行列增删 actions (保留在 App 层级避免模块膨胀)
+const addGridCol = () => store.manualGrid.forEach(row => row.push(''));
+const addGridRow = () => store.manualGrid.push(Array(store.manualGrid[0].length).fill(''));
+const removeGridCol = (cIdx) => store.manualGrid.forEach(row => row.splice(cIdx, 1));
+const removeGridRow = (rIdx) => store.manualGrid.splice(rIdx, 1);
 </script>
 
 <template>
@@ -135,7 +141,7 @@ watch(() => store.isDarkMode, (newVal) => {
             <div class="setting-block" style="margin-top: auto;">
               <div class="version-info">
                 <strong>DataAnalyzer Pro</strong><br>
-                Version: 3.0 (Standalone Edition)<br>
+                Version: 4.0 (Modular Architecture)<br>
                 Core Engine: Flask V8 + Vue3 + ECharts
               </div>
             </div>
@@ -153,8 +159,8 @@ watch(() => store.isDarkMode, (newVal) => {
           <button @click="store.showManualModal = false" class="close-btn" style="font-size: 1.5rem; background:none; border:none; cursor:pointer;">✕</button>
         </div>
         <div style="display:flex; gap:10px; margin-bottom: 15px;">
-          <button @click="actions.addGridCol" class="glass-btn secondary-btn" style="width:auto; padding: 6px 15px; background: rgba(144, 147, 153, 0.4);">➕ 添加一列</button>
-          <button @click="actions.addGridRow" class="glass-btn secondary-btn" style="width:auto; padding: 6px 15px; background: rgba(144, 147, 153, 0.4);">➕ 添加一行</button>
+          <button @click="addGridCol" class="glass-btn secondary-btn" style="width:auto; padding: 6px 15px; background: rgba(144, 147, 153, 0.4);">➕ 添加一列</button>
+          <button @click="addGridRow" class="glass-btn secondary-btn" style="width:auto; padding: 6px 15px; background: rgba(144, 147, 153, 0.4);">➕ 添加一行</button>
         </div>
         <div style="flex: 1; overflow: auto; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; background: rgba(255,255,255,0.3);">
           <table class="glass-table manual-table" style="width: 100%; border-collapse: collapse;">
@@ -163,7 +169,7 @@ watch(() => store.isDarkMode, (newVal) => {
                 <th v-for="(col, cIdx) in store.manualGrid[0]" :key="'h'+cIdx" style="position: sticky; top: 0; background: rgba(64,158,255,0.2); z-index: 10;">
                   <div style="display: flex; align-items: center;">
                     <input v-model="store.manualGrid[0][cIdx]" class="edit-input head-input" placeholder="输入表头" />
-                    <button @click="actions.removeGridCol(cIdx)" class="mini-del-btn" v-if="store.manualGrid[0].length > 1" title="删除该列">✕</button>
+                    <button @click="removeGridCol(cIdx)" class="mini-del-btn" v-if="store.manualGrid[0].length > 1" title="删除该列">✕</button>
                   </div>
                 </th>
                 <th style="width: 40px; position: sticky; top: 0; background: rgba(64,158,255,0.2); z-index: 10;"></th>
@@ -175,7 +181,7 @@ watch(() => store.isDarkMode, (newVal) => {
                   <input v-model="store.manualGrid[rIdx + 1][cIdx]" class="edit-input" placeholder="..." />
                 </td>
                 <td style="width: 40px; border:none; text-align: center; vertical-align: middle;">
-                  <button @click="actions.removeGridRow(rIdx + 1)" class="mini-del-btn" style="color: #f56c6c;" title="删除该行">➖</button>
+                  <button @click="removeGridRow(rIdx + 1)" class="mini-del-btn" style="color: #f56c6c;" title="删除该行">➖</button>
                 </td>
               </tr>
             </tbody>
@@ -210,12 +216,10 @@ watch(() => store.isDarkMode, (newVal) => {
             <div style="font-size: 2.2rem; color: #f5222d; font-weight: bold;">{{ store.cleanResult.total_outliers }} <span style="font-size: 1rem;">处</span></div>
           </div>
         </div>
-
         <div v-if="store.cleanResult.total_missing === 0 && store.cleanResult.total_outliers === 0" style="text-align: center; padding: 30px; background: rgba(82, 196, 26, 0.05); border-radius: 12px; border: 1px dashed rgba(82, 196, 26, 0.4);">
           <h3 style="color: #52c41a; margin-top: 0;">🎉 数据质量极佳，无需任何手术！</h3>
           <p style="color: #666; margin-bottom: 0;">系统地毯式扫描后，未在数值特征中检测到缺失项或极端异常值，您的数据集非常健康。</p>
         </div>
-
         <div v-else class="glass-inner" style="padding: 20px 25px; max-height: 250px; overflow-y: auto;">
           <h4 style="margin-top: 0; color: #555; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 10px;">🛠️ 系统底层处理清单：</h4>
           <ul style="list-style-type: none; padding: 0; margin: 0; font-size: 0.95rem; line-height: 2;">
@@ -233,7 +237,6 @@ watch(() => store.isDarkMode, (newVal) => {
             </template>
           </ul>
         </div>
-
         <div style="text-align: center; margin-top: 25px;">
           <button @click="store.showCleanReportModal = false" class="glass-btn primary-btn" style="width: 280px; font-size: 1.15rem; padding: 12px; background: linear-gradient(135deg, #52c41a, #389e0d); box-shadow: 0 4px 15px rgba(82, 196, 26, 0.4); border: none;">
             ✅ 阅毕，开始探索数据
@@ -248,7 +251,7 @@ watch(() => store.isDarkMode, (newVal) => {
           <div class="glass-card welcome-card">
             <h1 class="glow-title">DataAnalyzer Pro</h1>
             <p class="subtitle">集成统计分析与可视化表单数据处理系统</p>
-            <p class="version">Version: 3.0 | 稳定版</p>
+            <p class="version">Version: 4.0 | 模块化架构</p>
             <button @click="store.isEntered = true; store.currentModule = 'portal'" class="enter-btn">🚀 点击进入系统</button>
             <div style="margin-top: 20px;">
               <button @click="store.showSettings = true" class="glass-btn secondary-btn" style="border-radius: 20px; font-weight: normal; font-size: 0.9rem;">
@@ -263,7 +266,7 @@ watch(() => store.isDarkMode, (newVal) => {
         <div v-if="store.isEntered && store.currentModule === 'portal'" style="position: absolute; top:0; left:0; width:100%; height:100%; display:flex; justify-content:center; align-items:center; z-index: 20;">
           <div class="glass-card" style="width: 850px; max-width: 90vw; padding: 50px; text-align: center; animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
             <h2 style="font-size: 2rem; margin-top: 0; margin-bottom: 10px; color: var(--text-color, inherit);">🌌 请选择您的工作空间</h2>
-            <p style="color: #888; margin-bottom: 40px;">DataAnalyzer 企业级数据架构 V2.0</p>
+            <p style="color: #888; margin-bottom: 40px;">DataAnalyzer 模块化微服务架构 V4.0</p>
 
             <div style="display:flex; gap: 30px; justify-content: center;">
               <div class="glass-inner module-card" @click="store.currentModule = 'analysis'" style="flex:1; padding: 40px 20px; cursor: pointer; transition: all 0.3s; border-radius: 16px;">
@@ -288,14 +291,14 @@ watch(() => store.isDarkMode, (newVal) => {
 
       <transition name="fade">
         <div v-if="store.isEntered && store.currentModule === 'analysis'" class="main-dashboard">
-          <Sidebar />
-          <DataScreen />
+          <AnalysisSidebar />
+          <AnalysisScreen />
         </div>
       </transition>
 
       <transition name="fade">
         <div v-if="store.isEntered && store.currentModule === 'management'" class="main-dashboard" style="padding: 0;">
-          <DataEditor style="width: 100%; height: 100%;" />
+          <ManagementView style="width: 100%; height: 100%;" />
         </div>
       </transition>
     </div>
@@ -317,5 +320,3 @@ watch(() => store.isDarkMode, (newVal) => {
     </div>
   </div>
 </template>
-
-<style scoped src="./App.css"></style>

@@ -1,0 +1,37 @@
+/* =========================================
+   【第1层：全局设计令牌 (Design Tokens)】
+   全站通用的 CSS 变量、基础重置、暗黑模式根样式
+========================================= */
+
+/* --- CSS Reset --- */
+html, body, #app {
+    margin: 0 !important; padding: 0 !important;
+    width: 100%; height: 100%;
+    max-width: none !important;
+    overflow: hidden;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+* { box-sizing: inherit; }
+
+/* --- Dark Mode Root --- */
+.dark-mode { color: #e0e0e0; }
+.dark-mode .bg-overlay { background: rgba(0, 0, 0, 0.7); }
+.dark-mode .glass-card { border: 1px solid rgba(255, 255, 255, 0.05); color: #e0e0e0; box-shadow: 0 15px 35px 0 rgba(0, 0, 0, 0.8); }
+.dark-mode .glass-inner { background: rgba(220, 220, 225, 0.85); border: 1px solid rgba(0, 0, 0, 0.3); }
+.dark-mode .sidebar-title, .dark-mode .panel-title, .dark-mode h4 { color: #fff; }
+.dark-mode .glass-table th { background: rgba(0, 0, 0, 0.6); color: #ddd; border-color: rgba(255, 255, 255, 0.05); }
+.dark-mode .glass-table td, .dark-mode .glass-table tr:hover { border-color: rgba(255, 255, 255, 0.05); background: rgba(255, 255, 255, 0.05); }
+.dark-mode .upload-area, .dark-mode .checkbox-label, .dark-mode .custom-select { background: rgba(0, 0, 0, 0.5); color: #ccc; border-color: rgba(255, 255, 255, 0.1); }
+.dark-mode .custom-select option { background: #2c2c2c; }
+.dark-mode .theme-toggle-btn { background: rgba(25, 25, 25, 0.8); color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); }
+.dark-mode .warning-text-box p { color: #bbb; }
+.dark-mode .glass-card p { color: #ccc !important; }
+.dark-mode .head-input { color: #eee; }
+.dark-mode .edit-input:focus { background: rgba(0, 0, 0, 0.3); }
+.dark-mode .setting-block h4 { color: #ccc; }
+.dark-mode .author-profile-card { background: rgba(0, 0, 0, 0.3); border-color: rgba(255,255,255,0.05); }
+.dark-mode .custom-slider { background: rgba(255, 255, 255, 0.2); }
+.dark-mode .modal-close-btn { background: rgba(255, 255, 255, 0.1) !important; color: #ccc; }
+.dark-mode .modal-close-btn:hover { background: #f5222d !important; color: white !important; }
+.dark-mode .module-card:hover { background: rgba(255, 255, 255, 0.15) !important; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
