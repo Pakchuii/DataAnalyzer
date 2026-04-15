@@ -5,7 +5,7 @@ export function setupVisualize(store, actions) {
     return {
         async generateCharts() {
             if (store.showCharts) { store.showCharts = false; store.showVisControl = false; return; }
-            if (store.selectedVars.length === 0) return actions.showDialog({ title: '提示', message: '请勾选需要投影的特征图表！' });
+            if (store.selectedVars.length === 0) return actions.openAlert({ title: '提示', message: '请勾选需要投影的特征图表！' });
             actions.addLog("提取图表几何特征点...");
             try {
                 const res = await api.post('/api/visualize/distribution', {

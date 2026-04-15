@@ -20,6 +20,7 @@ import ModMl from '@/modules/mod_ml/mod_ml.vue'
 import ModSummary from '@/modules/mod_summary/mod_summary.vue'
 import ModRadar from '@/modules/mod_radar/mod_radar.vue'
 import ModExit from '@/modules/mod_exit/ModExit.vue'
+import ModExport from '@/modules/mod_export/mod_export.vue'
 </script>
 
 <template>

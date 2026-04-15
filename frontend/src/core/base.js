@@ -20,10 +20,20 @@ export function setupBase(store, actions) {
             }
         },
 
-        openAlert(title, message) {
+        openAlert(title, message, onConfirm = null) {
             store.dialog.show = false;
             setTimeout(() => {
-                store.dialog = { ...store.dialog, show: true, type: 'alert', title, message, onConfirm: () => { store.dialog.show = false; } };
+                store.dialog = { 
+                    ...store.dialog, 
+                    show: true, 
+                    type: 'alert', 
+                    title, 
+                    message, 
+                    onConfirm: () => { 
+                        store.dialog.show = false; 
+                        if (onConfirm) onConfirm(); 
+                    } 
+                };
             }, 50);
         },
 
@@ -165,8 +175,10 @@ export function setupBase(store, actions) {
             store.showRadar = false;
             store.showML = false;
             store.showCleanReportModal = false;
+            store.showSampleInsufficientModal = false;
             store.showManualModal = false;
             store.showUploadModal = false;
+            store.showSettings = false;
             
             // 历史堆栈在组件内部，无需此处处理（切换系统会销毁组件或通过 watcher 清理）
         }

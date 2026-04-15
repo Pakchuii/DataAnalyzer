@@ -5,7 +5,7 @@ export function setupStats(store, actions) {
         // 调度模块一：描述性宏观统计
         async runDescriptiveStats() {
             if (store.showStats) { store.showStats = false; return; }
-            if (store.selectedVars.length === 0) return actions.showDialog({ title: '提示', message: '请勾选需要进行基础统计的数值变量！' });
+            if (store.selectedVars.length === 0) return actions.openAlert('提示', '请勾选需要进行基础统计的数值变量！');
             actions.addLog("正在向分析中台投递描述性统计计算指令...");
             try {
                 const res = await api.post('/api/analyze/descriptive', {

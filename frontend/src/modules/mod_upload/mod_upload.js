@@ -48,7 +48,7 @@ export function setupFile(store, actions) {
                 }
             } catch (err) {
                 actions.addLog(`上传解析失败: ${err.message}`, "error");
-                actions.showDialog({ title: '❌ 文件解析失败', message: err.response?.data?.message || '请检查文件格式是否正确。' });
+                actions.openAlert('❌ 文件解析失败', err.response?.data?.message || '请检查文件格式是否正确。');
             }
         },
 
@@ -93,15 +93,16 @@ export function setupFile(store, actions) {
                 }
             } catch(err) {
                 actions.addLog("表格提交失败", "error");
-                actions.showDialog({ title: '❌ 提交失败', message: err.response?.data?.message || '后端服务异常' });
+                actions.openAlert('❌ 提交失败', err.response?.data?.message || '后端服务异常');
             }
         },
 
         // 【垃圾回收】：资源缓存释放指令
         async triggerCleanup() {
-            actions.showDialog({
-                type: 'confirm', title: '🧹 清理系统缓存', message: '确定要清理吗？这将清除所有上传的文件和分析结果。',
-                onConfirm: async () => {
+            actions.openConfirm(
+                '🧹 清理系统缓存',
+                '确定要清理吗？这将清除所有上传的文件和分析结果。',
+                async () => {
                     actions.addLog("发出清空指令...");
                     try {
                         await api.post('/api/cleanup');
@@ -112,7 +113,7 @@ export function setupFile(store, actions) {
                         actions.addLog(`❌ 清理失败: ${err.message}`, "error");
                     }
                 }
-            });
+            );
         }
     };
 }

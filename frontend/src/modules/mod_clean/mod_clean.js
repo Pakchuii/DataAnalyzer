@@ -20,14 +20,13 @@ export function setupClean(store, actions) {
                         methodText += `• ${col} ➔ ${method}\n`;
                     }
 
-                    actions.showDialog({
-                        type: 'info',
-                        title: '✨ 智能清洗管道执行完毕',
-                        message: methodText,
-                        onConfirm: () => {
+                    actions.openAlert(
+                        '✨ 智能清洗管道执行完毕',
+                        methodText,
+                        () => {
                             store.showCleanReportModal = true;
                         }
-                    });
+                    );
 
                     actions.addLog(`清洗完成！已触发自适应算法处理缺失值与异常值。`, "success");
                     if (store.radarIdCol) { actions.fetchRadarOptions(); }
@@ -35,6 +34,21 @@ export function setupClean(store, actions) {
             } catch (err) {
                 actions.addLog(`清洗失败: ${err.response?.data?.message || err.message}`, "error");
             }
+        },
+
+        // 【应用方案】：正式挂载清洗后的数据集
+        applyDataCleaning() {
+            if (!store.cleanResult) return;
+            actions.addLog("清洗方案已正式应用至当前工作流。", "success");
+            // 已在 trigger 时设置了 currentDataFile，此处主要是逻辑闭环
+        },
+
+        // 【撤回方案】：物理回滚至原始数据集
+        restoreData() {
+            if (!store.fileInfo) return;
+            store.currentDataFile = store.fileInfo.filename;
+            store.cleanResult = null;
+            actions.addLog("已撤回清洗操作，数据集已回滚至原始状态。", "info");
         }
     };
 }

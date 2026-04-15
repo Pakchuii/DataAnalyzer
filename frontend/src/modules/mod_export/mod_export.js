@@ -22,7 +22,7 @@ export function setupExporter(store, actions) {
         async exportPDF() {
             actions.addLog("激活高清矢量 PDF 生成引擎指令集...");
             const element = document.getElementById('pdf-report-area'); if (!element) return;
-            actions.showDialog({ title: '📸 系统级快门启动中', message: '内部算法正在剥离前端复杂交互特效并压缩 DOM 树，请勿关闭页面...' });
+            actions.openAlert('📸 系统级快门启动中', '内部算法正在剥离前端复杂交互特效并压缩 DOM 树，请勿关闭页面...');
 
             try {
                 // 事件防抖：强制挂起 800ms 等待 Vue 过渡动画与 ECharts 绘制事件彻底落停

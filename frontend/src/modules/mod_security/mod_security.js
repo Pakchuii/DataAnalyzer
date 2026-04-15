@@ -22,16 +22,17 @@ export function setupSecurity(store, actions) {
         },
 
         undoMasking() {
-            actions.showDialog({
-                type: 'confirm', title: '🔓 解除脱敏协议', message: '确定要解除数据脱敏吗？',
-                onConfirm: () => {
+            actions.openConfirm(
+                '🔓 解除脱敏协议',
+                '确定要解除数据脱敏吗？',
+                () => {
                     store.currentDataFile = store.preMaskedFile;
                     store.isMasked = false;
                     actions.addLog("🔓 已解除脱敏", "info");
                     if (store.showPreview) { store.showPreview = false; setTimeout(() => actions.togglePreview(), 200); }
                     if (store.radarIdCol) { actions.fetchRadarOptions(); }
                 }
-            });
+            );
         }
     };
 }

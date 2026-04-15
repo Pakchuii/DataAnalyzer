@@ -19,15 +19,16 @@ export function setupStandardize(store, actions) {
         },
 
         undoStandardization() {
-            actions.showDialog({
-                type: 'confirm', title: '↩️ 撤销操作', message: '确定要撤销标准化并恢复原始数据吗？',
-                onConfirm: () => {
+            actions.openConfirm(
+                '↩️ 撤销操作',
+                '确定要撤销标准化并恢复原始数据吗？',
+                () => {
                     store.currentDataFile = store.cleanResult ? store.cleanResult.cleaned_filename : store.fileInfo.filename;
                     store.isStandardized = false;
                     actions.addLog("已撤销标准化");
                     if (store.showPreview) { store.showPreview = false; setTimeout(() => actions.togglePreview(), 200); }
                 }
-            });
+            );
         }
     };
 }

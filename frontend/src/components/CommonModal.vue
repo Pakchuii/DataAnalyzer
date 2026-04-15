@@ -9,35 +9,38 @@ const confirmModal = () => {
 <template>
   <transition name="fade">
     <div v-if="store.dialog.show" class="modal-overlay global-modal-root" style="z-index: 9999;">
-      <div class="glass-card modal-container">
+      <div class="glass-card modal-container-premium">
         
-        <h3 class="modal-title">
-          <span v-if="['warning', '退出', '预警', '冲突'].some(k => store.dialog.title.includes(k)) || store.dialog.type === 'confirm'">⚠️</span>
-          <span v-else>✨</span>
-          {{ store.dialog.title }}
-        </h3>
-
-        <p class="modal-message" v-html="store.dialog.message"></p>
-
-        <!-- 输入框模式 -->
-        <input 
-          v-if="store.dialog.type === 'prompt'" 
-          v-model="store.dialog.inputValue" 
-          :placeholder="store.dialog.placeholder" 
-          class="modal-input"
-          @keyup.enter="confirmModal" 
-        />
-
-        <!-- 选择模式 (三按钮已简化为双按钮，避免逻辑重复) -->
-        <div v-if="store.dialog.type === 'choice'" class="choice-group">
-          <button @click="store.dialog.cb1" class="glass-btn danger-btn choice-btn-danger">{{ store.dialog.btn1Text }}</button>
-          <button @click="store.dialog.cb2" class="glass-btn secondary-btn choice-btn-secondary">{{ store.dialog.btn2Text }}</button>
+        <div class="modal-header-premium">
+          <h3 class="modal-title-premium" :class="store.dialog.type === 'confirm' ? 'theme-orange' : 'theme-blue'">
+            <span class="icon-sparkle">
+              <span v-if="['warning', '退出', '预警', '冲突', '撤销', '解除'].some(k => store.dialog.title.includes(k)) || store.dialog.type === 'confirm'">⚠️</span>
+              <span v-else>✨</span>
+            </span>
+            {{ store.dialog.title }}
+          </h3>
         </div>
 
-        <!-- 标准模式 (确定/取消) -->
-        <div v-else class="action-footer">
-          <button v-if="store.dialog.type !== 'alert'" @click="store.dialog.show = false" class="glass-btn secondary-btn footer-btn">取消</button>
-          <button @click="confirmModal" class="glass-btn primary-btn footer-btn">确认</button>
+        <div class="modal-body-premium">
+          <p class="modal-message-premium" v-html="store.dialog.message"></p>
+          
+          <input 
+            v-if="store.dialog.type === 'prompt'" 
+            v-model="store.dialog.inputValue" 
+            :placeholder="store.dialog.placeholder" 
+            class="modal-input-premium"
+            @keyup.enter="confirmModal" 
+          />
+        </div>
+
+        <div v-if="store.dialog.type === 'choice'" class="choice-group-premium">
+          <button @click="store.dialog.cb1" class="glass-btn danger-btn-premium">{{ store.dialog.btn1Text }}</button>
+          <button @click="store.dialog.cb2" class="glass-btn secondary-btn-premium">{{ store.dialog.btn2Text }}</button>
+        </div>
+
+        <div v-else class="action-footer-premium">
+          <button v-if="store.dialog.type !== 'alert'" @click="store.dialog.show = false" class="glass-btn secondary-btn-premium footer-btn">取消</button>
+          <button @click="confirmModal" class="glass-btn primary-btn-premium footer-btn">确定</button>
         </div>
 
       </div>
@@ -50,83 +53,111 @@ const confirmModal = () => {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(8px);
   display: flex; justify-content: center; align-items: center;
 }
 
-.modal-container {
-  width: 450px;
+.modal-container-premium {
+  width: 480px;
   max-width: 90vw;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-  background: var(--glass-bg, rgba(255, 255, 255, 0.85));
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  animation: slideUp 0.3s ease-out;
 }
 
-.modal-title {
-  margin-top: 0;
-  color: #fa8c16;
+.modal-header-premium {
+  margin-bottom: 25px;
+}
+
+.modal-title-premium {
+  margin: 0;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1.3rem;
+  justify-content: center;
+  gap: 12px;
+  padding-bottom: 20px;
   border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
-  padding-bottom: 15px;
-  margin-bottom: 20px;
+  letter-spacing: 1px;
 }
 
-.modal-message {
-  color: var(--text-color, #444);
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 25px;
+.theme-blue { color: #409eff; }
+.theme-orange { color: #fa8c16; }
+
+.icon-sparkle { font-size: 1.6rem; }
+
+.modal-body-premium {
+  margin-bottom: 35px;
+}
+
+.modal-message-premium {
+  color: #555;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin: 0;
   white-space: pre-wrap;
 }
 
-.modal-input {
+.modal-input-premium {
   width: 100%;
   padding: 12px 15px;
-  margin-bottom: 25px;
+  margin-top: 20px;
   border-radius: 12px;
-  border: 1px solid var(--glass-border, rgba(0, 0, 0, 0.2));
-  background: var(--glass-bg, rgba(255, 255, 255, 0.5));
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.02);
   outline: none;
-  color: var(--text-color, #333);
-  box-sizing: border-box;
+  text-align: center;
+  font-size: 1rem;
 }
 
-.choice-group {
+.action-footer-premium {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
+  justify-content: center;
+  gap: 20px;
 }
 
-.choice-btn-primary {
-  background: linear-gradient(135deg, #13c2c2, #08979c);
-  color: white; border: none; font-weight: bold;
-}
-
-.choice-btn-danger {
-  background: linear-gradient(135deg, #f5222d, #cf1322);
-  color: white; border: none; font-weight: bold;
-}
-
-.action-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-}
-
-.footer-btn {
-  padding: 8px 25px;
+.glass-btn {
+  border: none;
   border-radius: 10px;
   font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 12px 40px;
+  font-size: 1rem;
 }
 
-.danger-btn {
+.primary-btn-premium {
+  background: #409eff;
+  color: white;
+  box-shadow: 0 4px 15px rgba(64, 158, 255, 0.3);
+}
+
+.primary-btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(64, 158, 255, 0.4);
+}
+
+.secondary-btn-premium {
+  background: rgba(144, 147, 153, 0.8);
+  color: white;
+}
+
+.secondary-btn-premium:hover {
+  transform: translateY(-2px);
+  background: rgba(144, 147, 153, 1);
+}
+
+.danger-btn-premium {
   background: #f5222d;
   color: white;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 </style>

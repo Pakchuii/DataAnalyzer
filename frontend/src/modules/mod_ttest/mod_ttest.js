@@ -16,7 +16,7 @@ export function setupTTest(store, actions) {
                     store.showTTest = true;
                     actions.addLog("t 检验矩阵判定完成！", "success");
                 } else {
-                    actions.showDialog({ title: '计算失败', message: res.data.message });
+                    actions.openAlert('分析逻辑崩溃', res.data.message);
                 }
             } catch (err) { actions.addLog(`❌ t 检验失败: ${err.message}`, "error"); }
         }

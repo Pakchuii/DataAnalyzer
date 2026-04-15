@@ -6,7 +6,7 @@ export function setupCorrelation(store, actions) {
         // 调度模块三：高级线性关联矩阵解析
         async runAdvancedAnalysis() {
             if (store.showAdvanced) { store.showAdvanced = false; return; }
-            if (store.selectedVars.length < 2) return actions.showDialog({ title: '提示', message: '构建协方差矩阵至少需要勾选 2 个维度变量！' });
+            if (store.selectedVars.length < 2) return actions.openAlert('提示', '构建协方差矩阵至少需要勾选 2 个维度变量！');
             actions.addLog("正在执行高级关联深度运算...");
             try {
                 const res = await api.post('/api/analyze/advanced', {

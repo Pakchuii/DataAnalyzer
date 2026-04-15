@@ -24,6 +24,6 @@ import { store, actions } from '@/core/store.js'
     <div class="upload-icon" style="color:#67c23a;">📄</div>
     <p style="font-weight:bold; color:#67c23a; margin:5px 0;">数据已就绪</p>
     <p class="file-name-text">{{ store.uploadedFileName }}</p>
-    <button @click="store.fileInfo=null" class="reupload-btn">重新载入数据</button>
+    <button @click="actions.resetSystemState()" class="reupload-btn">重新载入数据</button>
   </div>
 </template>

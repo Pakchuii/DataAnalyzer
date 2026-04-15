@@ -39,6 +39,17 @@ watch(() => store.showCharts, (v) => updateHistory('charts', v), { immediate: tr
 watch(() => store.showAdvanced, (v) => updateHistory('advanced', v), { immediate: true });
 watch(() => store.showML, (v) => updateHistory('ml', v), { immediate: true });
 
+// 【补全：图表重绘总线监测】
+// 监听活跃变量池的变化，强制触发 ECharts 引擎的局部重配与挂载
+watch(() => store.visActiveVars, async () => {
+  if (store.showCharts) {
+    await nextTick();
+    setTimeout(() => { 
+        if (actions.renderCharts) actions.renderCharts(); 
+    }, 150);
+  }
+}, { deep: true });
+
 const getOrder = (panelId) => {
   const index = panelHistory.value.indexOf(panelId);
   return index === -1 ? 999 : index;
