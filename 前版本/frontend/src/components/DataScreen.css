@@ -1,0 +1,154 @@
+/* =========================================
+   【主大屏容器】：柔性 Flexbox 排版与 GPU 滑动条优化
+========================================= */
+.content-area {
+    flex: 1; display: flex; flex-direction: column; gap: 20px;
+    padding-right: 5px; overflow-y: auto;
+}
+
+.content-area::-webkit-scrollbar { width: 8px; }
+.content-area::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.5); border-radius: 10px; }
+
+.empty-state { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0.7; }
+
+/* 通用面板容器 */
+.result-panel { padding: 25px; animation: fadeIn 0.4s ease; }
+.panel-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(0, 0, 0, 0.1); margin-bottom: 15px; padding-bottom: 10px; }
+.panel-title { margin: 0; border: none; padding: 0; }
+
+/* =========================================
+   2. 全局通用数据渲染网格
+========================================= */
+.table-responsive { overflow-x: auto; max-height: 400px; }
+.glass-table { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.9rem; }
+.glass-table th, .glass-table td { padding: 10px; border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+.glass-table th { background: rgba(255, 255, 255, 0.3); font-weight: bold; position: sticky; top: 0; backdrop-filter: blur(10px); z-index: 2; transition: z-index 0.2s; }
+.glass-table tr:hover { background: rgba(255, 255, 255, 0.5); }
+.glass-table th:hover { z-index: 10 !important; /* 修复 Tooltip 层级溢出覆盖问题 */ }
+
+.chart-grid { display: flex; gap: 20px; }
+.chart-box { flex: 1; height: 350px; padding: 10px; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.02); }
+
+/* =========================================
+   3. 特殊动态组件 (浮窗拖拽拦截系统、AI 打字机)
+========================================= */
+.drag-modal { position: fixed; width: 300px; z-index: 2000; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); padding: 0; overflow: hidden; }
+.drag-header { background: rgba(0, 0, 0, 0.05); padding: 12px 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; cursor: grab; border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+.drag-header:active { cursor: grabbing; }
+.drag-content { padding: 15px; }
+
+.ai-panel { border: 2px solid rgba(179, 127, 235, 0.3); background: rgba(179, 127, 235, 0.05); }
+.ai-content { font-size: 1.05rem; line-height: 1.8; color: #555; padding: 10px 0; }
+.ai-content p { margin-bottom: 15px; }
+.ai-content strong { color: #b37feb; font-weight: bold; }
+.cursor { display: inline-block; width: 2px; background-color: #b37feb; animation: blink 1s infinite; margin-left: 5px; }
+
+/* =========================================
+   4. 安全退场拦截机制组件
+========================================= */
+.exit-corner-btn {
+    position: absolute; top: 0; right: 0; width: 30px; height: 30px; background: rgba(245, 34, 45, 0.15);
+    border-bottom-left-radius: 100%; cursor: pointer; z-index: 1000; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border-left: 1px solid rgba(255, 255, 255, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.2); overflow: hidden;
+}
+.exit-corner-btn:hover { width: 80px; height: 80px; background: rgba(245, 34, 45, 0.85); box-shadow: -5px 5px 25px rgba(245, 34, 45, 0.4); }
+.exit-icon { position: absolute; top: 0px; right: 0px; color: white; font-size: 1.6rem; font-weight: bold; opacity: 0; transform: translate(25px, -25px) rotate(90deg) scale(0.5); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.exit-corner-btn:hover .exit-icon { opacity: 1; top: 25px; right: 25px; transform: translate(0, 0) rotate(0deg) scale(1); }
+
+.exit-top-banner {
+    position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 680px; z-index: 2000;
+    display: flex; justify-content: space-between; align-items: center; padding: 15px 25px;
+    border: 1px solid rgba(245, 34, 45, 0.4) !important; box-shadow: 0 10px 30px rgba(245, 34, 45, 0.15), inset 0 0 20px rgba(245, 34, 45, 0.05) !important; background: rgba(var(--glass-theme-rgb, 255, 255, 255), 0.85) !important;
+}
+.banner-left { display: flex; align-items: center; gap: 15px; text-align: left; }
+.warning-icon-box { font-size: 2rem; filter: drop-shadow(0 0 8px rgba(245, 34, 45, 0.5)); }
+.warning-text-box h4 { margin: 0 0 5px 0; color: #f5222d; font-size: 1.1rem; }
+.warning-text-box p { margin: 0; font-size: 0.85rem; color: #666; }
+.banner-right { display: flex; gap: 12px; }
+.small-btn { padding: 8px 16px; font-size: 0.85rem; font-weight: normal; }
+
+/* =========================================
+   5. 数据术语下展提示窗 (Tooltip Dropdown Hook)
+========================================= */
+.help-tip { position: relative; cursor: help; display: inline-block; color: inherit; }
+.help-tip::after {
+    content: attr(data-tip); position: absolute; top: 150%; bottom: auto; left: 50%; transform: translateX(-50%);
+    width: max-content; max-width: 220px; background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(4px);
+    color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: normal; white-space: normal;
+    line-height: 1.5; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); z-index: 999; border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.help-tip:hover::after { opacity: 1; top: 120%; }
+
+/* =========================================
+   6. 基础原子组件
+========================================= */
+.glass-btn { border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s; backdrop-filter: blur(4px); }
+.primary-btn { background: rgba(64, 158, 255, 0.9); color: white; }
+.primary-btn:hover { background: rgba(64, 158, 255, 1); transform: translateY(-2px); }
+.secondary-btn { background: rgba(144, 147, 153, 0.8); color: white; }
+.secondary-btn:hover { background: rgba(144, 147, 153, 1); }
+.danger-btn { background: rgba(245, 34, 45, 0.85) !important; box-shadow: 0 4px 12px rgba(245, 34, 45, 0.3) !important; color: white; }
+.danger-btn:hover { background: rgba(245, 34, 45, 1) !important; box-shadow: 0 6px 18px rgba(245, 34, 45, 0.5) !important; }
+.close-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #888; }
+.close-btn:hover { color: #f5222d; }
+
+.export-btn { width: 120px; font-size: 0.8rem; padding: 6px 12px; }
+.checkbox-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.checkbox-label { padding: 6px 12px; background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 20px; font-size: 0.85rem; cursor: pointer; transition: border-color 0.2s; }
+.checkbox-label:hover { border-color: #409eff; }
+
+.success-text { color: #52c41a; font-weight: bold; }
+.danger-text { color: #f5222d; font-weight: bold; }
+.var-name { font-weight: bold; color: #409eff; }
+.mb-3 { margin-bottom: 15px; } .mt-3 { margin-top: 15px; }
+.dark-mode .warning-text-box p { color: #bbb; }
+.dark-mode .glass-card p { color: #ccc !important; }
+
+/* 动画转场核心 */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.banner-slide-enter-active, .banner-slide-leave-active { transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.banner-slide-enter-from, .banner-slide-leave-to { opacity: 0; transform: translate(-50%, -150%); }
+
+/* =========================================
+   8. 算法容器级联推拉动效 (Accordion Dropdown)
+========================================= */
+.expand-down-enter-active,
+.expand-down-leave-active {
+    transition: max-height 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+    max-height: 800px; /* 强制锁定边界防止推拉导致的抖动 */
+    opacity: 1;
+    overflow: hidden;
+}
+
+.expand-down-enter-from,
+.expand-down-leave-to {
+    max-height: 0;
+    opacity: 0;
+}
+
+/* =========================================
+   🚀 统计算法引擎探针 (Algorithm Probe Tags)
+========================================= */
+.algorithm-probe-tag {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+/* 常规安全色：IQR 或 常规 T检验 */
+.probe-success {
+    background-color: rgba(82, 196, 26, 0.15);
+    color: #52c41a;
+    border: 1px solid rgba(82, 196, 26, 0.3);
+}
+
+/* 警告高亮色：Dixon 检验 或 Bootstrap 重抽样 */
+.probe-warning {
+    background-color: rgba(250, 140, 22, 0.15);
+    color: #fa8c16;
+    border: 1px solid rgba(250, 140, 22, 0.3);
+}

@@ -1,0 +1,22 @@
+{
+  "id": "analysis",
+  "portal": {
+    "icon": "📊",
+    "title": "智能分析中台",
+    "titleColor": "#409eff",
+    "description": "提供全自动数据清洗、多维可视化展现、高阶统计检验与机器学习推理引擎。",
+    "statusText": "🟢 稳定运行中",
+    "statusBg": "rgba(64,158,255,0.1)",
+    "statusColor": "#409eff",
+    "statusBorder": "1px solid rgba(64,158,255,0.3)"
+  },
+  "shelf": {
+    "icon": "📊",
+    "name": "智能分析"
+  },
+  "drawer": {
+    "icon": "📊",
+    "iconBackground": "linear-gradient(135deg, #1890ff, #096dd9)",
+    "name": "智能分析中心"
+  }
+}

@@ -1,0 +1,96 @@
+/* =========================================
+   1. 全局基础重置 (CSS Reset)
+========================================= */
+html,
+body,
+#app {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    height: 100%;
+    max-width: none !important;
+    overflow: hidden; /* 防止最外层出现极其丑陋的滚动条 */
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+/* =========================================
+   2. 全局毛玻璃 UI 组件基础 (Glassmorphism Core)
+========================================= */
+.glass-card {
+    /* 核心：接收来自 JS 动态注入的全局变量色彩 */
+    background: var(--glass-theme-color);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    transition: all 0.3s;
+}
+
+.glass-inner {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+}
+
+/* =========================================
+   3. 夜间模式系统覆盖样式 (Dark Mode Override)
+========================================= */
+.dark-mode {
+    color: #e0e0e0;
+}
+
+.dark-mode .bg-overlay {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.dark-mode .glass-card {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #e0e0e0;
+    box-shadow: 0 15px 35px 0 rgba(0, 0, 0, 0.8);
+}
+
+.dark-mode .glass-inner {
+    background: rgba(220, 220, 225, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .sidebar-title,
+.dark-mode .panel-title,
+.dark-mode h4 {
+    color: #fff;
+}
+
+.dark-mode .glass-table th {
+    background: rgba(0, 0, 0, 0.6);
+    color: #ddd;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .glass-table td,
+.dark-mode .glass-table tr:hover {
+    border-color: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .upload-area,
+.dark-mode .checkbox-label,
+.dark-mode .custom-select {
+    background: rgba(0, 0, 0, 0.5);
+    color: #ccc;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .custom-select option {
+    background: #2c2c2c;
+}
+
+.dark-mode .theme-toggle-btn {
+    background: rgba(25, 25, 25, 0.8);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}

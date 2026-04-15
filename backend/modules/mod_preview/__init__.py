@@ -1,1 +1,1 @@
-from .routes import bp
+from .mod_preview import bp

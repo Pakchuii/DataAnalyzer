@@ -204,6 +204,14 @@ def do_predict_new():
 
         labels = [f"测试点 {i + 1}" for i in range(sample_size)]
 
+        insight = ""
+        if confidence < 50:
+            insight = f"不幸的是，综合置信度检测反馈极低 (跌至 {confidence}%)。请敏锐地注意到图中紫色的预测轨道已经彻底趋于平缓（在视觉上呈现一字直线状或极为死板的平铺），完全陷入了“失明状态”，未能追踪到灰色真实数据带的剧烈撕扯与波动。在算法工程视角来看，这说明该模型彻底未能从样本群中捕捉到任何潜藏规律，并已发生了严重的“退化降级至仅输出平均值”的灾难现象。最终结论：当前被您划选为 X 轴的特征变量集与所要预测的标的 Y 之间**在物理逻辑层面基本上不存在任何潜在的关联度与因果性**，请立即返回左侧调控面板引入带有更强因果张力的全新业务维度特征进行重新降维训练！"
+        elif confidence < 80:
+            insight = f"当前模型的预测置信度处于中等水平 ({confidence}%)。模型勉强抓取到了数据的起伏趋势，但在剧烈波动的高点或低点处存在预测迟滞（即图中紫色预测线无法完全贴合灰色真实线的极值部分）。这表明您当前选择的特征变量具有一定的解释能力，但不足以支撑高精度的业务推理。建议：您可以尝试在特征面板中勾选更多的辅助维度，或者对数据进行智能清洗（剔除极端异常值）以提升拟合上限。"
+        else:
+            insight = f"令人振奋！当前模型展现出了超极高精度的拟合结果（综合置信度高达 {confidence}%）！从上方走势图中可以直观感受到，紫色的感知预测线与灰色真实历史轨道近乎完美地缠绕在一起，模型十分敏锐地捕获了每一次隐晦的波动变轨。这雄辩地证明了您当前所选取的特征组合与预测目标（Y）之间**存在着极其强劲、不容置疑的线性/非线性因果映射网络**！该模型组已完全具备实战部署的资质，可以直接投产以辅助商业/科研决策。"
+
         return jsonify({
             "status": "success",
             "data": {
@@ -211,7 +219,8 @@ def do_predict_new():
                 "sampleSize": sample_size,
                 "labels": labels,
                 "realValues": np.round(y_show_real, 2).tolist(),
-                "predictedValues": np.round(y_show_pred, 2).tolist()
+                "predictedValues": np.round(y_show_pred, 2).tolist(),
+                "insight": insight
             }
         })
     except Exception as e:

@@ -1,0 +1,23 @@
+{
+  "id": "template",
+  "hasConfigGear": true,
+  "portal": {
+    "icon": "🧩",
+    "title": "业务积木实验场",
+    "titleColor": "#1890ff",
+    "description": "提供标准模块化模板，演示如何通过积木快速拼装出具有专业 UI 与动画的业务系统。",
+    "statusText": "🔵 开发模式已开启",
+    "statusBg": "rgba(24,144,255,0.1)",
+    "statusColor": "#1890ff",
+    "statusBorder": "1px solid rgba(24,144,255,0.3)"
+  },
+  "shelf": {
+    "icon": "🧩",
+    "name": "演示模板"
+  },
+  "drawer": {
+    "icon": "🧩",
+    "iconBackground": "linear-gradient(135deg, #b37feb, #722ed1)",
+    "name": "积木实验工坊"
+  }
+}

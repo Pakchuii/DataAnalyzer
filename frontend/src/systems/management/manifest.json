@@ -1,0 +1,22 @@
+{
+  "id": "management",
+  "portal": {
+    "icon": "🗄️",
+    "title": "数据管理引擎",
+    "titleColor": "#fa8c16",
+    "description": "提供底层数据的增删改查 (CRUD)、云端多表联查与持久化云端存储服务。",
+    "statusText": "🟢 引擎已激活",
+    "statusBg": "rgba(250,140,22,0.1)",
+    "statusColor": "#fa8c16",
+    "statusBorder": "1px solid rgba(250,140,22,0.3)"
+  },
+  "shelf": {
+    "icon": "🗄️",
+    "name": "数据管理"
+  },
+  "drawer": {
+    "icon": "🗄️",
+    "iconBackground": "linear-gradient(135deg, #ffa940, #fa8c16)",
+    "name": "数据资产管理"
+  }
+}
