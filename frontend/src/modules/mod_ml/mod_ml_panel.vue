@@ -76,30 +76,32 @@ import { store } from '@/core/store.js'
   padding: 40px !important;
   max-height: 90vh;
   overflow-y: auto;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--premium-border-color);
+  background: var(--premium-glass-bg);
+  color: var(--premium-text-main);
+  backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
 }
 
 .metrics-grid-ml { display: flex; gap: 25px; }
 .metric-card-ml { flex: 1; padding: 30px; text-align: center; }
-.metric-label-ml { font-size: 0.9rem; color: #888; margin-bottom: 12px; }
+.metric-label-ml { font-size: 0.9rem; color: var(--premium-text-muted); margin-bottom: 12px; }
 .metric-value-ml { font-size: 2.22rem; font-weight: 800; }
 .data-font { color: #722ed1; font-family: 'JetBrains Mono', 'Consolas', monospace; }
 .error-font { color: #fa8c16; font-family: 'JetBrains Mono', 'Consolas', monospace; }
-.metric-tip-ml { font-size: 0.75rem; color: #aaa; margin-top: 8px; }
+.metric-tip-ml { font-size: 0.75rem; color: var(--premium-text-muted); opacity: 0.7; margin-top: 8px; }
 
 .ml-diagnostics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .chart-card-ml { padding: 25px; }
-.section-title-ml { margin: 0 0 25px 0; text-align: center; color: #555; font-size: 1.15rem; }
+.section-title-ml { margin: 0 0 25px 0; text-align: center; color: var(--premium-text-main); font-size: 1.15rem; opacity: 0.8; }
 .chart-box-ml { height: 350px; }
 
 .prediction-full-banner {
-  border-top: 1px dashed rgba(0, 0, 0, 0.1);
+  border-top: 1px dashed var(--premium-border-color);
   padding-top: 40px;
 }
 .prediction-metrics-row { display: flex; gap: 20px; }
 .mini-metric-ml { flex: 1; padding: 20px; text-align: center; }
-.mini-label { font-size: 0.85rem; color: #888; }
+.mini-label { font-size: 0.85rem; color: var(--premium-text-muted); }
 .mini-value { font-size: 1.8rem; font-weight: 700; margin-top: 5px; }
 .success-font { color: #52c41a; }
 .info-font { color: #409eff; }
@@ -114,13 +116,13 @@ import { store } from '@/core/store.js'
   margin-top: 25px;
 }
 .expert-header { color: #b37feb; font-weight: 800; margin-bottom: 12px; font-size: 1.05rem; }
-.expert-content { line-height: 1.9; color: #444; font-size: 0.98rem; }
+.expert-content { line-height: 1.9; color: var(--premium-text-main); font-size: 0.98rem; opacity: 0.9; }
 .purple-bold { color: #722ed1; font-weight: 800; }
 
-.glass-inner-premium { background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; }
-.glass-inner-light { background: rgba(255, 255, 255, 0.6); border-radius: 12px; }
+.glass-inner-premium { background: var(--premium-glass-inner); border: 1px solid var(--premium-border-color); border-radius: 12px; }
+.glass-inner-light { background: var(--premium-glass-inner); border-radius: 12px; }
 
-.close-panel-btn { position: absolute; top: 25px; right: 25px; background: none; border: none; color: #888; cursor: pointer; font-size: 1.5rem; }
+.close-panel-btn { position: absolute; top: 25px; right: 25px; background: none; border: none; color: var(--premium-text-muted); cursor: pointer; font-size: 1.5rem; }
 .close-panel-btn:hover { color: #f5222d; }
 
 /* 动画系统 */

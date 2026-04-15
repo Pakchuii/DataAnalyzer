@@ -18,7 +18,7 @@ const restoreData = () => {
 
 <template>
   <div v-if="store.showCleanReportModal" class="modal-overlay" style="z-index: 3200;" @click.self="closeModal">
-    <div class="glass-card clean-report-container-premium">
+    <div class="glass-card-premium clean-report-container-premium">
       
       <div class="modal-header-premium">
         <h2 class="report-title-premium">✨ 智能清洗诊断战报</h2>
@@ -30,24 +30,24 @@ const restoreData = () => {
         <div class="metric-card-premium border-blue">
           <div class="card-icon-premium">🛡️</div>
           <div class="card-label-premium">扫描样本总数</div>
-          <div class="card-value-premium color-blue">{{ store.cleanResult?.total_rows || 0 }} <span class="unit-premium">条</span></div>
+          <div class="card-value-premium color-blue data-font">{{ store.cleanResult?.total_rows || 0 }} <span class="unit-premium">条</span></div>
         </div>
         <div class="metric-card-premium border-orange">
           <div class="card-icon-premium">🕳️</div>
           <div class="card-label-premium">修复缺失空项</div>
-          <div class="card-value-premium color-orange">{{ store.cleanResult?.total_missing || 0 }} <span class="unit-premium">处</span></div>
+          <div class="card-value-premium color-orange data-font">{{ store.cleanResult?.total_missing || 0 }} <span class="unit-premium">处</span></div>
         </div>
         <div class="metric-card-premium border-red">
           <div class="card-icon-premium">✂️</div>
           <div class="card-label-premium">拦截异常数值</div>
-          <div class="card-value-premium color-red">{{ store.cleanResult?.total_outliers || 0 }} <span class="unit-premium">处</span></div>
+          <div class="card-value-premium color-red data-font">{{ store.cleanResult?.total_outliers || 0 }} <span class="unit-premium">处</span></div>
         </div>
       </div>
 
       <!-- 数据质量评估文案 -->
-      <div v-if="store.cleanResult?.total_missing === 0 && store.cleanResult?.total_outliers === 0" class="quality-alert-premium success-bg mt-4">
-        <h3 class="success-text">🎉 数据质量极佳，无需任何手术！</h3>
-        <p class="quality-desc">系统地毯式扫描后，未在数值特征中检测到缺失项或极端异常值，您的数据集非常健康。</p>
+      <div v-if="store.cleanResult?.total_missing === 0 && store.cleanResult?.total_outliers === 0" class="quality-alert-premium success-bg-premium mt-4">
+        <h3 class="success-text-premium">🎉 数据质量极佳，无需任何手术！</h3>
+        <p class="quality-desc-premium">系统地毯式扫描后，未在数值特征中检测到缺失项或极端异常值，您的数据集非常健康。</p>
       </div>
 
       <!-- 处理清单详情区 -->
@@ -74,7 +74,7 @@ const restoreData = () => {
       </div>
 
       <div class="modal-footer-premium-centered mt-4">
-        <button @click="applyCleaning" class="glass-btn primary-btn-green-premium">
+        <button @click="applyCleaning" class="glass-btn-premium primary-btn-green-premium">
           <span class="btn-check">✓</span> 阅毕，开始探索数据
         </button>
       </div>
@@ -88,24 +88,32 @@ const restoreData = () => {
   background: rgba(0,0,0,0.4); backdrop-filter: blur(10px);
   display: flex; align-items: center; justify-content: center;
 }
+.glass-card-premium {
+  background: var(--premium-glass-bg);
+  backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--premium-border-color);
+  box-shadow: var(--premium-card-shadow);
+  color: var(--premium-text-main);
+}
 .clean-report-container-premium {
   width: 800px; max-width: 90vw; padding: 40px; border-radius: 20px;
-  background: rgba(255, 255, 255, 0.9); box-shadow: 0 15px 45px rgba(0,0,0,0.2);
   position: relative; animation: slideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .report-title-premium {
   margin: 0; font-size: 1.6rem; color: #52c41a; font-weight: 800;
-  border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 20px;
+  border-bottom: 1px dashed var(--premium-border-color); padding-bottom: 20px;
 }
 .metrics-grid-premium {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
 }
 .metric-card-premium {
-  padding: 25px; text-align: center; border-radius: 12px; background: rgba(0,0,0,0.02);
+  padding: 25px; text-align: center; border-radius: 12px; 
+  background: var(--premium-glass-inner);
 }
 .card-icon-premium { font-size: 2.5rem; margin-bottom: 12px; }
-.card-label-premium { font-size: 0.95rem; color: #888; font-weight: bold; margin-bottom: 8px; }
+.card-label-premium { font-size: 0.95rem; color: var(--premium-text-muted); font-weight: bold; margin-bottom: 8px; }
 .card-value-premium { font-size: 2.4rem; font-weight: 800; }
+.data-font { font-family: 'JetBrains Mono', 'Consolas', monospace; }
 .unit-premium { font-size: 1rem; font-weight: normal; margin-left: 5px; }
 
 .border-blue { border-top: 4px solid #409eff; }
@@ -116,20 +124,20 @@ const restoreData = () => {
 .color-red { color: #f5222d; }
 
 .diagnostic-details-premium { 
-  background: rgba(0,0,0,0.03); padding: 25px; border-radius: 12px;
+  background: var(--premium-glass-inner); padding: 25px; border-radius: 12px;
 }
-.details-subtitle-premium { margin-top: 0; margin-bottom: 15px; color: #555; }
+.details-subtitle-premium { margin-top: 0; margin-bottom: 15px; color: var(--premium-text-main); opacity: 0.8; }
 .log-scroll-area-premium { max-height: 220px; overflow-y: auto; }
 .trace-list-premium { list-style: none; padding: 0; margin: 0; }
 .trace-item-premium {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding: 12px 0; border-bottom: 1px solid var(--premium-border-color);
 }
 .type-tag-premium { font-weight: 800; margin-right: 12px; font-size: 0.95rem; }
 .type-tag-premium.fill-tag { color: #fa8c16; }
 .type-tag-premium.prune-tag { color: #f5222d; }
-.col-name-premium { flex: 1; color: #333; }
-.result-text-premium { color: #888; text-align: right; font-size: 0.9rem; }
+.col-name-premium { flex: 1; color: var(--premium-text-main); }
+.result-text-premium { color: var(--premium-text-muted); text-align: right; font-size: 0.9rem; }
 .method-tag { font-weight: bold; color: #fa8c16; margin-left: 5px; }
 
 .modal-footer-premium-centered { display: flex; justify-content: center; margin-top: 30px; }
@@ -142,8 +150,15 @@ const restoreData = () => {
 .btn-check { margin-right: 10px; border: 2px solid white; border-radius: 3px; padding: 0 4px; font-size: 0.9rem; }
 
 .close-btn-premium {
-  position: absolute; top: 25px; right: 25px; background: none; border: none; font-size: 1.5rem; color: #888; cursor: pointer;
+  position: absolute; top: 25px; right: 25px; background: none; border: none; font-size: 1.5rem; color: var(--premium-text-muted); cursor: pointer;
 }
+
+.success-bg-premium {
+  background: rgba(82, 196, 26, 0.05); border: 1px dashed rgba(82, 196, 26, 0.4);
+  padding: 30px; text-align: center; border-radius: 12px;
+}
+.success-text-premium { color: #52c41a; margin-top: 0; }
+.quality-desc-premium { color: var(--premium-text-main); opacity: 0.8; }
 
 @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 </style>

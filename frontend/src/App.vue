@@ -1,19 +1,20 @@
 <script setup>
-import { onMounted, watch, ref, nextTick } from 'vue'
+import { onMounted, watch, ref } from 'vue'
 import { store, actions } from '@/core/store.js'
 import AnalysisSidebar from '@/systems/analysis/AnalysisSidebar.vue'
 import AnalysisScreen from '@/systems/analysis/AnalysisScreen.vue'
 import ManagementView from '@/systems/management/ManagementView.vue'
 import TemplateSystem from '@/systems/template/TemplateSystem.vue'
-import CommonModal from '@/components/CommonModal.vue'
 import { systemsManifests } from '@/core/systemRegistry.js'
 import { computed } from 'vue'
 
-// 全局弹窗组件
-import CleanReportModal from '@/components/CleanReportModal.vue'
-import SampleInsufficientModal from '@/components/SampleInsufficientModal.vue'
-
-const logContainer = ref(null);
+// 🚀 [架构升级]: 模块化系统核心组件 (解耦自 components 文件夹)
+import ModSystemDialog from '@/modules/mod_system/mod_system_dialog.vue'
+import ModSystemShelf from '@/modules/mod_system/mod_system_shelf.vue'
+import ModSystemDrawer from '@/modules/mod_system/mod_system_drawer.vue'
+import ModSystemWarning from '@/modules/mod_system/mod_system_warning.vue'
+import ModSystemTerminal from '@/modules/mod_system/mod_system_terminal.vue'
+import ModCleanReport from '@/modules/mod_clean/mod_clean_report.vue'
 
 // 系统槽位逻辑
 const fixedSystems = computed(() => systemsManifests.slice(0, 2));
@@ -32,16 +33,6 @@ const setPinnedSystem = (id) => {
 onMounted(() => {
   actions.initTheme();
   actions.initSettings();
-});
-
-// 【视图响应式监听】：终端日志更新时，强制触发微任务实现平滑滚动至底部
-watch(() => store.logs.length, async () => {
-  if (store.showLogs) {
-    await nextTick();
-    if (logContainer.value) {
-      logContainer.value.scrollTop = logContainer.value.scrollHeight;
-    }
-  }
 });
 
 // 【视图响应式监听】：全局深色模式调度拦截
@@ -103,7 +94,7 @@ const removeGridRow = (rIdx) => store.manualGrid.splice(rIdx, 1);
     </div>
 
     <!-- 全局通用弹窗组件 -->
-    <CommonModal />
+    <ModSystemDialog />
 
     <div v-if="store.showSettings" class="modal-overlay" style="z-index: 3000;">
       <div class="glass-card settings-modal-container">
@@ -291,21 +282,7 @@ const removeGridRow = (rIdx) => store.manualGrid.splice(rIdx, 1);
       </transition>
     </div>
 
-    <div v-if="store.showLogs" class="log-console-panel">
-      <div class="log-header">
-        <span>📟 终端监控台 (Terminal)</span>
-        <button @click="store.showLogs = false" class="close-log-btn">✕</button>
-      </div>
-      <div class="log-body" ref="logContainer">
-        <div v-if="store.logs.length === 0" style="color: #666; font-style: italic;">系统就绪，等待指令...</div>
-        <div v-for="(log, idx) in store.logs" :key="idx" class="log-line">
-          <span v-if="log.includes('[ERROR]')" style="color: #ff4d4f;">{{ log }}</span>
-          <span v-else-if="log.includes('[SUCCESS]')" style="color: #52c41a;">{{ log }}</span>
-          <span v-else>{{ log }}</span>
-        </div>
-        <div class="blinking-cursor">_</div>
-      </div>
-    </div>
+    <ModSystemTerminal />
 
     <!-- 底部 Home Pillar (智能导航条) -->
     <div v-if="store.isEntered" class="home-pillar-container" @click="store.showSystemShelf = !store.showSystemShelf">
@@ -313,44 +290,10 @@ const removeGridRow = (rIdx) => store.manualGrid.splice(rIdx, 1);
     </div>
 
     <!-- 系统抽屉 (App Switcher) -->
-    <transition name="shelf-slide">
-      <div v-if="store.showSystemShelf" class="system-shelf-overlay" @click.self="store.showSystemShelf = false">
-        <div class="glass-card system-shelf">
-          <h2 class="shelf-title">🌌 跨维系统调度台</h2>
-          <div class="shelf-grid">
-            <div v-for="sys in systemsManifests" :key="sys.id" class="shelf-item" :class="{ active: store.currentModule === sys.id }" @click="actions.requestSystemSwitch(sys.id)">
-              <div class="shelf-icon">{{ sys.shelf.icon }}</div>
-              <div class="shelf-name">{{ sys.shelf.name }}</div>
-            </div>
-          </div>
-          <p class="shelf-tip">提示：切换系统将触发核心同步与工作流重组</p>
-        </div>
-      </div>
-    </transition>
+    <ModSystemShelf />
 
     <!-- 全维应用桌面 (Mobile-style App Drawer) -->
-    <transition name="desktop-slide">
-      <div v-if="store.showAppDesktop" class="app-desktop-overlay" @click.self="store.showAppDesktop = false">
-        <div class="glass-card app-desktop-content">
-          <div class="desktop-header">
-            <h2 class="desktop-title">🌌 全维系统桌面</h2>
-            <div class="desktop-subtitle">V4.0 NEXT GENERATION DASHBOARD</div>
-          </div>
-          
-          <div class="app-grid">
-            <div v-for="sys in systemsManifests" :key="sys.id" class="app-icon-item" @click="store.currentModule = sys.id; store.showAppDesktop = false">
-              <div class="app-icon-inner glass-inner" :style="{ background: sys.drawer.iconBackground }">{{ sys.drawer.icon }}</div>
-              <span class="app-label">{{ sys.drawer.name }}</span>
-            </div>
-          </div>
-
-          <div class="desktop-footer" @click="store.showAppDesktop = false">
-            <div class="swipe-handle"></div>
-            <p>点击空白处返回工作空间</p>
-          </div>
-        </div>
-      </div>
-    </transition>
+    <ModSystemDrawer v-if="store.showAppDesktop" />
 
     <!-- 槽位调度器 (Full-Screen Desktop Switcher) -->
     <transition name="desktop-slide">
@@ -388,8 +331,8 @@ const removeGridRow = (rIdx) => store.manualGrid.splice(rIdx, 1);
     </transition>
 
     <!-- 业务系统全局模态层 -->
-    <CleanReportModal v-if="store.showCleanReportModal" />
-    <SampleInsufficientModal v-if="store.showSampleInsufficientModal" />
+    <ModCleanReport v-if="store.showCleanReportModal" />
+    <ModSystemWarning v-if="store.showSampleInsufficientModal" />
 
   </div>
 </template>
