@@ -97,6 +97,7 @@ const exportToLocal = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: nowrap;
   margin-bottom: 20px;
   background: rgba(255, 255, 255, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -156,6 +157,8 @@ const exportToLocal = () => {
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 
 .action-group {
@@ -185,6 +188,7 @@ const exportToLocal = () => {
   border: 1px solid transparent;
   white-space: nowrap;
   flex-shrink: 0;
+  min-width: max-content;
 }
 
 .console-btn:hover {

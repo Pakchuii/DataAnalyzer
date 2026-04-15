@@ -110,11 +110,11 @@ const restoreData = () => {
   padding: 25px; text-align: center; border-radius: 12px; 
   background: var(--premium-glass-inner);
 }
-.card-icon-premium { font-size: 2.8rem; margin-bottom: 15px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
-.card-label-premium { font-size: 0.9rem; color: var(--premium-text-muted); font-weight: 600; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
-.card-value-premium { font-size: 2.8rem; font-weight: 900; letter-spacing: -1px; }
-.section-spacing { margin-top: 35px; }
-.unit-premium { font-size: 1.1rem; font-weight: 600; margin-left: 8px; opacity: 0.7; }
+.card-icon-premium { font-size: 3.2rem; margin-bottom: 18px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.12)); }
+.card-label-premium { font-size: 0.85rem; color: var(--premium-text-muted); font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+.card-value-premium { font-size: 3rem; font-weight: 700; }
+.section-spacing { margin-top: 50px; }
+.unit-premium { font-size: 1.1rem; font-weight: 500; margin-left: 10px; opacity: 0.6; }
 
 .border-blue { border-top: 4px solid #409eff; }
 .border-orange { border-top: 4px solid #fa8c16; }
@@ -140,10 +140,15 @@ const restoreData = () => {
 .result-text-premium { color: var(--premium-text-muted); text-align: right; font-size: 0.9rem; }
 .method-tag { font-weight: bold; color: #fa8c16; margin-left: 5px; }
 
-.modal-footer-premium-centered { display: flex; justify-content: center; margin-top: 30px; }
+.mod.action-footer-premium { display: flex; justify-content: center; gap: 60px; margin-top: 20px; }
+
+.glass-btn-premium {
+  border: none; border-radius: 12px; font-weight: 700; cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); padding: 14px 25px; font-size: 1.05rem;
+  min-width: 180px; letter-spacing: 0.5px;
+}
 .primary-btn-green-premium {
-  width: 320px; padding: 14px; font-size: 1.2rem; border-radius: 10px; border: none; cursor: pointer;
-  background: #52c41a; color: white; font-weight: bold; transition: all 0.3s;
+  background: #52c41a; color: white;
   box-shadow: 0 4px 15px rgba(82, 196, 26, 0.4);
 }
 .primary-btn-green-premium:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(82, 196, 26, 0.5); }
