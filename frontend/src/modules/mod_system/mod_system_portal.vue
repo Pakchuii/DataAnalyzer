@@ -84,7 +84,11 @@ const openSettings = () => {
 </template>
 
 <style scoped>
-.portal-orchestrator { position: absolute; top:0; left:0; width:100%; height:100%; z-index: 20; }
+.portal-orchestrator { 
+  position: absolute; top:0; left:0; width:100%; height:100%; z-index: 20; 
+  pointer-events: none; /* Allow clicks to pass through when portal is not active */
+}
+.portal-orchestrator > * { pointer-events: auto; /* Re-enable clicks for portal content when present */ }
 
 .welcome-screen {
   display: flex; align-items: center; justify-content: center;
@@ -168,6 +172,13 @@ const openSettings = () => {
 @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
 :global(.dark-mode) .description-text, :global(.dark-mode) .module-desc { color: #ccc !important; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-:global(.dark-mode) .module-title { filter: brightness(1.2); }
+:global(.dark-mode) .module-title { filter: brightness(1.0); }
 :global(.dark-mode) .glass-card { background: rgba(20, 20, 30, 0.7); }
+:global(.dark-mode) .module-card:hover { 
+  background: rgba(255, 255, 255, 0.08) !important; /* Reduced brightness to prevent overexposure */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+:global(.dark-mode) .enter-btn:hover {
+  box-shadow: 0 8px 25px rgba(155, 77, 202, 0.3); /* Muted glow for dark mode */
+}
 </style>

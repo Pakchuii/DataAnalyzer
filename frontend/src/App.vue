@@ -94,6 +94,14 @@ watch(() => store.isDarkMode, (newVal) => {
       </div>
     </div>
 
+    <!-- 5. 全局功能悬浮按钮 (Theme Toggle Upgrade) -->
+    <div class="theme-toggle-wrapper">
+      <button @click="store.isDarkMode = !store.isDarkMode" class="theme-toggle-btn">
+        <span class="toggle-icon">{{ store.isDarkMode ? '☀️' : '🌙' }}</span>
+        <span class="toggle-label">{{ store.isDarkMode ? '切换日间' : '切换夜间' }}</span>
+      </button>
+    </div>
+
   </div>
 </template>
 
@@ -130,4 +138,39 @@ watch(() => store.isDarkMode, (newVal) => {
 .fade-enter-from, .fade-leave-to { opacity: 0; }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- 升级版悬浮功能组件样式 (Expandable Pill) --- */
+.theme-toggle-wrapper {
+    position: fixed; bottom: 30px; right: 30px; z-index: 10005;
+}
+.theme-toggle-btn {
+    width: 50px; height: 50px; border-radius: 25px;
+    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+    overflow: hidden; white-space: nowrap; padding: 0 12px;
+}
+.theme-toggle-btn:hover { 
+    width: 140px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); 
+    background: rgba(255, 255, 255, 0.95);
+}
+.toggle-icon { flex-shrink: 0; transition: transform 0.4s; }
+.theme-toggle-btn:hover .toggle-icon { transform: rotate(15deg); }
+
+.toggle-label {
+    font-size: 0.95rem; font-weight: bold; color: #333;
+    opacity: 0; margin-left: 0; transition: all 0.3s;
+    width: 0; pointer-events: none;
+}
+.theme-toggle-btn:hover .toggle-label {
+    opacity: 1; margin-left: 10px; width: auto;
+}
+
+:global(.dark-mode) .theme-toggle-btn {
+    background: rgba(45, 45, 60, 0.8); border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+:global(.dark-mode) .theme-toggle-btn:hover { background: rgba(60, 60, 80, 0.9); }
+:global(.dark-mode) .toggle-label { color: #eee; }
 </style>

@@ -24,8 +24,16 @@ export function setupVisualize(store, actions) {
         renderCharts() {
             const initChart = (domId, options) => {
                 const dom = document.getElementById(domId);
-                // 【前端防爆机制】：采用单例模式保障节点更新，防止 SPA 常见的 ECharts 内存泄漏问题。
-                if (dom) { let chart = echarts.getInstanceByDom(dom) || echarts.init(dom); chart.clear(); chart.setOption({...options, animation: true}); }
+                // 【前端防爆机制】：采用单例模式保障节点更新，启用暗色主题适配
+                if (dom) { 
+                    let chart = echarts.getInstanceByDom(dom) || echarts.init(dom, store.isDarkMode ? 'dark' : null); 
+                    chart.clear(); 
+                    chart.setOption({
+                        ...options, 
+                        backgroundColor: 'transparent',
+                        animation: true
+                    }); 
+                }
             };
 
             // 统一的赛博黑玻璃 Tooltip 悬浮样式组件库
