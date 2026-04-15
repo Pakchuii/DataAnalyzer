@@ -148,29 +148,34 @@ watch(() => store.isDarkMode, (newVal) => {
     background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
     border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
-    overflow: hidden; white-space: nowrap; padding: 0 12px;
+    font-size: 1.4rem; cursor: pointer; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    overflow: hidden; white-space: nowrap; padding: 0;
 }
 .theme-toggle-btn:hover { 
-    width: 140px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); 
-    background: rgba(255, 255, 255, 0.95);
+    width: 155px; transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); 
+    background: rgba(255, 255, 255, 0.98); border-color: rgba(64, 158, 255, 0.4);
 }
-.toggle-icon { flex-shrink: 0; transition: transform 0.4s; }
-.theme-toggle-btn:hover .toggle-icon { transform: rotate(15deg); }
+.toggle-icon { 
+    flex-shrink: 0; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+}
+.theme-toggle-btn:hover .toggle-icon { transform: translateX(-45px); }
 
 .toggle-label {
-    font-size: 0.95rem; font-weight: bold; color: #333;
-    opacity: 0; margin-left: 0; transition: all 0.3s;
-    width: 0; pointer-events: none;
+    font-size: 0.95rem; font-weight: bold; color: #409eff;
+    opacity: 0; margin-left: -35px; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    width: 0; pointer-events: none; transform: translateX(20px);
 }
 .theme-toggle-btn:hover .toggle-label {
-    opacity: 1; margin-left: 10px; width: auto;
+    opacity: 1; margin-left: -35px; width: 90px; transform: translateX(0);
+    transition-delay: 0.1s;
 }
 
 :global(.dark-mode) .theme-toggle-btn {
     background: rgba(45, 45, 60, 0.8); border-color: rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
-:global(.dark-mode) .theme-toggle-btn:hover { background: rgba(60, 60, 80, 0.9); }
-:global(.dark-mode) .toggle-label { color: #eee; }
+:global(.dark-mode) .theme-toggle-btn:hover { background: rgba(80, 80, 110, 0.95); border-color: rgba(64, 158, 255, 0.6); }
+:global(.dark-mode) .toggle-label { color: #ffffff !important; font-weight: 900; text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
 </style>

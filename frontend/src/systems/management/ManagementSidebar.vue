@@ -1,12 +1,27 @@
 <script setup>
+import { store, actions } from '@/core/store.js'
 import ModExit from '@/modules/mod_exit/ModExit.vue'
 import ModUploadView from '@/modules/mod_upload/mod_upload_view.vue'
 import ModDataIoView from '@/modules/mod_data_io/mod_data_io_view.vue'
 </script>
 
 <template>
-  <div class="management-sidebar glass-card">
+  <div class="management-sidebar glass-card"
+       :class="{ 'sidebar-dragging-active': store.isDragging }" 
+       @dragover.prevent="store.isDragging = true" 
+       @dragleave.prevent="store.isDragging = false" 
+       @drop.prevent="actions.handleDrop">
     
+    <!-- 全局一致性拖拽提示层 -->
+    <transition name="fade">
+      <div v-if="store.isDragging" class="sidebar-drop-overlay">
+        <div class="drop-hint-content">
+          <div class="drop-main-icon">📥</div>
+          <p class="drop-main-text">松开鼠标载入数据集</p>
+        </div>
+      </div>
+    </transition>
+
     <!-- 统一退出模块 -->
     <ModExit />
 
@@ -21,27 +36,9 @@ import ModDataIoView from '@/modules/mod_data_io/mod_data_io_view.vue'
 
 <style scoped>
 .management-sidebar {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  margin-right: 20px;
-  border-radius: 16px;
-  transition: all 0.3s;
-  position: relative;
-  height: 100%;
-  box-sizing: border-box;
+  width: 300px; display: flex; flex-direction: column; padding: 20px;
+  margin-right: 20px; border-radius: 16px; transition: all 0.3s;
+  position: relative; height: 100%; box-sizing: border-box; overflow: hidden;
 }
-
-.portal-back-btn {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 25px;
-  border-radius: 30px;
-  font-weight: bold;
-  background: linear-gradient(135deg, #1890ff, #096dd9);
-  color: white;
-  border: none;
-  box-shadow: 0 4px 15px rgba(24, 144, 255, 0.3);
-}
+.sidebar-dragging-active { border-color: #409eff !important; box-shadow: 0 0 35px rgba(64, 158, 255, 0.4) !important; }
 </style>

@@ -82,3 +82,7 @@ import ModExport from '@/modules/mod_export/mod_export.vue'
   </aside>
 </template>
 
+<style scoped>
+.sidebar { position: relative; transition: all 0.3s; }
+</style>
+

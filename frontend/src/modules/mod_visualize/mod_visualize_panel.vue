@@ -92,6 +92,12 @@ const stopDrag = () => {
   max-height: 200px;
   overflow-y: auto;
 }
+.chart-pair-container {
+  display: flex; flex-direction: row; gap: 20px; width: 100%; margin-bottom: 30px;
+}
+.chart-box {
+  flex: 1; height: 350px; padding: 10px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;
+}
 .vis-toggle-item {
   display: flex;
   align-items: center;

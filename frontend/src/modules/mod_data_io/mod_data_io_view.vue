@@ -48,7 +48,7 @@ const confirmCloseFile = () => {
     
     <button @click="createNewTable" class="glass-btn hover-scale" style="width: 100%; padding: 10px; border-radius: 12px; color: #52c41a; border: 1px solid rgba(82,196,26,0.4); background: rgba(82,196,26,0.05); margin-bottom: 25px;">📄 新建空白表格</button>
 
-    <div style="flex: 1; background: var(--glass-bg, rgba(0,0,0,0.05)); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px dashed var(--glass-border, rgba(0,0,0,0.15));">
+    <div class="dataset-status-box">
       <div style="font-size: 3rem; margin-bottom: 10px; opacity: 0.8;">🗂️</div>
       <p style="color: var(--text-color, #666); font-size: 0.95rem; text-align: center; margin: 0; font-weight: bold;">当前活跃数据集：</p>
 
@@ -79,5 +79,13 @@ const confirmCloseFile = () => {
 }
 .unload-btn {
   padding: 8px 20px; border-radius: 20px; color: #ff4d4f; border: 1px solid rgba(245,34,45,0.3); background: rgba(245,34,45,0.05); font-size: 0.9rem; font-weight: bold;
+}
+
+.dataset-status-box {
+  position: relative; flex: 1; width: 100%; min-height: 180px;
+  background: var(--glass-bg, rgba(0,0,0,0.05)); border-radius: 16px; padding: 20px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border: 1px dashed var(--glass-border, rgba(0,0,0,0.15));
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 </style>

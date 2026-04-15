@@ -3,7 +3,7 @@
  * 【积木编排层：演示系统侧边栏】
  * 演示如何拼装各个独立积木
  */
-import { store } from '@/core/store.js'
+import { store, actions } from '@/core/store.js'
 import ModExit from '@/modules/mod_exit/ModExit.vue'
 import ModTemplate from '@/modules/mod_template/mod_template.vue'
 </script>
@@ -31,6 +31,8 @@ import ModTemplate from '@/modules/mod_template/mod_template.vue'
 
 <style scoped>
 @import '@/systems/analysis/analysis.css'; /* 复用一些基础布局样式 */
+.sidebar { position: relative; transition: all 0.3s; }
+
 .portal-back-btn {
   width: 100%; padding: 12px; margin-bottom: 25px; border-radius: 30px; font-weight: bold; background: linear-gradient(135deg, #1890ff, #096dd9); color: white; border: none; box-shadow: 0 4px 15px rgba(24,144,255,0.3);
 }

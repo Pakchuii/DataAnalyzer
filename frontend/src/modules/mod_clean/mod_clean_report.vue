@@ -140,7 +140,7 @@ const restoreData = () => {
 .result-text-premium { color: var(--premium-text-muted); text-align: right; font-size: 0.9rem; }
 .method-tag { font-weight: bold; color: #fa8c16; margin-left: 5px; }
 
-.mod.action-footer-premium { display: flex; justify-content: center; gap: 60px; margin-top: 20px; }
+.modal-footer-premium-centered { display: flex; justify-content: center; width: 100%; margin-top: 20px; }
 
 .glass-btn-premium {
   border: none; border-radius: 12px; font-weight: 700; cursor: pointer;
