@@ -7,6 +7,15 @@ export function setupCorrelation(store, actions) {
         async runAdvancedAnalysis() {
             if (store.showAdvanced) { store.showAdvanced = false; return; }
             if (store.selectedVars.length < 2) return actions.openAlert('提示', '构建协方差矩阵至少需要勾选 2 个维度变量！');
+            
+            // 极速模式：如果数据已经缓存，直接开启并重绘，不再重复调用 API
+            if (store.advancedResult && store.advancedResult.variables.length === store.selectedVars.length && store.selectedVars.every(v => store.advancedResult.variables.includes(v))) {
+                store.showAdvanced = true;
+                actions.addLog("检测到已存在关联结果，为您直接开启视图...", "success");
+                setTimeout(() => { actions.renderAdvancedCharts(); }, 150);
+                return;
+            }
+
             actions.addLog("正在执行高级关联深度运算...");
             try {
                 const res = await api.post('/api/analyze/advanced', {
@@ -21,8 +30,9 @@ export function setupCorrelation(store, actions) {
             } catch (err) { actions.addLog(`❌ 关联分析失败: ${err.message}`, "error"); }
         },
 
-        renderAdvancedCharts() {
+        renderAdvancedCharts(heatEl = null, scatEl = null) {
             const data = store.advancedResult;
+            if (!data) return;
 
             // 统一的赛博黑玻璃 Tooltip 悬浮样式组件库
             const glassTooltip = {
@@ -34,9 +44,11 @@ export function setupCorrelation(store, actions) {
                 backdropFilter: 'blur(4px)'
             };
 
-            const heatDom = document.getElementById('heatmap-container');
+            const heatDom = heatEl || document.getElementById('heatmap-container');
             if (heatDom && data.correlation_matrix.length > 0) {
-                let chart = echarts.getInstanceByDom(heatDom) || echarts.init(heatDom); chart.clear();
+                let chart = echarts.getInstanceByDom(heatDom);
+                if (chart) chart.dispose(); 
+                chart = echarts.init(heatDom);
                 chart.setOption({
                     title: { text: '多维相关性热力图', left: 'center' },
                     tooltip: { position: 'top', ...glassTooltip, formatter: (p) => `${data.variables[p.value[0]]} 关联度 ${data.variables[p.value[1]]}: 核心值为 ${p.value[2]}` },
@@ -47,9 +59,12 @@ export function setupCorrelation(store, actions) {
                     series: [{ type: 'heatmap', data: data.correlation_matrix, label: { show: true } }]
                 });
             }
-            const scatDom = document.getElementById('scatter-container');
+
+            const scatDom = scatEl || document.getElementById('scatter-container');
             if (scatDom && data.scatter_data.length > 0) {
-                let chart = echarts.getInstanceByDom(scatDom) || echarts.init(scatDom); chart.clear();
+                let chart = echarts.getInstanceByDom(scatDom);
+                if (chart) chart.dispose();
+                chart = echarts.init(scatDom);
                 chart.setOption({
                     title: { text: `离散特征散点图`, left: 'center' },
                     xAxis: { name: data.scatter_vars[0], type: 'value', scale: true },

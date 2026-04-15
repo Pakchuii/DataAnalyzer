@@ -10,7 +10,12 @@ import { store } from '@/core/store.js'
     <video v-else-if="store.bgType === 'video'" :key="store.bgUrl" autoplay loop muted playsinline class="bg-video">
       <source :src="store.bgUrl" />
     </video>
-    <img v-else-if="store.bgType === 'image'" :src="store.bgUrl" class="bg-video" style="object-fit: cover; width: 100%; height: 100%;" />
+    <!-- 🖼️ 修复：增加唯一 Key 以强制触发图片重载，并确保样式层级正确 -->
+    <img v-else-if="store.bgType === 'image'" 
+         :key="store.bgUrl"
+         :src="store.bgUrl" 
+         class="bg-video" 
+         alt="Custom Background" />
     <div class="bg-overlay" :style="{ background: store.isDarkMode ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.1)' }"></div>
   </div>
 </template>
