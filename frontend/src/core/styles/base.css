@@ -52,3 +52,45 @@ html, body, #app {
 .dark-mode .modal-close-btn { background: rgba(255, 255, 255, 0.1) !important; color: #ccc; }
 .dark-mode .modal-close-btn:hover { background: #f5222d !important; color: white !important; }
 .dark-mode .module-card:hover { background: rgba(255, 255, 255, 0.15) !important; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
+
+/* --- Shared UI Components (Migrated from App.css) --- */
+.glass-card {
+  background: var(--premium-glass-bg);
+  backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--premium-border-color);
+  box-shadow: var(--premium-card-shadow);
+  color: var(--premium-text-main);
+  border-radius: 12px;
+}
+
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 999; display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+
+.glass-btn {
+  border: none; border-radius: 8px; font-weight: bold; cursor: pointer;
+  transition: all 0.3s; padding: 12px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+
+.primary-btn { background: #409eff; color: white; }
+.primary-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(64, 158, 255, 0.4); }
+
+.secondary-btn { background: rgba(144, 147, 153, 0.4); color: var(--premium-text-main); border: 1px solid var(--premium-border-color); }
+.secondary-btn:hover { background: rgba(144, 147, 153, 0.6); transform: translateY(-2px); }
+
+/* --- Global Transition Helpers --- */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* --- Scrollbar Global Stylings --- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.1); border-radius: 10px; }
+.dark-mode ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); }
