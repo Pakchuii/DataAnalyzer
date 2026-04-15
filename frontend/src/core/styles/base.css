@@ -16,8 +16,8 @@ html, body, #app {
 
 /* --- Multi-Theme Premium Tokens (Adaptive Dashboard Layer) --- */
 :root {
-  --premium-glass-bg: rgba(255, 255, 255, 0.88);
-  --premium-glass-inner: rgba(255, 255, 255, 0.5);
+  --premium-glass-bg: var(--glass-theme-color, rgba(255, 255, 255, 0.88));
+  --premium-glass-inner: rgba(var(--glass-theme-rgb, 255, 255, 255), calc(var(--glass-opacity, 0.65) * 0.4));
   --premium-text-main: #333333;
   --premium-text-muted: #888888;
   --premium-border-color: rgba(0, 0, 0, 0.08);
@@ -26,8 +26,8 @@ html, body, #app {
 
 .dark-mode {
   color: #e0e0e0;
-  --premium-glass-bg: rgba(26, 26, 35, 0.85);
-  --premium-glass-inner: rgba(255, 255, 255, 0.05);
+  --premium-glass-bg: var(--glass-theme-color, rgba(26, 26, 35, 0.85));
+  --premium-glass-inner: rgba(var(--glass-theme-rgb, 255, 255, 255), 0.1);
   --premium-text-main: #f0f0f5;
   --premium-text-muted: #aaaaaa;
   --premium-border-color: rgba(255, 255, 255, 0.12);

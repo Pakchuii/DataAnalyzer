@@ -95,11 +95,12 @@ const confirmModal = () => {
   text-align: center; font-size: 1rem;
 }
 
-.action-footer-premium { display: flex; justify-content: center; gap: 20px; }
+.action-footer-premium { display: flex; justify-content: center; gap: 50px; margin-top: 10px; }
 
 .glass-btn-premium {
-  border: none; border-radius: 10px; font-weight: bold; cursor: pointer;
-  transition: all 0.3s; padding: 12px 40px; font-size: 1rem;
+  border: none; border-radius: 12px; font-weight: bold; cursor: pointer;
+  transition: all 0.3s; padding: 12px 25px; font-size: 1rem;
+  min-width: 160px;
 }
 
 .primary-btn-premium {

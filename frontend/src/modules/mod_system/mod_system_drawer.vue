@@ -5,15 +5,15 @@ import { systemsManifests } from '@/core/systemRegistry.js'
 
 <template>
   <transition name="drawer-fade">
-    <div v-if="store.showAppDrawer" class="app-drawer-overlay" @click.self="store.showAppDrawer = false">
+    <div v-if="store.showAppDesktop" class="app-drawer-overlay" @click.self="store.showAppDesktop = false">
       <div class="app-drawer-content">
-        <div class="drawer-handle-premium" @click="store.showAppDrawer = false"></div>
+        <div class="drawer-handle-premium" @click="store.showAppDesktop = false"></div>
         <h2 class="drawer-title-premium">🌌 系统应用桌面</h2>
         
         <div class="drawer-grid-premium">
           <div v-for="sys in systemsManifests" :key="sys.id" 
                class="drawer-app-premium" 
-               @click="store.currentModule = sys.id; store.showAppDrawer = false">
+               @click="store.currentModule = sys.id; store.showAppDesktop = false">
             <div class="app-icon-inner-premium" :style="{ background: sys.drawer.iconBackground }">{{ sys.drawer.icon }}</div>
             <div class="app-name-premium">{{ sys.drawer.name }}</div>
           </div>

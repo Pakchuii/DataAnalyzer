@@ -26,32 +26,32 @@ const restoreData = () => {
       </div>
 
       <!-- 核心指标卡片区 -->
-      <div class="metrics-grid-premium mt-4">
+      <div class="metrics-grid-premium section-spacing">
         <div class="metric-card-premium border-blue">
           <div class="card-icon-premium">🛡️</div>
           <div class="card-label-premium">扫描样本总数</div>
-          <div class="card-value-premium color-blue data-font">{{ store.cleanResult?.total_rows || 0 }} <span class="unit-premium">条</span></div>
+          <div class="card-value-premium color-blue">{{ store.cleanResult?.total_rows || 0 }} <span class="unit-premium">条</span></div>
         </div>
         <div class="metric-card-premium border-orange">
           <div class="card-icon-premium">🕳️</div>
           <div class="card-label-premium">修复缺失空项</div>
-          <div class="card-value-premium color-orange data-font">{{ store.cleanResult?.total_missing || 0 }} <span class="unit-premium">处</span></div>
+          <div class="card-value-premium color-orange">{{ store.cleanResult?.total_missing || 0 }} <span class="unit-premium">处</span></div>
         </div>
         <div class="metric-card-premium border-red">
           <div class="card-icon-premium">✂️</div>
           <div class="card-label-premium">拦截异常数值</div>
-          <div class="card-value-premium color-red data-font">{{ store.cleanResult?.total_outliers || 0 }} <span class="unit-premium">处</span></div>
+          <div class="card-value-premium color-red">{{ store.cleanResult?.total_outliers || 0 }} <span class="unit-premium">处</span></div>
         </div>
       </div>
 
       <!-- 数据质量评估文案 -->
-      <div v-if="store.cleanResult?.total_missing === 0 && store.cleanResult?.total_outliers === 0" class="quality-alert-premium success-bg-premium mt-4">
+      <div v-if="store.cleanResult?.total_missing === 0 && store.cleanResult?.total_outliers === 0" class="quality-alert-premium success-bg-premium section-spacing">
         <h3 class="success-text-premium">🎉 数据质量极佳，无需任何手术！</h3>
         <p class="quality-desc-premium">系统地毯式扫描后，未在数值特征中检测到缺失项或极端异常值，您的数据集非常健康。</p>
       </div>
 
       <!-- 处理清单详情区 -->
-      <div v-else class="diagnostic-details-premium mt-4">
+      <div v-else class="diagnostic-details-premium section-spacing">
         <h4 class="details-subtitle-premium">🛠️ 系统底层处理清单：</h4>
         <div class="log-scroll-area-premium">
           <ul class="trace-list-premium">
@@ -110,11 +110,11 @@ const restoreData = () => {
   padding: 25px; text-align: center; border-radius: 12px; 
   background: var(--premium-glass-inner);
 }
-.card-icon-premium { font-size: 2.5rem; margin-bottom: 12px; }
-.card-label-premium { font-size: 0.95rem; color: var(--premium-text-muted); font-weight: bold; margin-bottom: 8px; }
-.card-value-premium { font-size: 2.4rem; font-weight: 800; }
-.data-font { font-family: 'JetBrains Mono', 'Consolas', monospace; }
-.unit-premium { font-size: 1rem; font-weight: normal; margin-left: 5px; }
+.card-icon-premium { font-size: 2.8rem; margin-bottom: 15px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
+.card-label-premium { font-size: 0.9rem; color: var(--premium-text-muted); font-weight: 600; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+.card-value-premium { font-size: 2.8rem; font-weight: 900; letter-spacing: -1px; }
+.section-spacing { margin-top: 35px; }
+.unit-premium { font-size: 1.1rem; font-weight: 600; margin-left: 8px; opacity: 0.7; }
 
 .border-blue { border-top: 4px solid #409eff; }
 .border-orange { border-top: 4px solid #fa8c16; }

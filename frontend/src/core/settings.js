@@ -96,6 +96,7 @@ export function setupSettings(store, actions) {
             document.documentElement.style.setProperty('--glass-theme-color', finalColor);
             const rgbColor = `${r}, ${g}, ${b}`;
             document.documentElement.style.setProperty('--glass-theme-rgb', rgbColor);
+            document.documentElement.style.setProperty('--glass-opacity', store.glassOpacity);
         }
     };
 }
