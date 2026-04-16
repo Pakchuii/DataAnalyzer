@@ -74,12 +74,14 @@ import { store } from '@/core/store.js'
 <style scoped>
 .ml-result-container {
   padding: 40px !important;
-  max-height: 90vh;
-  overflow-y: auto;
+  /* 移除 max-height 90vh，允许随内容无限向下延伸 */
+  flex-shrink: 0; /* 禁止被 Flex 引擎挤压高度 */
   border: 1px solid var(--premium-border-color);
   background: var(--premium-glass-bg);
   color: var(--premium-text-main);
   backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+  position: relative; /* 确保 z-index 和排序生效 */
+  margin-bottom: 20px;
 }
 
 .metrics-grid-ml { display: flex; gap: 25px; }

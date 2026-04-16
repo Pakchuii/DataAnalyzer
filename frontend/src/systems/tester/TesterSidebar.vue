@@ -47,7 +47,7 @@ const categories = [
 
 const setModule = (modId) => {
   store.activeTestModule = modId;
-  
+
   // 🧪 [实验室特权]：自动激活相关模块的显示开关，确保组件内部 v-if 能够通过
   if (modId === 'mod_ml') { store.showML = true; }
   if (modId === 'mod_visualize') { store.showCharts = true; store.showVisControl = true; }
@@ -72,7 +72,7 @@ const injectDemoData = () => {
 
   // 2. 深度模拟分析结果 (Deep Mock Results)
   // 让组件无需经过后端真实计算也能瞬间显示出精美的演示界面
-  
+
   // 模拟机器学习回归结果
   store.mlResult = {
     r2: 0.9234,
@@ -112,7 +112,7 @@ const injectDemoData = () => {
 
 <template>
   <div class="glass-card tester-sidebar">
-      <ModExit />
+    <ModExit />
 
     <div class="lab-header">
       <h3 class="lab-title">🧪 组件全能实验室</h3>
@@ -125,13 +125,8 @@ const injectDemoData = () => {
     <div class="sidebar-scroll-area" style="flex:1; overflow:auto; padding-right: 5px;">
       <div v-for="cat in categories" :key="cat.title" class="category-group">
         <div class="category-title">{{ cat.title }}</div>
-        <button 
-          v-for="mod in cat.modules" 
-          :key="mod.id"
-          class="tester-nav-item"
-          :class="{ active: store.activeTestModule === mod.id }"
-          @click="setModule(mod.id)"
-        >
+        <button v-for="mod in cat.modules" :key="mod.id" class="tester-nav-item"
+          :class="{ active: store.activeTestModule === mod.id }" @click="setModule(mod.id)">
           <span class="mod-dot"></span>
           {{ mod.name }}
         </button>
@@ -143,8 +138,14 @@ const injectDemoData = () => {
 <style scoped>
 @import '@/systems/tester/tester.css';
 
-.sidebar-scroll-area::-webkit-scrollbar { width: 4px; }
-.sidebar-scroll-area::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 2px; }
+.sidebar-scroll-area::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}
 
 .lab-header {
   margin-bottom: 25px;
@@ -176,8 +177,12 @@ const injectDemoData = () => {
 }
 
 .mod-dot {
-  width: 6px; height: 6px; border-radius: 50%; background: #409eff;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #409eff;
 }
+
 .tester-nav-item.active .mod-dot {
   background: white;
 }
