@@ -5,6 +5,7 @@
  */
 import TemplateSidebar from './TemplateSidebar.vue';
 import TemplateScreen from './TemplateScreen.vue';
+
 </script>
 
 <template>

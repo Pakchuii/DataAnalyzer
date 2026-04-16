@@ -1,5 +1,6 @@
 <script setup>
 import { store, actions } from '@/core/store.js'
+import ModExit from '@/modules/mod_exit/ModExit.vue'
 
 const categories = [
   {
@@ -111,6 +112,8 @@ const injectDemoData = () => {
 
 <template>
   <div class="glass-card tester-sidebar">
+      <ModExit />
+
     <div class="lab-header">
       <h3 class="lab-title">🧪 组件全能实验室</h3>
       <p class="lab-subtitle">实时预览并测试原子积木块</p>
