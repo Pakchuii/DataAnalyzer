@@ -1,12 +1,7 @@
 <script setup>
-import { onMounted, watch } from 'vue'
+import { onMounted, watch, computed } from 'vue'
 import { store, actions } from '@/core/store.js'
-
-// 📂 [系统架构层]: 核心视图载体
-import AnalysisSidebar from '@/systems/analysis/AnalysisSidebar.vue'
-import AnalysisScreen from '@/systems/analysis/AnalysisScreen.vue'
-import ManagementView from '@/systems/management/ManagementView.vue'
-import TemplateSystem from '@/systems/template/TemplateSystem.vue'
+import { systemsRegistry } from '@/core/systemRegistry.js'
 
 // 🚀 [模块化组件层]: 基础支架与全局浮层
 import ModSystemBackground from '@/modules/mod_system/mod_system_background.vue'
@@ -22,8 +17,12 @@ import ModCleanReport from '@/modules/mod_clean/mod_clean_report.vue'
 import ModSystemWarning from '@/modules/mod_system/mod_system_warning.vue'
 
 // ==========================================
-// 【核心调度逻辑】
+// 【动态调度逻辑】
 // ==========================================
+const activeSystem = computed(() => {
+  return systemsRegistry[store.currentModule] || null;
+});
+
 onMounted(() => {
   actions.initTheme();
   actions.initSettings();
@@ -64,23 +63,16 @@ watch(() => store.isDarkMode, (newVal) => {
       <!-- A. 欢迎与工作中心 (Portal) -->
       <ModSystemPortal />
 
-      <!-- B. 业务子系统视图 -->
+      <!-- B. 动态系统底座 (按照 V3 注册表协议渲染) -->
       <transition name="fade">
-        <div v-if="store.isEntered && store.currentModule === 'analysis'" class="main-dashboard">
-          <AnalysisSidebar />
-          <AnalysisScreen />
-        </div>
-      </transition>
-
-      <transition name="fade">
-        <div v-if="store.isEntered && store.currentModule === 'management'" class="main-dashboard no-padding">
-          <ManagementView />
-        </div>
-      </transition>
-
-      <transition name="fade">
-        <div v-if="store.isEntered && store.currentModule === 'template'" class="main-dashboard no-padding">
-          <TemplateSystem />
+        <div v-if="store.isEntered && activeSystem" 
+             class="main-dashboard" 
+             :class="{ 'no-padding': activeSystem.id === 'management' }">
+          <!-- 仅在系统声明了 sidebar 组件时渲染 -->
+          <component v-if="activeSystem.sidebar" :is="activeSystem.sidebar" />
+          
+          <!-- 渲染主屏幕/大屏组件 -->
+          <component :is="activeSystem.screen" />
         </div>
       </transition>
     </div>

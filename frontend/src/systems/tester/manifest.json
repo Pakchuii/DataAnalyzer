@@ -1,0 +1,22 @@
+{
+  "id": "tester",
+  "portal": {
+    "icon": "🧪",
+    "title": "组件全能实验室",
+    "titleColor": "#67c23a",
+    "description": "全维度模块化压力测试与动态沙盒展示中心，支持 17+ 核心积木块即时调用。",
+    "statusText": "🔵 测试模式激活",
+    "statusBg": "rgba(103,194,58,0.1)",
+    "statusColor": "#67c23a",
+    "statusBorder": "1px solid rgba(103,194,58,0.3)"
+  },
+  "shelf": {
+    "icon": "🧪",
+    "name": "组件实验室"
+  },
+  "drawer": {
+    "icon": "🧪",
+    "iconBackground": "linear-gradient(135deg, #95de64, #52c41a)",
+    "name": "全能组件沙盒"
+  }
+}

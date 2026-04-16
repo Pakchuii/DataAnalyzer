@@ -11,6 +11,7 @@ export const store = reactive({
     isEntered: false, currentModule: 'portal', isDarkMode: false,
     showUploadModal: false, uploadedFileName: '', isDragging: false,
     showAppDesktop: false,
+    activeTestModule: 'mod_visualize', // 🧪 实验室系统辅助状态
     showSlotSwitcher: false,
     pinnedSystemId: localStorage.getItem('pinnedSystemId') || 'template',
     dialog: {
@@ -51,6 +52,9 @@ export const store = reactive({
     isMasked: false, preMaskedFile: '',
     // ===== 演示模板各模块数据 =====
     showTemplatePanel: false, templateData: null,
+
+    // ===== 全栈范例模块数据 (mod_test) =====
+    testLoading: false, testResult: null,
 })
 
 // 【架构设计：动作派发总线 (Action Dispatcher)】
@@ -76,6 +80,7 @@ import { setupRadar } from '@/modules/mod_radar/mod_radar.js'
 import { setupML } from '@/modules/mod_ml/mod_ml.js'
 import { setupExporter } from '@/modules/mod_export/mod_export.js'
 import { setupTemplate } from '@/modules/mod_template/mod_template.js'
+import { setupTestModule } from '@/modules/mod_test/mod_test.js'
 
 // 【动态混入 (Mixin) 挂载机制】
 // 将拆分在各独立模块中的业务逻辑，动态聚合并注入到全局 actions 中
@@ -97,5 +102,6 @@ Object.assign(
     setupRadar(store, actions),
     setupML(store, actions),
     setupExporter(store, actions),
-    setupTemplate(store, actions)
+    setupTemplate(store, actions),
+    setupTestModule(store, actions)
 )
