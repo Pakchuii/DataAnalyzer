@@ -1,6 +1,5 @@
-# core/utils.py
+# backend/core/utils.py
 import pandas as pd
-
 
 def read_df(filepath):
     """

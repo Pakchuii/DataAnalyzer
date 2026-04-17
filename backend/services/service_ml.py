@@ -5,8 +5,8 @@ from flask import request, jsonify
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
-from config import UPLOAD_FOLDER
-from utils import read_df
+from core.config import UPLOAD_FOLDER
+from core.utils import read_df
 
 
 def do_summary():

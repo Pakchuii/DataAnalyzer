@@ -2,8 +2,8 @@ import os
 import pandas as pd
 import numpy as np
 from flask import request, jsonify
-from config import UPLOAD_FOLDER
-from utils import read_df
+from core.config import UPLOAD_FOLDER
+from core.utils import read_df
 
 
 def do_get_options():

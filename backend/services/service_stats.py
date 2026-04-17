@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 import scipy.stats as stats
 from flask import request, jsonify
-from config import UPLOAD_FOLDER
-from utils import read_df
+from core.config import UPLOAD_FOLDER
+from core.utils import read_df
 
 
 def do_descriptive():

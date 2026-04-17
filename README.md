@@ -66,6 +66,16 @@ python desktop_app.py
 
 ---
 
+## 📦 便携化部署 (Portable Mode)
+为了保持仓库轻量，本项目默认不上传庞大的运行环境。如需使用“开箱即用”的便携功能，请手动下载并在根目录下解压以下组件：
+
+1. **Python 微端**: [下载 Python 3.12 嵌入式版](https://www.python.org/ftp/python/3.12.3/python-3.12.3-embed-amd64.zip) (解压至 `python/`)
+2. **Node 微端**: [下载 Node.js 22 LTS 绿色版](https://nodejs.org/dist/v22.11.0/node-v22.11.0-win-x64.zip) (解压至 `node/`)
+
+解压完成后，直接运行 **`一键启动系统.bat`** 即可。
+
+---
+
 ## 🏗️ 模块化架构
 本系统采用高度解耦的插件化架构：
 - **前端**: `Action Injection` 模式，业务逻辑动态混入全局 Store。

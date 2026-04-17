@@ -4,8 +4,10 @@
 backend/venv/
 backend/__pycache__/
 backend/uploads/
+backend/outputs/
 *.pyc
 .env
+.venv/
 
 # ====================
 # 前端 (Vue/Node) 忽略清单
@@ -22,3 +24,8 @@ frontend/dist-ssr/
 Thumbs.dbg
 .idea/
 __pycache__/
+# ====================
+# Portable Runtimes
+# ====================
+python/
+node/

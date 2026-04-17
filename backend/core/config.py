@@ -1,8 +1,11 @@
 import os
 
-# 【全局配置：物理存储路径】
-# 定义系统默认的上传文件挂载目录
-UPLOAD_FOLDER = 'uploads'
+# 【核心配置：物理存储路径】
+# 强制使用绝对路径以支持便携化分发环境
+CORE_DIR = os.path.dirname(os.path.abspath(__file__))
+BACKEND_DIR = os.path.dirname(CORE_DIR)
+UPLOAD_FOLDER = os.path.join(BACKEND_DIR, 'uploads')
+OUTPUT_FOLDER = os.path.join(BACKEND_DIR, 'outputs')
 
 # 【安全防御：文件类型白名单】
 # 仅允许解析特定的电子表格格式，从入口处拦截恶意脚本 (如 .exe, .sh) 上传，防范任意文件上传漏洞

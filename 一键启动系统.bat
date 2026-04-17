@@ -4,38 +4,54 @@ cd /d "%~dp0"
 title DataAnalyzer Pro Bootloader
 
 :: --------------------------------------------------
-:: PURE ASCII VERSION (V10 SEAMLESS INTEGRATION)
+:: [ENV INJECTION] Safe and Standard
 :: --------------------------------------------------
+set "PR_ROOT=%~dp0"
+set "PATH=%PR_ROOT%python;%PR_ROOT%node;%PATH%"
+set "PYTHONPATH=%PR_ROOT%backend;%PR_ROOT%backend\core;%PYTHONPATH%"
 
+:: --------------------------------------------------
+:: [INTERFACE] Pure English to Prevent Garble
+:: --------------------------------------------------
+cls
 echo ==================================================
-echo   DataAnalyzer Pro: System Starter
+echo   DataAnalyzer Pro: Portable Launcher (V15)
 echo ==================================================
 echo.
-echo Select Mode:
-echo [1] Browser Mode (Debugging)
-echo [2] Desktop Mode (Seamless Experience)
+echo Select Launcher Mode:
+echo [1] Browser Mode
+echo [2] Desktop Mode
 echo.
-set /p choice="Selection [1-2]: "
 
-if "%choice%"=="2" (
-    echo.
-    echo [*] Initializing Master Controller...
-    echo [*] Launching Desktop View...
-    echo.
-    :: V10 Engine: All background services managed by python
-    python desktop_app.py
+set "choice="
+set /p "choice=Enter Selection: "
+
+if "%choice%"=="1" goto MODE_1
+if "%choice%"=="2" goto MODE_2
+
+echo [!] Error: Invalid selection.
+timeout /t 3 >nul
+exit
+
+:MODE_2
+echo.
+echo [*] Launching Desktop GUI...
+python desktop_app.py
+exit
+
+:MODE_1
+echo.
+echo [1/3] Starting Backend (Python)...
+start "DA-Backend" /min cmd /c "set "PYTHONPATH=%PYTHONPATH%" && cd /d "%PR_ROOT%backend" && python app.py"
+
+echo [2/3] Starting Frontend (Node/Vite)...
+if exist "%PR_ROOT%node\node.exe" (
+    start "DA-Frontend" /min cmd /c "cd /d "%PR_ROOT%frontend" && "%PR_ROOT%node\node.exe" "%PR_ROOT%node\node_modules\npm\bin\npm-cli.js" run dev"
 ) else (
-    echo.
-    echo [1/3] Backend starting...
-    start /min "DA-Backend" cmd /c "cd backend && python app.py"
-    echo [2/3] Frontend starting...
-    start /min "DA-Frontend" cmd /c "cd frontend && npm run dev"
-    echo [3/3] Waiting for environment...
-    timeout /t 5 >nul
-    start http://localhost:5173
+    start "DA-Frontend" /min cmd /c "cd /d "%PR_ROOT%frontend" && npm run dev"
 )
 
-echo.
-echo ==================================================
-echo [EXIT] Closing this terminal...
+echo [3/3] Waiting for environment...
+timeout /t 5 >nul
+start http://localhost:5173
 exit
