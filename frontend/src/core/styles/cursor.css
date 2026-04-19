@@ -1,0 +1,143 @@
+/* ==================================================
+ * 🎯 Blue Archive Millennium Cursor System
+ * Custom cursor integration with click effects
+ *
+ * 📐 TUNING GUIDE:
+ * --cursor-scale: 调整光标大小 (默认 0.6, 越小光标越小)
+ * --click-scale:  调整点击特效大小 (默认 1.5, 越大特效越大)
+ * ================================================== */
+
+:root {
+    --cursor-scale: 0.6;
+    --click-scale: 1.5;
+}
+
+/* -----------------------------------------------
+ * 1. HIDE SYSTEM CURSOR (JS cursor takes over)
+ * ----------------------------------------------- */
+* {
+    cursor: none !important;
+}
+
+/* -----------------------------------------------
+ * 2. JS-DRIVEN CURSOR ELEMENT
+ * ----------------------------------------------- */
+#ba-cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999999;
+    transform: translate(-50%, -50%) scale(var(--cursor-scale));
+    transition: transform 0.08s ease-out;
+    image-rendering: auto;
+}
+
+/* When hovering on clickable elements, JS adds this class */
+#ba-cursor.pointer-mode {
+    transform: translate(-50%, -50%) scale(var(--cursor-scale));
+    filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.5));
+}
+
+/* -----------------------------------------------
+ * 3. CLICK EFFECT: Blue Archive Ripple
+ * ----------------------------------------------- */
+
+.ba-click-effect {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%) scale(var(--click-scale));
+}
+
+/* Outer expanding ring */
+.ba-click-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border: 2.5px solid rgba(56, 189, 248, 0.85);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: ba-ring-expand 0.55s ease-out forwards;
+}
+
+/* Inner cross lines */
+.ba-click-cross {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ba-click-cross::before,
+.ba-click-cross::after {
+    content: '';
+    position: absolute;
+    background: rgba(56, 189, 248, 0.9);
+    transform: translate(-50%, -50%);
+    animation: ba-cross-flash 0.45s ease-out forwards;
+}
+
+/* Vertical line of cross */
+.ba-click-cross::before {
+    width: 2px;
+    height: 0px;
+    left: 50%;
+    top: 50%;
+}
+
+/* Horizontal line of cross */
+.ba-click-cross::after {
+    width: 0px;
+    height: 2px;
+    left: 50%;
+    top: 50%;
+}
+
+/* Small diamond burst particles */
+.ba-click-particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: rgba(56, 189, 248, 0.85);
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    animation: ba-particle-burst 0.55s ease-out forwards;
+}
+
+/* -----------------------------------------------
+ * 4. KEYFRAME ANIMATIONS
+ * ----------------------------------------------- */
+
+@keyframes ba-ring-expand {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+        border-width: 2.5px;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(5);
+        opacity: 0;
+        border-width: 0.5px;
+    }
+}
+
+@keyframes ba-cross-flash {
+    0% { opacity: 1; }
+    30% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes ba-particle-burst {
+    0% {
+        transform: translate(-50%, -50%) rotate(45deg) scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(var(--tx), var(--ty)) rotate(45deg) scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--tx2), var(--ty2)) rotate(45deg) scale(0);
+        opacity: 0;
+    }
+}
