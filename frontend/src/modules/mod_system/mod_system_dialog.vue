@@ -49,22 +49,19 @@ const confirmModal = () => {
 </template>
 
 <style scoped>
-.modal-overlay {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);
-  display: flex; justify-content: center; align-items: center;
-}
-
-.glass-card-premium {
-  background: var(--premium-glass-bg);
-  backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-  border: 1px solid var(--premium-border-color);
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10000; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(calc(var(--glass-blur) * 0.5)); display: flex; align-items: center; justify-content: center; }
+.dialog-card {
+    width: 450px;
+    background: var(--premium-glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--premium-border-color);
   box-shadow: var(--premium-card-shadow);
   color: var(--premium-text-main);
 }
 
 .modal-container-premium {
-  width: 480px; max-width: 90vw; padding: 40px; border-radius: 24px;
+  max-width: 90vw; padding: 40px; border-radius: 24px;
   text-align: center; animation: slideUp 0.3s ease-out;
 }
 

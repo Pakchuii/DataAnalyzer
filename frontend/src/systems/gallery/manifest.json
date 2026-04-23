@@ -1,0 +1,23 @@
+{
+  "id": "gallery",
+  "hasConfigGear": false,
+  "portal": {
+    "icon": "🖼️",
+    "title": "时光影集",
+    "titleColor": "#13c2c2",
+    "description": "专为您呈现的全屏沉浸式照片画廊，支持直接读取本地系统文件夹内的海量照片，并内置幻灯片全屏预览功能。",
+    "statusText": "🌟 相册已加载完成",
+    "statusBg": "rgba(20, 194, 194, 0.1)",
+    "statusColor": "#13c2c2",
+    "statusBorder": "1px solid rgba(20, 194, 194, 0.3)"
+  },
+  "shelf": {
+    "icon": "🖼️",
+    "name": "本地相册"
+  },
+  "drawer": {
+    "icon": "🖼️",
+    "iconBackground": "linear-gradient(135deg, #13c2c2, #006d75)",
+    "name": "时光相册空间"
+  }
+}

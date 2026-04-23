@@ -31,6 +31,9 @@ export const store = reactive({
     showLogs: false, logs: [],
     showSystemShelf: false,
     showSettings: false, bgType: 'default', bgUrl: '', windowTint: '', glassOpacity: 0.65,
+    glassBlur: parseFloat(localStorage.getItem('customGlassBlur') || 15),
+    randomDayBg: null, // { url: string, type: 'image' | 'video' }
+    randomNightBg: null,
 
     // ===== 数据层状态 =====
     fileInfo: null, currentDataFile: '', selectedGroupVar: '', selectedVars: [],
@@ -39,11 +42,12 @@ export const store = reactive({
     showPreview: false, showStats: false, showCharts: false, showAdvanced: false,
     showTTest: false, showVisControl: false, showAiSummary: false, showRadar: false,
     showML: false, showExitConfirm: false, showCleanReportModal: false,
-    showManualModal: false,
+    showManualModal: false, showCleanDiagnoseModal: false, cleanDiagnoseResult: null,
+    showFilterPanel: false, activeFilters: [], filterColumnInfo: null,
 
     // ===== 各模块数据 =====
     cleanResult: null, isStandardized: false,
-    previewData: null, statsResult: null, ttestResult: null,
+    previewData: null, previewStatsData: null, statsResult: null, ttestResult: null,
     chartsData: [], visActiveVars: [], advancedResult: null,
     manualGrid: [],
     aiSummaryText: [],
@@ -55,6 +59,19 @@ export const store = reactive({
 
     // ===== 全栈范例模块数据 (mod_test) =====
     testLoading: false, testResult: null,
+
+    // ===== 音乐系统数据 =====
+    musicPlaylist: [],
+    musicCurrentIndex: 0,
+    musicIsPlaying: false,
+    musicPlayMode: 'list', // list, random, single
+    musicVolume: 1, // 0.0 to 1.0
+    musicAudioRef: null,
+    showMiniPlayer: false,
+    musicLyrics: [],
+    musicActiveLyricIndex: -1,
+    musicCurrentTime: 0,
+    musicDuration: 0
 })
 
 // 【架构设计：动作派发总线 (Action Dispatcher)】
@@ -81,6 +98,7 @@ import { setupML } from '@/modules/mod_ml/mod_ml.js'
 import { setupExporter } from '@/modules/mod_export/mod_export.js'
 import { setupTemplate } from '@/modules/mod_template/mod_template.js'
 import { setupTestModule } from '@/modules/mod_test/mod_test.js'
+import { setupFilter } from '@/modules/mod_filter/mod_filter.js'
 
 // 【动态混入 (Mixin) 挂载机制】
 // 将拆分在各独立模块中的业务逻辑，动态聚合并注入到全局 actions 中
@@ -103,5 +121,6 @@ Object.assign(
     setupML(store, actions),
     setupExporter(store, actions),
     setupTemplate(store, actions),
-    setupTestModule(store, actions)
+    setupTestModule(store, actions),
+    setupFilter(store, actions)
 )

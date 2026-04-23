@@ -53,7 +53,7 @@ const closeSwitcher = () => {
 <style scoped>
 .app-desktop-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(20px); z-index: 10001;
+  background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(calc(var(--glass-blur) * 1.33)); z-index: 10001;
   display: flex; justify-content: center; align-items: flex-end;
 }
 .app-desktop-content {

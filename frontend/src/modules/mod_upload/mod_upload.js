@@ -35,7 +35,7 @@ export function setupFile(store, actions) {
                     store.showUploadModal = true;
                     actions.addLog(`文件读取完成！识别出 ${store.fileInfo.row_count} 行数据，${store.fileInfo.numeric_columns.length} 个分析变量。`, "success");
                     
-                    // 核心修复：同步拉取完整预览数据，确保管理系统编辑器同步刷新
+                    // 同步拉取完整预览数据，确保管理系统编辑器同步刷新
                     try {
                         const dataRes = await api.post('/api/data/get_full', { filename: store.currentDataFile });
                         if (dataRes.data.status === 'success') {

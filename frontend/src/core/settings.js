@@ -1,3 +1,5 @@
+import { initRandomWallpapers } from './wallpaperEngine.js'
+
 export function setupSettings(store, actions) {
     const openDB = () => new Promise((resolve, reject) => {
         const request = indexedDB.open('DataAnalyzerDB', 1);
@@ -15,6 +17,8 @@ export function setupSettings(store, actions) {
             if (savedTint) store.windowTint = savedTint;
             const savedOpacity = localStorage.getItem('customGlassOpacity');
             if (savedOpacity) store.glassOpacity = parseFloat(savedOpacity);
+            const savedBlur = localStorage.getItem('customGlassBlur');
+            if (savedBlur) store.glassBlur = parseFloat(savedBlur);
             try {
                 const db = await openDB();
                 const req = db.transaction('settings', 'readonly').objectStore('settings').get('customBgBlob');
@@ -62,6 +66,12 @@ export function setupSettings(store, actions) {
             actions.applyThemeColor();
         },
 
+        handleBlurChange(e) {
+            store.glassBlur = parseFloat(e.target.value);
+            localStorage.setItem('customGlassBlur', store.glassBlur);
+            actions.applyThemeColor();
+        },
+
         setWindowTint(colorStr) {
             store.windowTint = colorStr;
             localStorage.setItem('customWindowTint', colorStr);
@@ -97,6 +107,22 @@ export function setupSettings(store, actions) {
             const rgbColor = `${r}, ${g}, ${b}`;
             document.documentElement.style.setProperty('--glass-theme-rgb', rgbColor);
             document.documentElement.style.setProperty('--glass-opacity', store.glassOpacity);
+            document.documentElement.style.setProperty('--glass-blur', store.glassBlur + 'px');
+        },
+
+        refreshWallpaper() {
+            if (store.bgType === 'default') {
+                initRandomWallpapers();
+                actions.addLog("🎲 已重新随机抽取本地壁纸池", "info");
+            } else {
+                // 如果是用户上传的，通过“闪烁”一下 URL 触发组件重新挂载（如果文件内容变了）
+                const oldUrl = store.bgUrl;
+                store.bgUrl = '';
+                setTimeout(() => {
+                    store.bgUrl = oldUrl;
+                    actions.addLog("🌀 已刷新当前自定义背景内容", "info");
+                }, 50);
+            }
         }
     };
 }

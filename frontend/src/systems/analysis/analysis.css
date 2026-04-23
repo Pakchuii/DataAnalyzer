@@ -84,7 +84,7 @@
 .cursor { display: inline-block; width: 2px; background-color: #b37feb; animation: blink 1s infinite; margin-left: 5px; }
 
 /* --- 退出按钮 --- */
-.exit-corner-btn { position: absolute; top: 0; right: 0; width: 30px; height: 30px; background: rgba(245, 34, 45, 0.15); border-bottom-left-radius: 100%; cursor: pointer; z-index: 1000; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); border-left: 1px solid rgba(255, 255, 255, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.2); overflow: hidden; }
+.exit-corner-btn { position: absolute; top: 0; right: 0; width: 30px; height: 30px; background: rgba(245, 34, 45, 0.15); border-bottom-left-radius: 100%; cursor: pointer; z-index: 1000; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); backdrop-filter: blur(calc(var(--glass-blur) * 0.33)); -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.33)); border-left: 1px solid rgba(255, 255, 255, 0.2); border-bottom: 1px solid rgba(255, 255, 255, 0.2); overflow: hidden; }
 .exit-corner-btn:hover { width: 80px; height: 80px; background: rgba(245, 34, 45, 0.85); box-shadow: -5px 5px 25px rgba(245, 34, 45, 0.4); }
 .exit-icon { position: absolute; top: 0px; right: 0px; color: white; font-size: 1.6rem; font-weight: bold; opacity: 0; transform: translate(25px, -25px) rotate(90deg) scale(0.5); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .exit-corner-btn:hover .exit-icon { opacity: 1; top: 25px; right: 25px; transform: translate(0, 0) rotate(0deg) scale(1); }
@@ -98,7 +98,8 @@
 
 /* --- Tooltip --- */
 .help-tip { position: relative; cursor: help; display: inline-block; color: inherit; }
-.help-tip::after { content: attr(data-tip); position: absolute; top: 150%; bottom: auto; left: 50%; transform: translateX(-50%); width: max-content; max-width: 220px; background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(4px); color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: normal; white-space: normal; line-height: 1.5; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); z-index: 999; border: 1px solid rgba(255, 255, 255, 0.1); }
+.help-tip::after { content: attr(data-tip); position: absolute; top: 150%; bottom: auto; left: 50%; transform: translateX(-50%); width: max-content; max-width: 220px; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(calc(var(--glass-blur) * 0.67)); color: #fff; padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: normal; white-space: normal; line-height: 1.5; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); z-index: 999; border: 1px solid rgba(255, 255, 255, 0.1); }
+.blur-bg { filter: blur(var(--glass-blur)); pointer-events: none; }
 .help-tip:hover::after { opacity: 1; top: 120%; }
 
 /* --- 算法引擎探针标签 --- */

@@ -12,6 +12,36 @@ import threading
 # ==================================================
 APP_NAME = "DataAnalyzer Pro" 
 APP_ICON = "temp_app_icon.ico" 
+
+class Api:
+    def __init__(self):
+        self._window = None
+
+    def set_window(self, window):
+        self._window = window
+
+    def toggle_fullscreen(self):
+        if self._window:
+            self._window.toggle_fullscreen()
+
+    def restart(self):
+        """清理资源并重启程序（非阻塞模式）"""
+        def _do_restart():
+            try:
+                # 1. 彻底清理后端和前端子进程
+                cleanup()
+                # 2. 启动一个新的主程序实例
+                # 使用 sys.executable 和 sys.argv 确保环境一致
+                subprocess.Popen([sys.executable] + sys.argv, shell=False)
+                # 3. 强制退出当前进程
+                os._exit(0)
+            except Exception as e:
+                print(f"Restart failed: {e}")
+
+        # 在新线程中执行，防止阻塞 UI 响应
+        threading.Thread(target=_do_restart, daemon=True).start()
+
+api = Api()
 # ==================================================
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -147,10 +177,28 @@ def start_services():
     except: pass
 
 def cleanup():
+    """强力清理所有子进程，包括按 PID 树和按端口号双重保险"""
+    # 第一轮：按 PID 进程树强杀
     for p in subprocesses:
         try:
             subprocess.run(["taskkill", "/F", "/T", "/PID", str(p.pid)], 
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except: pass
+
+    # 第二轮：按端口号兜底清理（防止 shell=True 导致的孤儿进程）
+    for port in [5000, 5173]:
+        try:
+            result = subprocess.run(
+                f'netstat -ano | findstr :{port} | findstr LISTENING',
+                shell=True, capture_output=True, text=True
+            )
+            for line in result.stdout.strip().split('\n'):
+                parts = line.split()
+                if parts:
+                    pid = parts[-1]
+                    if pid.isdigit():
+                        subprocess.run(["taskkill", "/F", "/PID", pid],
+                                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         except: pass
 
 def boot_sequence(splash_window):
@@ -177,8 +225,10 @@ def boot_sequence(splash_window):
             APP_NAME, 
             url=main_url, 
             width=1440, 
-            height=900
+            height=900,
+            js_api=api
         )
+        api.set_window(main_window)
         
         # Destroy splash to hand over the loop
         splash_window.destroy()

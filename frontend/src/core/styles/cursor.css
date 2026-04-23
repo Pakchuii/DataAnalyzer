@@ -1,19 +1,18 @@
 /* ==================================================
- * 🎯 Blue Archive Millennium Cursor System
- * Custom cursor integration with click effects
+ * 🎯 Blue Archive Click Effect — 蔚蓝档案星爆光标系统
  *
  * 📐 TUNING GUIDE:
- * --cursor-scale: 调整光标大小 (默认 0.6, 越小光标越小)
- * --click-scale:  调整点击特效大小 (默认 1.5, 越大特效越大)
+ * --cursor-scale: 调整光标大小 (默认 0.6)
+ * --click-scale:  调整点击特效大小 (默认 1.2)
  * ================================================== */
 
 :root {
     --cursor-scale: 0.6;
-    --click-scale: 1.5;
+    --click-scale: 1.2;
 }
 
 /* -----------------------------------------------
- * 1. HIDE SYSTEM CURSOR (JS cursor takes over)
+ * 1. HIDE SYSTEM CURSOR
  * ----------------------------------------------- */
 * {
     cursor: none !important;
@@ -21,26 +20,25 @@
 
 /* -----------------------------------------------
  * 2. JS-DRIVEN CURSOR ELEMENT
+ * 使用 will-change 提示浏览器优化合成层
  * ----------------------------------------------- */
 #ba-cursor {
     position: fixed;
     pointer-events: none;
     z-index: 999999;
     transform: translate(-50%, -50%) scale(var(--cursor-scale));
-    transition: transform 0.08s ease-out;
+    will-change: left, top;
     image-rendering: auto;
 }
 
-/* When hovering on clickable elements, JS adds this class */
 #ba-cursor.pointer-mode {
     transform: translate(-50%, -50%) scale(var(--cursor-scale));
     filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.5));
 }
 
 /* -----------------------------------------------
- * 3. CLICK EFFECT: Blue Archive Ripple
+ * 3. CLICK EFFECT: 蔚蓝档案星爆风格
  * ----------------------------------------------- */
-
 .ba-click-effect {
     position: fixed;
     pointer-events: none;
@@ -48,96 +46,134 @@
     transform: translate(-50%, -50%) scale(var(--click-scale));
 }
 
-/* Outer expanding ring */
+/* --- 外圈旋转环 --- */
 .ba-click-ring {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 12px;
-    height: 12px;
-    border: 2.5px solid rgba(56, 189, 248, 0.85);
+    top: 50%; left: 50%;
+    width: 20px; height: 20px;
+    border: 2px solid rgba(100, 200, 255, 0.9);
+    border-top-color: transparent;
+    border-right-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    animation: ba-ring-burst 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+/* --- 中心脉冲光 --- */
+.ba-click-pulse {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 8px; height: 8px;
+    background: radial-gradient(circle, rgba(200, 230, 255, 0.95) 0%, rgba(100, 180, 255, 0.6) 50%, transparent 100%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    animation: ba-pulse-flash 0.35s ease-out forwards;
+}
+
+/* --- 三角碎片 (蔚蓝档案标志性的尖锐碎片) --- */
+.ba-click-shard {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 8px solid rgba(140, 210, 255, 0.9);
+    transform: translate(-50%, -50%) rotate(var(--shard-rot)) scale(0);
+    animation: ba-shard-fly 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    filter: drop-shadow(0 0 2px rgba(100, 200, 255, 0.6));
+}
+
+/* --- 小光点 --- */
+.ba-click-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 4px; height: 4px;
+    background: rgba(220, 240, 255, 0.95);
     border-radius: 50%;
     transform: translate(-50%, -50%) scale(0);
-    animation: ba-ring-expand 0.55s ease-out forwards;
-}
-
-/* Inner cross lines */
-.ba-click-cross {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.ba-click-cross::before,
-.ba-click-cross::after {
-    content: '';
-    position: absolute;
-    background: rgba(56, 189, 248, 0.9);
-    transform: translate(-50%, -50%);
-    animation: ba-cross-flash 0.45s ease-out forwards;
-}
-
-/* Vertical line of cross */
-.ba-click-cross::before {
-    width: 2px;
-    height: 0px;
-    left: 50%;
-    top: 50%;
-}
-
-/* Horizontal line of cross */
-.ba-click-cross::after {
-    width: 0px;
-    height: 2px;
-    left: 50%;
-    top: 50%;
-}
-
-/* Small diamond burst particles */
-.ba-click-particle {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    background: rgba(56, 189, 248, 0.85);
-    transform: translate(-50%, -50%) rotate(45deg) scale(0);
-    animation: ba-particle-burst 0.55s ease-out forwards;
+    animation: ba-dot-fly 0.4s ease-out forwards;
+    box-shadow: 0 0 4px rgba(100, 200, 255, 0.8);
 }
 
 /* -----------------------------------------------
  * 4. KEYFRAME ANIMATIONS
  * ----------------------------------------------- */
 
-@keyframes ba-ring-expand {
+/* 外圈旋转扩散 */
+@keyframes ba-ring-burst {
     0% {
-        transform: translate(-50%, -50%) scale(0);
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
         opacity: 1;
         border-width: 2.5px;
     }
+    60% {
+        transform: translate(-50%, -50%) scale(3) rotate(180deg);
+        opacity: 0.7;
+        border-width: 1.5px;
+    }
     100% {
-        transform: translate(-50%, -50%) scale(5);
+        transform: translate(-50%, -50%) scale(4.5) rotate(300deg);
         opacity: 0;
         border-width: 0.5px;
     }
 }
 
-@keyframes ba-cross-flash {
-    0% { opacity: 1; }
-    30% { opacity: 1; }
-    100% { opacity: 0; }
-}
-
-@keyframes ba-particle-burst {
+/* 中心闪光 */
+@keyframes ba-pulse-flash {
     0% {
-        transform: translate(-50%, -50%) rotate(45deg) scale(0);
+        transform: translate(-50%, -50%) scale(1);
         opacity: 1;
     }
-    50% {
-        transform: translate(var(--tx), var(--ty)) rotate(45deg) scale(1.2);
+    40% {
+        transform: translate(-50%, -50%) scale(2.5);
         opacity: 0.8;
     }
     100% {
-        transform: translate(var(--tx2), var(--ty2)) rotate(45deg) scale(0);
+        transform: translate(-50%, -50%) scale(4);
+        opacity: 0;
+    }
+}
+
+/* 三角碎片飞射 */
+@keyframes ba-shard-fly {
+    0% {
+        transform: translate(-50%, -50%) rotate(var(--shard-rot)) scale(0);
+        opacity: 1;
+    }
+    30% {
+        transform: translate(
+            calc(-50% + var(--shard-x) * 0.4),
+            calc(-50% + var(--shard-y) * 0.4)
+        ) rotate(var(--shard-rot)) scale(1.3);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(
+            calc(-50% + var(--shard-x)),
+            calc(-50% + var(--shard-y))
+        ) rotate(var(--shard-rot)) scale(0.3);
+        opacity: 0;
+    }
+}
+
+/* 光点飞散 */
+@keyframes ba-dot-fly {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(
+            calc(-50% + var(--dot-x) * 0.6),
+            calc(-50% + var(--dot-y) * 0.6)
+        ) scale(1.2);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translate(
+            calc(-50% + var(--dot-x)),
+            calc(-50% + var(--dot-y))
+        ) scale(0);
         opacity: 0;
     }
 }

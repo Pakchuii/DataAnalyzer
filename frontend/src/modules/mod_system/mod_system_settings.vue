@@ -28,10 +28,11 @@ const closeModal = () => {
           <h3 style="margin-top:0; color: #409eff; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 10px;">🎨 外观与个性化</h3>
           <div class="setting-block">
             <h4>更换系统壁纸 (图片/视频)</h4>
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 8px;">
               <input type="file" id="bg-upload" accept="image/*, video/*" @change="actions.handleBgUpload" style="display: none;">
-              <label for="bg-upload" class="glass-btn primary-btn" style="flex:1; text-align:center; padding: 8px;">📂 本地上传</label>
-              <button @click="actions.resetBackground" class="glass-btn secondary-btn" style="flex:1; padding: 8px;">🔄 恢复默认</button>
+              <label for="bg-upload" class="glass-btn primary-btn" style="flex:1.2; text-align:center; padding: 8px; font-size: 0.85rem;">📂 上传</label>
+              <button @click="actions.refreshWallpaper" class="glass-btn primary-btn" style="flex:1.2; padding: 8px; font-size: 0.85rem; background: rgba(24, 144, 255, 0.2);">🔃 刷新</button>
+              <button @click="actions.resetBackground" class="glass-btn secondary-btn" style="flex:1; padding: 8px; font-size: 0.85rem;">🔄 恢复</button>
             </div>
           </div>
           <div class="setting-block">
@@ -59,6 +60,17 @@ const closeModal = () => {
               <span style="font-size: 0.8rem; color: #888;">厚重</span>
             </div>
           </div>
+          <div class="setting-block">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <h4 style="margin: 0;">毛玻璃程度 (Blur)</h4>
+              <span style="font-weight: bold; color: #409eff;">{{ store.glassBlur }}px</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 15px;">
+              <span style="font-size: 0.8rem; color: #888;">清晰</span>
+              <input type="range" min="0" max="40" step="1" :value="store.glassBlur" @input="actions.handleBlurChange" class="custom-slider">
+              <span style="font-size: 0.8rem; color: #888;">磨砂</span>
+            </div>
+          </div>
           <div class="setting-block" style="margin-top: auto;">
             <div class="version-info">
               <strong>DataAnalyzer Pro</strong><br>
@@ -74,7 +86,7 @@ const closeModal = () => {
 
 <style scoped>
 .settings-modal-container {
-    width: 800px; max-width: 90vw; height: 500px;
+    width: 800px; max-width: 90vw; height: 550px;
     padding: 0; position: relative; overflow: hidden; display: flex;
 }
 .modal-close-btn {

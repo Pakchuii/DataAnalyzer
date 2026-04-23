@@ -41,7 +41,7 @@ export function setupCorrelation(store, actions) {
                 borderColor: 'rgba(255, 255, 255, 0.2)',
                 borderWidth: 1,
                 textStyle: { color: '#fff', fontSize: 13 },
-                backdropFilter: 'blur(4px)'
+                backdropFilter: 'blur(calc(var(--glass-blur) * 0.3))'
             };
 
             const heatDom = heatEl || document.getElementById('heatmap-container');

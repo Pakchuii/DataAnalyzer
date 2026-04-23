@@ -27,6 +27,15 @@ import testerManifest from '@/systems/tester/manifest.json';
 import TesterSidebar from '@/systems/tester/TesterSidebar.vue';
 import TesterScreen from '@/systems/tester/TesterScreen.vue';
 
+// 🎵 云端音乐系统
+import musicManifest from '@/systems/music/manifest.json';
+import MusicSidebar from '@/systems/music/MusicSidebar.vue';
+import MusicScreen from '@/systems/music/MusicScreen.vue';
+
+// 🖼️ 时光相册系统
+import galleryManifest from '@/systems/gallery/manifest.json';
+import GallerySystem from '@/systems/gallery/GallerySystem.vue';
+
 /**
  * 全局系统注册表
  * 开发者手动在此处注册新系统。id 必须对应 store.currentModule
@@ -55,6 +64,18 @@ export const systemsRegistry = {
         manifest: testerManifest,
         sidebar: TesterSidebar,
         screen: TesterScreen
+    },
+    music: {
+        id: 'music',
+        manifest: musicManifest,
+        sidebar: MusicSidebar,
+        screen: MusicScreen
+    },
+    gallery: {
+        id: 'gallery',
+        manifest: galleryManifest,
+        sidebar: null,
+        screen: GallerySystem
     }
 };
 

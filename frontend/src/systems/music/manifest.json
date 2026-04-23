@@ -1,0 +1,23 @@
+{
+  "id": "music",
+  "hasConfigGear": false,
+  "portal": {
+    "icon": "🎵",
+    "title": "云端音乐空间",
+    "titleColor": "#eb2f96",
+    "description": "基于网易云音乐的沉浸式音乐播放系统，支持歌词滚动、专辑封面旋转动效与歌单管理。",
+    "statusText": "🎧 音乐世界已就绪",
+    "statusBg": "rgba(235, 47, 150, 0.1)",
+    "statusColor": "#eb2f96",
+    "statusBorder": "1px solid rgba(235, 47, 150, 0.3)"
+  },
+  "shelf": {
+    "icon": "🎵",
+    "name": "音乐播放"
+  },
+  "drawer": {
+    "icon": "🎵",
+    "iconBackground": "linear-gradient(135deg, #eb2f96, #722ed1)",
+    "name": "云端音乐空间"
+  }
+}

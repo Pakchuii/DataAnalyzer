@@ -2,6 +2,7 @@
 import { onMounted, watch, computed } from 'vue'
 import { store, actions } from '@/core/store.js'
 import { systemsRegistry } from '@/core/systemRegistry.js'
+import { initRandomWallpapers } from '@/core/wallpaperEngine.js'
 
 // 🚀 [模块化组件层]: 基础支架与全局浮层
 import ModSystemBackground from '@/modules/mod_system/mod_system_background.vue'
@@ -15,6 +16,9 @@ import ModSystemDrawer from '@/modules/mod_system/mod_system_drawer.vue'
 import ModSystemTerminal from '@/modules/mod_system/mod_system_terminal.vue'
 import ModCleanReport from '@/modules/mod_clean/mod_clean_report.vue'
 import ModSystemWarning from '@/modules/mod_system/mod_system_warning.vue'
+import ModSystemLoader from '@/modules/mod_system/mod_system_loader.vue'
+import MiniPlayer from '@/systems/music/MiniPlayer.vue'
+import GlobalMusicManager from '@/systems/music/GlobalMusicManager.vue'
 
 // ==========================================
 // 【动态调度逻辑】
@@ -24,8 +28,20 @@ const activeSystem = computed(() => {
 });
 
 onMounted(() => {
+  initRandomWallpapers(); // 🎲 随机抽取壁纸资源
   actions.initTheme();
   actions.initSettings();
+
+  // 🖥️ 桌面端 F12 全屏切换逻辑
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'F12') {
+      // 仅在 pywebview 环境下拦截 F12 用于全屏切换，网页端保持默认打开控制台
+      if (window.pywebview && window.pywebview.api) {
+        e.preventDefault();
+        window.pywebview.api.toggle_fullscreen();
+      }
+    }
+  });
 });
 
 watch(() => store.isDarkMode, (newVal) => {
@@ -38,11 +54,55 @@ watch(() => store.isDarkMode, (newVal) => {
   }
   actions.applyThemeColor();
 });
+
+// 高级主题切换逻辑 (带动画)
+function toggleTheme(event) {
+  const isDark = !store.isDarkMode;
+  
+  // 兼容性检查
+  if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    store.isDarkMode = isDark;
+    return;
+  }
+
+  // 捕获点击位置
+  const x = event.clientX;
+  const y = event.clientY;
+  const endRadius = Math.hypot(
+    Math.max(x, innerWidth - x),
+    Math.max(y, innerHeight - y)
+  );
+
+  const transition = document.startViewTransition(async () => {
+    store.isDarkMode = isDark;
+    // 强制 Vue 在过渡快照前完成 DOM 更新
+    await nextTick();
+  });
+
+  transition.ready.then(() => {
+    document.documentElement.animate(
+      {
+        clipPath: [
+          `circle(0 at ${x}px ${y}px)`,
+          `circle(${endRadius}px at ${x}px ${y}px)`,
+        ],
+      },
+      {
+        duration: 500,
+        easing: 'ease-in-out',
+        pseudoElement: '::view-transition-new(root)',
+      }
+    );
+  });
+}
 </script>
 
 <template>
   <div :class="{ 'dark-mode': store.isDarkMode }" class="app-global-wrapper">
     
+    <!-- 0. 全屏加载启动页 -->
+    <ModSystemLoader />
+
     <!-- 1. 底层背景引擎 -->
     <ModSystemBackground />
 
@@ -86,13 +146,20 @@ watch(() => store.isDarkMode, (newVal) => {
       </div>
     </div>
 
-    <!-- 5. 全局功能悬浮按钮 (Theme Toggle Upgrade) -->
+    <!-- 5. 全局功能悬浮按钮 (Advanced Theme Toggle) -->
     <div class="theme-toggle-wrapper">
-      <button @click="store.isDarkMode = !store.isDarkMode" class="theme-toggle-btn">
-        <span class="toggle-icon">{{ store.isDarkMode ? '☀️' : '🌙' }}</span>
+      <button @click="toggleTheme" class="theme-toggle-btn" :class="{ 'is-dark': store.isDarkMode }">
+        <div class="icon-morph">
+          <span v-if="!store.isDarkMode" class="sun-icon">☀️</span>
+          <span v-else class="moon-icon">🌙</span>
+        </div>
         <span class="toggle-label">{{ store.isDarkMode ? '切换日间' : '切换夜间' }}</span>
       </button>
     </div>
+
+    <!-- 6. 全局迷你音乐播放器与管理器 -->
+    <MiniPlayer v-if="store.showMiniPlayer" />
+    <GlobalMusicManager />
 
   </div>
 </template>
@@ -112,7 +179,7 @@ watch(() => store.isDarkMode, (newVal) => {
     position: relative; z-index: 10; width: 100%; height: 100%; transition: filter 0.3s;
 }
 
-.blur-bg { filter: blur(15px); pointer-events: none; }
+.blur-bg { filter: blur(var(--glass-blur)); pointer-events: none; }
 
 .main-dashboard {
     display: flex; width: 100%; height: 100%; padding: 20px; gap: 20px; animation: fadeIn 0.8s ease;
@@ -131,7 +198,7 @@ watch(() => store.isDarkMode, (newVal) => {
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* --- 升级版悬浮功能组件样式 (Expandable Pill) --- */
+/* --- 升级版悬浮功能组件样式 (Morphing Pill) --- */
 .theme-toggle-wrapper {
     position: fixed; bottom: 30px; right: 30px; z-index: 10005;
 }
@@ -140,35 +207,40 @@ watch(() => store.isDarkMode, (newVal) => {
     background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
     border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem; cursor: pointer; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    font-size: 1.4rem; cursor: pointer; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     overflow: hidden; white-space: nowrap; padding: 0;
 }
 .theme-toggle-btn:hover { 
-    width: 175px; transform: scale(1.05);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); 
-    background: rgba(255, 255, 255, 0.98); border-color: rgba(64, 158, 255, 0.4);
+    width: 160px; transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2); 
 }
-.toggle-icon { 
+
+.icon-morph {
     flex-shrink: 0; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
-    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
 }
-.theme-toggle-btn:hover .toggle-icon { transform: scale(1.1); }
 
 .toggle-label {
-    font-size: 0.95rem; font-weight: bold; color: #409eff;
+    font-size: 0.9rem; font-weight: bold; color: #409eff;
     opacity: 0; width: 0; overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    white-space: nowrap; pointer-events: none;
+    transition: all 0.3s ease;
 }
 .theme-toggle-btn:hover .toggle-label {
-    opacity: 1; width: 100px; margin-left: 8px;
-    transition-delay: 0.1s;
+    opacity: 1; width: 80px; margin-left: 5px;
 }
 
 :global(.dark-mode) .theme-toggle-btn {
-    background: rgba(45, 45, 60, 0.8); border-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    background: rgba(30, 30, 45, 0.8); border-color: rgba(255, 255, 255, 0.1);
 }
-:global(.dark-mode) .theme-toggle-btn:hover { background: rgba(80, 80, 110, 0.95); border-color: rgba(64, 158, 255, 0.6); }
-:global(.dark-mode) .toggle-label { color: #ffffff !important; font-weight: 900; text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); }
+:global(.dark-mode) .toggle-label { color: #fff !important; }
+
+/* 视图过渡核心动画 (原生支持 View Transition API) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 9999; }
+.dark-mode::view-transition-old(root) { z-index: 9999; }
+.dark-mode::view-transition-new(root) { z-index: 1; }
 </style>

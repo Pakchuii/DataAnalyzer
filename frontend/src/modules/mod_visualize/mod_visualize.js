@@ -42,8 +42,8 @@ export function setupVisualize(store, actions) {
                 backgroundColor: 'rgba(20, 20, 25, 0.85)',
                 borderColor: 'rgba(255, 255, 255, 0.2)',
                 borderWidth: 1,
-                textStyle: { color: '#fff', fontSize: 13 },
-                backdropFilter: 'blur(4px)'
+                background: 'rgba(0,0,0,0.4)',
+                backdropFilter: 'blur(calc(var(--glass-blur) * 0.3))'
             };
 
             // 遍历活跃节点实施局部渲染降级

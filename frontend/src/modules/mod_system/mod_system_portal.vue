@@ -14,6 +14,20 @@ const enterSystem = () => {
 const openSettings = () => {
     store.showSettings = true;
 };
+
+const restartApp = () => {
+    actions.openConfirm(
+        "🔄 确认重启系统内核",
+        "这将立即强制关闭所有后台计算引擎和前端服务，并尝试重新初始化系统环境。<br><br><b>所有未保存的工作将会丢失。</b>确认要继续吗？",
+        () => {
+            if (window.pywebview && window.pywebview.api) {
+                window.pywebview.api.restart();
+            } else {
+                window.location.reload();
+            }
+        }
+    );
+};
 </script>
 
 <template>
@@ -25,9 +39,12 @@ const openSettings = () => {
           <p class="subtitle">集成统计分析与可视化表单数据处理系统</p>
           <p class="version">Version: 4.0 | 模块化架构</p>
           <button @click="enterSystem" class="enter-btn">🚀 点击进入系统</button>
-          <div style="margin-top: 20px;">
+          <div style="margin-top: 15px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
             <button @click="openSettings" class="enter-btn settings-entry-btn">
               ⚙️ 系统设置 & 作者名片
+            </button>
+            <button @click="restartApp" class="minimal-restart-btn">
+              🔄 重启系统内核
             </button>
           </div>
         </div>
@@ -116,6 +133,39 @@ const openSettings = () => {
   box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
 }
 
+.minimal-restart-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.4);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.minimal-restart-btn:hover {
+  color: #f5576c;
+  background: rgba(245, 87, 108, 0.1);
+  border-color: rgba(245, 87, 108, 0.4);
+  transform: scale(1.02);
+}
+
+:global(.dark-mode) .minimal-restart-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+:global(.dark-mode) .minimal-restart-btn:hover {
+  background: rgba(245, 87, 108, 0.15);
+  color: #ff7875;
+  border-color: rgba(255, 120, 117, 0.5);
+}
+
 .workspace-portal-wrapper {
   position: absolute; top:0; left:0; width:100%; height:100%; 
   display:flex; justify-content:center; align-items:center;
@@ -152,6 +202,16 @@ const openSettings = () => {
 .hub-return-btn { width: 240px; border-radius: 30px; }
 
 /* App Drawer 图标按钮 */
+.portal-header {
+  padding: 30px 40px;
+  background: var(--premium-glass-inner);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--premium-border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .app-drawer-btn-wrapper {
   position: relative; width: 64px; height: 64px; cursor: pointer; display: flex; justify-content: center; align-items: center; border-radius: 20px;
   background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);

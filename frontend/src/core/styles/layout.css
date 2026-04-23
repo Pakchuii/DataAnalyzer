@@ -4,9 +4,9 @@
 ========================================= */
 
 /* --- 应用壳 --- */
-.app-global-wrapper { position: relative; width: 100vw; height: 100vh; overflow: hidden; font-family: 'Helvetica Neue', Arial, sans-serif; color: #2c3e50; transition: color 0.3s; }
+.app-global-wrapper { position: relative; width: 100vw; height: 100vh; overflow: hidden; font-family: 'Helvetica Neue', Arial, sans-serif; color: var(--text-color, #2c3e50); transition: color 0.3s; }
 .app-wrapper { position: relative; z-index: 10; width: 100%; height: 100%; transition: filter 0.3s; }
-.blur-bg { filter: blur(10px); pointer-events: none; }
+.blur-bg { filter: blur(calc(var(--glass-blur) * 0.67)); pointer-events: none; }
 
 /* --- 背景引擎 --- */
 .video-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%); overflow: hidden; }
@@ -14,7 +14,7 @@
 .bg-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.2); transition: background 0.3s; }
 
 /* --- 主题切换按钮 --- */
-.theme-toggle-btn { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 12px 20px; border-radius: 30px; border: none; font-weight: bold; cursor: pointer; background: rgba(255, 255, 255, 0.8); color: #333; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); transition: transform 0.3s; }
+.theme-toggle-btn { position: fixed; bottom: 30px; right: 30px; z-index: 100; padding: 12px 20px; border-radius: 30px; border: none; font-weight: bold; cursor: pointer; background: rgba(255, 255, 255, 0.8); color: var(--text-color, #333); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); backdrop-filter: blur(calc(var(--glass-blur) * 0.67)); transition: transform 0.3s; }
 .theme-toggle-btn:hover { transform: scale(1.05); }
 
 /* --- 欢迎页 --- */
@@ -30,7 +30,7 @@
 .main-dashboard { display: flex; width: 100%; height: 100%; padding: 20px; gap: 20px; animation: fadeIn 0.8s ease; }
 
 /* --- 模态框系统 --- */
-.modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 999; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); animation: fadeIn 0.3s ease; }
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 999; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(calc(var(--glass-blur) * 0.33)); -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.33)); animation: fadeIn 0.3s ease; }
 .modal-content { padding: 40px; text-align: center; max-width: 450px; animation: slideUp 0.3s ease; }
 
 /* --- 设置面板 --- */
@@ -51,10 +51,10 @@
 .author-link:hover { transform: scale(1.05); }
 .system-settings-panel { flex: 1; padding: 30px 40px; display: flex; flex-direction: column; text-align: left; }
 .setting-block { margin-bottom: 25px; }
-.setting-block h4 { margin-bottom: 10px; color: #555; }
+.setting-block h4 { margin-bottom: 10px; color: var(--text-secondary, #555); }
 
 /* --- 终端面板 --- */
-.log-console-panel { position: fixed; right: 20px; bottom: 20px; width: 450px; height: 300px; background: rgba(10, 10, 15, 0.95); border: 1px solid #333; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(82, 196, 26, 0.2); display: flex; flex-direction: column; z-index: 9999; overflow: hidden; backdrop-filter: blur(10px); animation: slideUp 0.3s ease-out; }
+.log-console-panel { position: fixed; right: 20px; bottom: 20px; width: 450px; height: 300px; background: rgba(10, 10, 15, 0.95); border: 1px solid #333; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(82, 196, 26, 0.2); display: flex; flex-direction: column; z-index: 9999; overflow: hidden; backdrop-filter: blur(calc(var(--glass-blur) * 0.67)); animation: slideUp 0.3s ease-out; }
 .log-header { background: #1f1f24; padding: 8px 15px; color: #888; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
 .close-log-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 1rem; }
 .close-log-btn:hover { color: #fff; }

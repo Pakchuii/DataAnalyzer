@@ -136,6 +136,7 @@ export function setupBase(store, actions) {
             store.currentDataFile = '';
             store.uploadedFileName = '';
             store.previewData = null;
+            store.previewStatsData = null;
             
             store.cleanResult = null; 
             store.isStandardized = false;
@@ -175,7 +176,11 @@ export function setupBase(store, actions) {
             store.showRadar = false;
             store.showML = false;
             store.showCleanReportModal = false;
-            store.showSampleInsufficientModal = false;
+            store.showCleanDiagnoseModal = false;
+            store.cleanDiagnoseResult = null;
+            store.showFilterPanel = false;
+            store.activeFilters = [];
+            store.filterColumnInfo = null;
             store.showManualModal = false;
             store.showUploadModal = false;
             store.showSettings = false;

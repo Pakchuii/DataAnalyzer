@@ -11,6 +11,7 @@ import ModClean from '@/modules/mod_clean/mod_clean.vue'
 import ModSecurity from '@/modules/mod_security/mod_security.vue'
 import ModStandardize from '@/modules/mod_standardize/mod_standardize.vue'
 import ModDataIo from '@/modules/mod_data_io/mod_data_io.vue'
+import ModFilter from '@/modules/mod_filter/mod_filter.vue'
 import ModTtest from '@/modules/mod_ttest/mod_ttest.vue'
 import ModTtestBtn from '@/modules/mod_ttest/mod_ttest_btn.vue'
 import ModStats from '@/modules/mod_stats/mod_stats.vue'
@@ -46,6 +47,8 @@ import ModExport from '@/modules/mod_export/mod_export.vue'
         <div class="divider"></div>
 
         <ModDataIo />
+        <div style="margin-top: 8px;"></div>
+        <ModFilter />
         <ModTtest />
 
         <div class="divider"></div>

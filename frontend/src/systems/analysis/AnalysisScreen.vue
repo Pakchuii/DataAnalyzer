@@ -15,6 +15,8 @@ import ModTTestPanel from '@/modules/mod_ttest/mod_ttest_panel.vue'
 import ModVisualizePanel from '@/modules/mod_visualize/mod_visualize_panel.vue'
 import ModCorrelationPanel from '@/modules/mod_correlation/mod_correlation_panel.vue'
 import ModMLPanel from '@/modules/mod_ml/mod_ml_panel.vue'
+import ModCleanDiagnose from '@/modules/mod_clean/mod_clean_diagnose.vue'
+import ModFilterPanel from '@/modules/mod_filter/mod_filter_panel.vue'
 
 // 追踪面板开启顺序：最新开启的放在前面（index = 0）
 const panelHistory = ref([]);
@@ -38,6 +40,7 @@ watch(() => store.showTTest, (v) => updateHistory('ttest', v), { immediate: true
 watch(() => store.showCharts, (v) => updateHistory('charts', v), { immediate: true });
 watch(() => store.showAdvanced, (v) => updateHistory('advanced', v), { immediate: true });
 watch(() => store.showML, (v) => updateHistory('ml', v), { immediate: true });
+watch(() => store.showFilterPanel, (v) => updateHistory('filter', v), { immediate: true });
 
 // 【补全：图表重绘总线监测】
 // 监听活跃变量池的变化，强制触发 ECharts 引擎的局部重配与挂载
@@ -60,7 +63,7 @@ const getOrder = (panelId) => {
   <transition-group name="panel-list" tag="main" class="content-area" id="pdf-report-area">
 
     <!-- 欢迎界面/空状态 -->
-    <div v-if="!store.showPreview && !store.showStats && !store.showCharts && !store.showAdvanced && !store.showTTest && !store.showAiSummary && !store.showRadar && !store.showML" 
+    <div v-if="!store.showPreview && !store.showStats && !store.showCharts && !store.showAdvanced && !store.showTTest && !store.showAiSummary && !store.showRadar && !store.showML && !store.showFilterPanel" 
          key="empty" class="empty-state">
       <div class="glass-card welcome-container">
         <h2 class="welcome-title">✨ 欢迎使用智能数据分析中台</h2>
@@ -83,8 +86,12 @@ const getOrder = (panelId) => {
     <ModVisualizePanel key="charts" :style="{ order: getOrder('charts') }" />
     <ModCorrelationPanel key="advanced" :style="{ order: getOrder('advanced') }" />
     <ModMLPanel key="ml" :style="{ order: getOrder('ml') }" />
+    <ModFilterPanel key="filter" :style="{ order: getOrder('filter') }" />
 
   </transition-group>
+
+  <!-- 全局弹窗层 -->
+  <ModCleanDiagnose />
 
 
 </template>

@@ -56,7 +56,7 @@ import { systemsManifests } from '@/core/systemRegistry.js'
 
 .glass-card-premium {
   background: var(--premium-glass-bg);
-  backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--premium-border-color);
   box-shadow: var(--premium-card-shadow);
   color: var(--premium-text-main);

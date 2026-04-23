@@ -76,11 +76,10 @@ import { store } from '@/core/store.js'
   padding: 40px !important;
   /* 移除 max-height 90vh，允许随内容无限向下延伸 */
   flex-shrink: 0; /* 禁止被 Flex 引擎挤压高度 */
-  border: 1px solid var(--premium-border-color);
   background: var(--premium-glass-bg);
-  color: var(--premium-text-main);
-  backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-  position: relative; /* 确保 z-index 和排序生效 */
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--premium-border-color);
   margin-bottom: 20px;
 }
 
@@ -121,6 +120,7 @@ import { store } from '@/core/store.js'
 .expert-content { line-height: 1.9; color: var(--premium-text-main); font-size: 0.98rem; opacity: 0.9; }
 .purple-bold { color: #722ed1; font-weight: 800; }
 
+.sticky-header { background: var(--glass-bg, rgba(255,255,255,0.8)); backdrop-filter: blur(calc(var(--glass-blur) * 0.67)); padding: 15px; border-right: 1px solid var(--glass-border, rgba(0,0,0,0.05)); }
 .glass-inner-premium { background: var(--premium-glass-inner); border: 1px solid var(--premium-border-color); border-radius: 12px; }
 .glass-inner-light { background: var(--premium-glass-inner); border-radius: 12px; }
 

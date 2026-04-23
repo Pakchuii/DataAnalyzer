@@ -1,6 +1,7 @@
 <script setup>
 import { store, actions } from '@/core/store.js'
 import { ref, computed, watch } from 'vue'
+import PagedTable from './mod_preview_paged_table.vue'
 
 const historyStack = ref([]);
 let tempSnapshot = null;
@@ -94,32 +95,15 @@ watch(() => store.currentDataFile, () => {
         <h3 style="margin: 0 0 10px 0;">数据区暂无信号接入</h3>
       </div>
 
-      <div v-else style="flex: 1; overflow: auto; padding: 20px;">
-        <table class="glass-table dark-header" style="width: 100%; white-space: nowrap; border-collapse: separate; border-spacing: 0;">
-          <thead style="position: sticky; top: 0; z-index: 10;">
-            <tr>
-              <th class="sticky-header op-col">操作</th>
-              <th class="sticky-header line-col"># 行号</th>
-              <th v-for="(col, idx) in store.previewData.headers" :key="idx" class="sticky-header data-col">
-                <div class="header-cell">
-                  <input v-model="store.previewData.headers[idx]" @focus="captureHistory" @change="commitHistory" class="header-input" title="编辑列名"/>
-                  <button @click="deleteColumn(idx)" class="del-col-btn">✕</button>
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(row, rIdx) in filteredRows" :key="rIdx" class="table-row-hover">
-              <td class="action-cell">
-                <button @click="deleteRow(row)" class="del-row-btn">删除</button>
-              </td>
-              <td class="line-num-cell">{{ store.previewData.rows.indexOf(row) + 1 }}</td>
-              <td v-for="(col, cIdx) in store.previewData.headers" :key="cIdx" class="data-cell">
-                <input v-model="row[col]" @focus="captureHistory" @change="commitHistory" class="cell-input" onfocus="this.style.background='var(--glass-bg, rgba(255,255,255,0.5))'; this.style.boxShadow='inset 0 -2px 0 #fa8c16';" onblur="this.style.background='transparent'; this.style.boxShadow='none';" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div v-else style="flex: 1; overflow: auto; padding: 20px; display: flex; flex-direction: column;">
+        <!-- 使用分页表格组件替代原始全量渲染 -->
+        <PagedTable
+          :filteredRows="filteredRows"
+          @captureHistory="captureHistory"
+          @commitHistory="commitHistory"
+          @deleteRow="deleteRow"
+          @deleteColumn="deleteColumn"
+        />
       </div>
     </div>
   </div>
@@ -138,23 +122,4 @@ watch(() => store.currentDataFile, () => {
 .empty-placeholder {
   flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-color, #aaa);
 }
-.sticky-header {
-  background: var(--glass-bg, rgba(255,255,255,0.8)); backdrop-filter: blur(10px); padding: 15px; border-right: 1px solid var(--glass-border, rgba(0,0,0,0.05));
-}
-.op-col { width: 60px; text-align: center; border-radius: 12px 0 0 0; }
-.line-col { width: 60px; text-align: center; color: #888; }
-.data-col { padding: 10px 15px; }
-
-.header-cell { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.header-input { background:transparent; border:none; color:var(--text-color, #333); font-weight:bold; width:100%; min-width:80px; outline:none; border-bottom: 1px dashed rgba(0,0,0,0.1); }
-.del-col-btn { background: rgba(245,34,45,0.1); border: none; color: #ff4d4f; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; transition: all 0.2s; }
-.del-col-btn:hover { background: #ff4d4f; color: #fff; }
-
-.action-cell { text-align: center; padding: 8px; border-right: 1px dashed var(--glass-border, rgba(0,0,0,0.05)); }
-.del-row-btn { background: rgba(245,34,45,0.05); border: 1px solid rgba(245,34,45,0.3); color: #ff4d4f; border-radius: 8px; cursor: pointer; padding: 6px 12px; font-size: 0.85rem; }
-.del-row-btn:hover { background: #ff4d4f; color: #fff; }
-
-.line-num-cell { text-align: center; color: var(--text-color, #888); font-family: monospace; border-right: 1px dashed var(--glass-border, rgba(0,0,0,0.05)); }
-.data-cell { padding: 0; border-right: 1px dashed var(--glass-border, rgba(0,0,0,0.05)); }
-.cell-input { width: 100%; height: 100%; padding: 12px 15px; border: none; background: transparent; color: var(--text-color, #444); font-family: inherit; font-size: 0.95rem; outline: none; box-sizing: border-box; }
 </style>

@@ -22,6 +22,10 @@ html, body, #app {
   --premium-text-muted: #888888;
   --premium-border-color: rgba(0, 0, 0, 0.08);
   --premium-card-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  --glass-blur: 15px;
+  --text-color: #333333;
+  --text-muted: #888888;
+  --text-secondary: #555555;
 }
 
 .dark-mode {
@@ -32,6 +36,9 @@ html, body, #app {
   --premium-text-muted: #aaaaaa;
   --premium-border-color: rgba(255, 255, 255, 0.08);
   --premium-card-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  --text-color: #e0e0e0;
+  --text-muted: #aaaaaa;
+  --text-secondary: #cccccc;
 }
 
 .dark-mode .bg-overlay { background: rgba(0, 0, 0, 0.75); }
@@ -53,10 +60,31 @@ html, body, #app {
 .dark-mode .modal-close-btn:hover { background: #f5222d !important; color: white !important; }
 .dark-mode .module-card:hover { background: rgba(255, 255, 255, 0.15) !important; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
 
+/* --- Dark Mode: 全局文本自适应修复 --- */
+.dark-mode .glass-card { color: var(--premium-text-main); }
+.dark-mode .glass-card h3, .dark-mode .glass-card h4, .dark-mode .glass-card label { color: var(--text-color); }
+.dark-mode .glass-card p { color: var(--text-muted) !important; }
+.dark-mode .glass-table td { color: var(--text-color); }
+.dark-mode .glass-table th { color: #ddd; }
+.dark-mode .head-input, .dark-mode .edit-input, .dark-mode .cell-input { color: #eee; }
+.dark-mode .close-btn { color: #aaa; }
+.dark-mode .version-info { color: #aaa; background: rgba(255,255,255,0.05); }
+.dark-mode .var-name { color: #69c0ff; }
+.dark-mode .divider { background: rgba(255, 255, 255, 0.08); }
+.dark-mode .setting-block h4 { color: #ccc; }
+.dark-mode .checkbox-label { color: #ccc; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
+.dark-mode .checkbox-label:hover { border-color: #69c0ff; }
+.dark-mode .mini-del-btn { color: #aaa; }
+.dark-mode .success-text { color: #73d13d; }
+.dark-mode input, .dark-mode select, .dark-mode textarea { color: var(--text-color); }
+.dark-mode input::placeholder, .dark-mode textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
+.dark-mode .search-input { color: #eee; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
+.dark-mode .search-select { color: #ccc; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
+
 /* --- Shared UI Components (Migrated from App.css) --- */
 .glass-card {
   background: var(--premium-glass-bg);
-  backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--premium-border-color);
   box-shadow: var(--premium-card-shadow);
   color: var(--premium-text-main);
@@ -66,7 +94,7 @@ html, body, #app {
 .modal-overlay {
   position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
   z-index: 999; display: flex; align-items: center; justify-content: center;
-  background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(calc(var(--glass-blur) * 0.5));
   animation: fadeIn 0.3s ease;
 }
 

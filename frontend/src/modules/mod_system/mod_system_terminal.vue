@@ -103,7 +103,7 @@ const clearLogs = () => {
 .log-console-floating {
   position: fixed; width: 700px; height: 380px; z-index: 10000;
   display: flex; flex-direction: column; overflow: hidden;
-  background: rgba(13, 14, 21, 0.82); backdrop-filter: blur(30px);
+  background: rgba(13, 14, 21, 0.85); backdrop-filter: blur(calc(var(--glass-blur) * 2));
   border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 0 1px rgba(255,255,255,0.2);
   transition: box-shadow 0.3s;

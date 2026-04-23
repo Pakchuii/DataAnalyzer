@@ -35,7 +35,7 @@ import { systemsManifests } from '@/core/systemRegistry.js'
 <style scoped>
 .app-drawer-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(25px);
+  background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(calc(var(--glass-blur) * 1.67));
   z-index: 10001; display: flex; justify-content: center; align-items: center;
 }
 .app-drawer-content {

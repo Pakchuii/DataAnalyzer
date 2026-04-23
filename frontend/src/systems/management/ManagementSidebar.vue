@@ -10,7 +10,7 @@ import ModDataIoView from '@/modules/mod_data_io/mod_data_io_view.vue'
        :class="{ 'sidebar-dragging-active': store.isDragging }" 
        @dragover.prevent="store.isDragging = true" 
        @dragleave.prevent="store.isDragging = false" 
-       @drop.prevent="actions.handleDrop">
+       @drop.prevent="store.isDragging = false">
     
     <!-- 全局一致性拖拽提示层 -->
     <transition name="fade">
