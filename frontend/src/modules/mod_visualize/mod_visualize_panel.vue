@@ -3,7 +3,7 @@ import { store, actions } from '@/core/store.js'
 import { watch, nextTick, ref, onMounted } from 'vue'
 
 watch(() => store.visActiveVars, async () => {
-  if(store.showCharts) {
+  if (store.showCharts) {
     await nextTick();
     setTimeout(() => { actions.renderCharts(); }, 100);
   }
@@ -23,7 +23,7 @@ const startDrag = (e) => {
   document.addEventListener('mouseup', stopDrag);
 };
 const onDrag = (e) => {
-  if(!isDragging) return;
+  if (!isDragging) return;
   dragX.value = startPosX + (e.clientX - startMouseX);
   dragY.value = startPosY + (e.clientY - startMouseY);
 };
@@ -70,21 +70,24 @@ const stopDrag = () => {
   width: 280px;
   z-index: 1000;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 .modal-header {
   padding: 10px 15px;
-  background: rgba(64,158,255,0.2);
+  background: rgba(64, 158, 255, 0.2);
   cursor: move;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-weight: bold;
 }
+
 .modal-body {
   padding: 15px;
 }
+
 .vis-toggle-list {
   display: flex;
   flex-direction: column;
@@ -92,12 +95,23 @@ const stopDrag = () => {
   max-height: 200px;
   overflow-y: auto;
 }
+
 .chart-pair-container {
-  display: flex; flex-direction: row; gap: 20px; width: 100%; margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 30px;
 }
+
 .chart-box {
-  flex: 1; height: 350px; padding: 10px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;
+  flex: 1;
+  height: 350px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
 }
+
 .vis-toggle-item {
   display: flex;
   align-items: center;

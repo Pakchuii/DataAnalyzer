@@ -24,61 +24,10 @@ const handleFileSelect = (event) => {
 };
 
 const triggerUpload = (file, inputTarget = null) => {
-  if (store.previewData) {
-    actions.openConfirm("⚠️ 覆盖警告", `当前正在编辑表 <b>${store.uploadedFileName}</b>！<br>强制载入将丢失未保存的修改，是否覆盖？`, () => {
-      uploadFileToServer(file, inputTarget);
-    });
-  } else {
-    uploadFileToServer(file, inputTarget);
+  if (actions && actions.uploadFile) {
+      actions.uploadFile(file);
   }
-};
-
-const uploadFileToServer = async (file, inputTarget) => {
-  const formData = new FormData();
-  formData.append('file', file);
-  if (actions && actions.addLog) actions.addLog(`[System] 正在上传并注册数据集: ${file.name}...`, "info");
-  
-  try {
-    const res = await api.post('/api/upload', formData);
-    if (res.data && res.data.status === 'success' && res.data.data) {
-      const fileInfo = res.data.data;
-      const dataRes = await api.post('/api/data/get_full', { filename: fileInfo.filename });
-      if (dataRes.data.status === 'success') {
-        const tempHeaders = dataRes.data.headers;
-        const tempRows = dataRes.data.rows;
-        const rCount = tempRows.length;
-        const cCount = tempHeaders.length;
-
-        const proceedWithRender = () => {
-          store.fileInfo = fileInfo;
-          store.currentDataFile = fileInfo.filename;
-          store.uploadedFileName = file.name;
-          store.isNewTable = false;
-          store.isRenamed = false;
-          // Note: historyStack and search logic will be in mod_preview_editor
-          store.previewData = { headers: tempHeaders, rows: tempRows };
-          if (actions && actions.addLog) actions.addLog("[Success] 数据源已无缝装载至手术台！", "success");
-        };
-
-        const abortRender = () => { if (actions && actions.addLog) actions.addLog("[System] 用户已主动拦截超大体积数据集的渲染", "warning"); };
-        
-        if (rCount * cCount > 1500) {
-          actions.openChoice("⚠️ 性能降级预警", `您导入的数据集包含 <b>${rCount}</b> 行和 <b>${cCount}</b> 列。<br><br><span style="color:#f5222d;">系统探针检测到数据矩阵过于庞大。在前端强制渲染该表格可能会导致您的浏览器严重卡顿或假死。</span><br><br>您是否确认要继续在手术台中加载此表格？`, "放弃加载并释放内存", "确认风险，强行加载", abortRender, proceedWithRender, abortRender);
-        } else {
-          proceedWithRender();
-        }
-      } else {
-        throw new Error(dataRes.data.message || "拉取底层文件内容失败");
-      }
-    } else {
-      throw new Error(res.data.message || "上传接口返回格式不匹配");
-    }
-  } catch (err) {
-    console.error(err);
-    actions.openAlert("上传失败", `数据流交互异常。<br><span style="font-size:0.8rem;color:#f5222d;">${err.message || '网络连接被拒绝'}</span>`);
-  } finally {
-    if (inputTarget) inputTarget.value = '';
-  }
+  if (inputTarget) inputTarget.value = '';
 };
 </script>
 

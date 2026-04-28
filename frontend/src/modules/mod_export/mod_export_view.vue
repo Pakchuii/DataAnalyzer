@@ -29,24 +29,15 @@ const saveChanges = async (isSilent = false) => {
 
 const exportToLocal = () => {
   if (!store.previewData) return;
-  let csvContent = "\uFEFF";
-  csvContent += store.previewData.headers.join(",") + "\n";
-  store.previewData.rows.forEach(row => {
-    const rowData = store.previewData.headers.map(h => { 
-      let cell = row[h] === null || row[h] === undefined ? "" : String(row[h]); 
-      if (cell.includes(",") || cell.includes("\"") || cell.includes("\n")) cell = `"${cell.replace(/"/g, '""')}"`; 
-      return cell; 
-    });
-    csvContent += rowData.join(",") + "\n";
-  });
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement("a"); 
-  const url = URL.createObjectURL(blob); 
-  link.setAttribute("href", url); 
-  link.setAttribute("download", store.uploadedFileName || "exported_data.csv"); 
-  document.body.appendChild(link); 
-  link.click(); 
-  document.body.removeChild(link);
+  if (actions && actions.exportToCSV) {
+    actions.exportToCSV(
+      store.previewData.headers, 
+      store.previewData.rows, 
+      (store.uploadedFileName || "exported_data").replace(/\.[^/.]+$/, "")
+    );
+  } else {
+    actions.addLog("导出模块未挂载，无法执行导出指令", "error");
+  }
 };
 </script>
 

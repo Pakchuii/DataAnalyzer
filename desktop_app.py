@@ -24,6 +24,23 @@ class Api:
         if self._window:
             self._window.toggle_fullscreen()
 
+    def save_file(self, content, default_filename):
+        """原生文件保存对话框（绕过 Webview 下载限制）"""
+        if self._window:
+            try:
+                result = self._window.create_file_dialog(
+                    webview.SAVE_DIALOG, 
+                    directory='', 
+                    save_filename=default_filename
+                )
+                if result and len(result) > 0:
+                    with open(result[0], 'w', encoding='utf-8-sig') as f:
+                        f.write(content)
+                    return True
+            except Exception as e:
+                print(f"Save failed: {e}")
+        return False
+
     def restart(self):
         """清理资源并重启程序（非阻塞模式）"""
         def _do_restart():

@@ -11,11 +11,36 @@ export function setupExporter(store, actions) {
         // 【流式数据下载器】：纯前端装配 UTF-8 CSV，并挂载 BOM 标头解决 Excel 读取产生的中文乱码灾难
         exportToCSV(headers, rows, exportFilename) {
             actions.addLog(`开始执行底层导出挂载: ${exportFilename}.csv`, "success");
-            let csvContent = "data:text/csv;charset=utf-8,\uFEFF" + headers.join(",") + "\r\n";
-            rows.forEach(row => { csvContent += headers.map(h => row[h] !== undefined ? row[h] : "").join(",") + "\r\n"; });
+            
+            let rawCsv = "";
+            rows.forEach(row => { 
+                rawCsv += headers.map(h => {
+                    let cell = row[h] === null || row[h] === undefined ? "" : String(row[h]); 
+                    if (cell.includes(",") || cell.includes("\"") || cell.includes("\n")) cell = `"${cell.replace(/"/g, '""')}"`; 
+                    return cell; 
+                }).join(",") + "\r\n";
+            });
+            const fullCsvContent = headers.join(",") + "\r\n" + rawCsv;
 
-            // 劫持浏览器 Anchor 特性触发下载链路
-            const link = document.createElement("a"); link.setAttribute("href", encodeURI(csvContent)); link.setAttribute("download", exportFilename + ".csv"); document.body.appendChild(link); link.click();
+            // 检测是否处于 PyWebview 原生容器环境
+            if (window.pywebview && window.pywebview.api && window.pywebview.api.save_file) {
+                actions.addLog("检测到原生桌面级容器，唤起系统级保存向导...");
+                window.pywebview.api.save_file(fullCsvContent, exportFilename + ".csv").then(success => {
+                    if (success) actions.addLog("物理文件写入成功！", "success");
+                    else actions.addLog("用户取消了保存操作。", "warning");
+                }).catch(err => {
+                    actions.addLog(`原生保存失败: ${err}`, "error");
+                });
+            } else {
+                // 浏览器后备方案：劫持 Anchor 特性触发下载链路
+                let csvDataUri = "data:text/csv;charset=utf-8,\uFEFF" + fullCsvContent;
+                const link = document.createElement("a"); 
+                link.setAttribute("href", encodeURI(csvDataUri)); 
+                link.setAttribute("download", exportFilename + ".csv"); 
+                document.body.appendChild(link); 
+                link.click();
+                document.body.removeChild(link);
+            }
         },
 
         // 【高深黑科技：Canvas 跨域防白屏 PDF 生成引擎】

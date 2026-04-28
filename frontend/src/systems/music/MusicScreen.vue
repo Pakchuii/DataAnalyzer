@@ -106,7 +106,7 @@ function setupVisualizer() {
   }
 }
 
-onMounted(() => { 
+onMounted(() => {
   setupVisualizer()
   visualAnimFrameId = requestAnimationFrame(updateVisuals)
 })
@@ -261,8 +261,8 @@ watch(currentSong, async (song) => {
             <p>🎶 纯音乐，无歌词</p>
           </div>
           <div v-else class="lyrics-list">
-            <p v-for="(line, idx) in lyrics" :key="idx" class="lyric-line"
-              :class="{ active: idx === activeLyricIndex }" @click="audioRef.currentTime = line.time">{{ line.text }}</p>
+            <p v-for="(line, idx) in lyrics" :key="idx" class="lyric-line" :class="{ active: idx === activeLyricIndex }"
+              @click="audioRef.currentTime = line.time">{{ line.text }}</p>
           </div>
         </div>
       </div>
@@ -278,7 +278,8 @@ watch(currentSong, async (song) => {
   align-items: center;
   justify-content: center;
   padding: 30px;
-  overflow: hidden; /* 防止页面整体滚动 */
+  overflow: hidden;
+  /* 防止页面整体滚动 */
   height: 100%;
 }
 
@@ -382,29 +383,104 @@ watch(currentSong, async (song) => {
 
 /* 唱臂 */
 .tone-arm {
-  position: absolute; top: -15px; right: 30px; z-index: 10;
-  transform-origin: top right; transform: rotate(-25deg);
+  position: absolute;
+  top: -15px;
+  right: 30px;
+  z-index: 10;
+  transform-origin: top right;
+  transform: rotate(-25deg);
   transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.tone-arm.playing { transform: rotate(-5deg); }
-.arm-base { width: 16px; height: 16px; border-radius: 50%; background: #888; position: absolute; top: 0; right: 0; z-index: 2; }
-.arm-bar { width: 4px; height: 140px; background: linear-gradient(to bottom, #aaa, #666); position: absolute; top: 10px; right: 6px; border-radius: 2px; }
-.arm-head { width: 10px; height: 20px; background: #999; position: absolute; top: 148px; right: 3px; border-radius: 0 0 3px 3px; }
+
+.tone-arm.playing {
+  transform: rotate(-5deg);
+}
+
+.arm-base {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #888;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.arm-bar {
+  width: 4px;
+  height: 140px;
+  background: linear-gradient(to bottom, #aaa, #666);
+  position: absolute;
+  top: 10px;
+  right: 6px;
+  border-radius: 2px;
+}
+
+.arm-head {
+  width: 10px;
+  height: 20px;
+  background: #999;
+  position: absolute;
+  top: 148px;
+  right: 3px;
+  border-radius: 0 0 3px 3px;
+}
 
 /* 唱片 */
 .vinyl-disc-large {
-  width: 300px; height: 300px; border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
   background: radial-gradient(circle, transparent 38%, #2a2a2a 39%, #1a1a1a 45%, #222 50%, #1a1a1a 55%, #222 60%, #1a1a1a 65%, #222 70%, #1a1a1a 75%, #222 80%, #1a1a1a 85%, #222 90%, #111 100%);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(0, 0, 0, 0.3);
 }
-.vinyl-disc-large.spinning { animation: spin 8s linear infinite; }
-.vinyl-groove { position: absolute; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.03); }
-.groove-1 { width: 82%; height: 82%; }
-.groove-2 { width: 68%; height: 68%; }
-.groove-3 { width: 90%; height: 90%; }
-.vinyl-cover-img { width: 42%; height: 42%; border-radius: 50%; object-fit: cover; border: 3px solid #333; z-index: 1; }
-.vinyl-center-dot { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle, #ddd 40%, #888 100%); z-index: 2; }
+
+.vinyl-disc-large.spinning {
+  animation: spin 8s linear infinite;
+}
+
+.vinyl-groove {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.groove-1 {
+  width: 82%;
+  height: 82%;
+}
+
+.groove-2 {
+  width: 68%;
+  height: 68%;
+}
+
+.groove-3 {
+  width: 90%;
+  height: 90%;
+}
+
+.vinyl-cover-img {
+  width: 42%;
+  height: 42%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #333;
+  z-index: 1;
+}
+
+.vinyl-center-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ddd 40%, #888 100%);
+  z-index: 2;
+}
 
 /* 歌曲信息 */
 .song-info-area {
@@ -435,24 +511,111 @@ watch(currentSong, async (song) => {
   background: rgba(235, 47, 150, 0.2);
   transform: scale(1.1);
 }
-.song-title { font-size: 1.5rem; font-weight: 700; margin: 0 0 6px; color: var(--text-color, #333); }
-.song-artist { font-size: 0.95rem; color: var(--text-muted, #888); margin: 0; }
+
+.song-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: var(--text-color, #333);
+}
+
+.song-artist {
+  font-size: 0.95rem;
+  color: var(--text-muted, #888);
+  margin: 0;
+}
 
 /* 进度条 */
-.progress-area { display: flex; align-items: center; gap: 12px; width: 100%; }
-.time-label { font-size: 0.78rem; color: var(--text-muted, #888); font-family: monospace; min-width: 38px; }
-.progress-bar { flex: 1; height: 6px; background: rgba(235, 47, 150, 0.15); border-radius: 3px; cursor: pointer; position: relative; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, #eb2f96, #722ed1); border-radius: 3px; transition: width 0.1s linear; }
-.progress-thumb { position: absolute; top: -5px; width: 16px; height: 16px; background: #eb2f96; border-radius: 50%; transform: translateX(-50%); box-shadow: 0 2px 8px rgba(235, 47, 150, 0.4); opacity: 0; }
-.progress-bar:hover .progress-thumb { opacity: 1; }
+.progress-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.time-label {
+  font-size: 0.78rem;
+  color: var(--text-muted, #888);
+  font-family: monospace;
+  min-width: 38px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 6px;
+  background: rgba(235, 47, 150, 0.15);
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #eb2f96, #722ed1);
+  border-radius: 3px;
+  transition: width 0.1s linear;
+}
+
+.progress-thumb {
+  position: absolute;
+  top: -5px;
+  width: 16px;
+  height: 16px;
+  background: #eb2f96;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 2px 8px rgba(235, 47, 150, 0.4);
+  opacity: 0;
+}
+
+.progress-bar:hover .progress-thumb {
+  opacity: 1;
+}
 
 /* 歌词区 */
-.lyrics-title { margin: 0 0 15px; color: var(--text-color, #333); font-size: 1rem; flex-shrink: 0; }
-.lyrics-scroll { flex: 1; overflow-y: auto; scroll-behavior: smooth; }
-.no-lyrics { text-align: center; padding: 60px 0; color: var(--text-muted, #888); }
-.lyrics-list { padding: 40px 0; }
-.lyric-line { padding: 8px 0; font-size: 0.92rem; color: var(--text-muted, #999); transition: all 0.3s; text-align: center; line-height: 1.8; cursor: pointer; }
-.lyric-line.active { color: #eb2f96; font-size: 1.1rem; font-weight: 700; text-shadow: 0 0 10px rgba(235, 47, 150, 0.3); }
+.lyrics-title {
+  margin: 0 0 15px;
+  color: var(--text-color, #333);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
 
-@keyframes spin { to { transform: rotate(360deg); } }
+.lyrics-scroll {
+  flex: 1;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.no-lyrics {
+  text-align: center;
+  padding: 60px 0;
+  color: var(--text-muted, #888);
+}
+
+.lyrics-list {
+  padding: 40px 0;
+}
+
+.lyric-line {
+  padding: 8px 0;
+  font-size: 0.92rem;
+  color: var(--text-muted, #999);
+  transition: all 0.3s;
+  text-align: center;
+  line-height: 1.8;
+  cursor: pointer;
+}
+
+.lyric-line.active {
+  color: #eb2f96;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(235, 47, 150, 0.3);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 </style>

@@ -14,41 +14,65 @@ export function setupFile(store, actions) {
 
         // 【I/O 引擎】：Multipart 异步文件流传输与挂载
         async uploadFile(file) {
-            actions.resetSystemState();
-            actions.addLog(`开始读取文件: ${file.name}...`);
+            const executeUpload = async () => {
+                actions.resetSystemState();
+                actions.addLog(`开始读取文件: ${file.name}...`);
 
-            const formData = new FormData();
-            formData.append('file', file);
+                const formData = new FormData();
+                formData.append('file', file);
 
-            try {
-                const res = await api.post('/api/upload', formData);
-                if (res.data.status === 'success') {
-                    // 数据挂载与特征字典注册
-                    store.fileInfo = res.data.data;
-                    store.uploadedFileName = res.data.data.original_filename;
-                    store.currentDataFile = res.data.data.filename;
-                    store.selectedVars = [...res.data.data.numeric_columns];
+                try {
+                    const res = await api.post('/api/upload', formData);
+                    if (res.data.status === 'success') {
+                        const fileInfo = res.data.data;
+                        
+                        try {
+                            const dataRes = await api.post('/api/data/get_full', { filename: fileInfo.filename });
+                            if (dataRes.data.status === 'success') {
+                                const tempHeaders = dataRes.data.headers;
+                                const tempRows = dataRes.data.rows;
+                                const rCount = tempRows.length;
+                                const cCount = tempHeaders.length;
 
-                    if (res.data.data.binary_columns.length > 0) {
-                        store.selectedGroupVar = res.data.data.binary_columns[0];
-                    }
-                    store.showUploadModal = true;
-                    actions.addLog(`文件读取完成！识别出 ${store.fileInfo.row_count} 行数据，${store.fileInfo.numeric_columns.length} 个分析变量。`, "success");
-                    
-                    // 同步拉取完整预览数据，确保管理系统编辑器同步刷新
-                    try {
-                        const dataRes = await api.post('/api/data/get_full', { filename: store.currentDataFile });
-                        if (dataRes.data.status === 'success') {
-                            store.previewData = { headers: dataRes.data.headers, rows: dataRes.data.rows };
-                            actions.addLog("数据集预览已同步至内存手术台。", "info");
+                                const proceedWithRender = () => {
+                                    store.fileInfo = fileInfo;
+                                    store.uploadedFileName = fileInfo.original_filename || file.name;
+                                    store.currentDataFile = fileInfo.filename;
+                                    store.selectedVars = [...fileInfo.numeric_columns];
+                                    if (fileInfo.binary_columns.length > 0) store.selectedGroupVar = fileInfo.binary_columns[0];
+                                    
+                                    store.showUploadModal = true;
+                                    store.isNewTable = false;
+                                    store.isRenamed = false;
+                                    store.previewData = { headers: tempHeaders, rows: tempRows };
+                                    
+                                    actions.addLog(`文件读取完成！识别出 ${rCount} 行数据，${cCount} 个变量。数据源已无缝装载至手术台！`, "success");
+                                };
+
+                                const abortRender = () => { actions.addLog("[System] 用户已主动拦截超大体积数据集的渲染", "warning"); };
+
+                                if (rCount * cCount > 1500) {
+                                    actions.openChoice("⚠️ 性能降级预警", `您导入的数据集包含 <b>${rCount}</b> 行和 <b>${cCount}</b> 列。<br><br><span style="color:#f5222d;">系统探针检测到数据矩阵过于庞大。在前端强制渲染该表格可能会导致您的浏览器严重卡顿或假死。</span><br><br>您是否确认要继续在手术台中加载此表格？`, "放弃加载并释放内存", "确认风险，强行加载", abortRender, proceedWithRender, abortRender);
+                                } else {
+                                    proceedWithRender();
+                                }
+                            }
+                        } catch (e) {
+                            console.error("数据预加载失败:", e);
                         }
-                    } catch (e) {
-                        console.error("数据预加载失败:", e);
                     }
+                } catch (err) {
+                    actions.addLog(`上传解析失败: ${err.message}`, "error");
+                    actions.openAlert('❌ 文件解析失败', err.response?.data?.message || '请检查文件格式是否正确。');
                 }
-            } catch (err) {
-                actions.addLog(`上传解析失败: ${err.message}`, "error");
-                actions.openAlert('❌ 文件解析失败', err.response?.data?.message || '请检查文件格式是否正确。');
+            };
+
+            if (store.previewData) {
+                actions.openConfirm("⚠️ 覆盖警告", `当前工作区已有数据！强制载入将丢失未保存的修改，是否覆盖？`, () => {
+                    executeUpload();
+                });
+            } else {
+                executeUpload();
             }
         },
 
